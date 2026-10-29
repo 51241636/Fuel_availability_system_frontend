@@ -1,40 +1,71 @@
-import { GrStatusGoodSmall } from "react-icons/gr"
+import { NavLink } from "react-router-dom";
 import { FaGasPump } from "react-icons/fa";
+import { FiMenu } from "react-icons/fi";
+import { GrStatusGoodSmall } from "react-icons/gr";
+import "./sidebar.css"
+import {
+  MdDashboard,
+  MdLocalGasStation,
+  MdWaterDrop,
+  MdMap,
+  MdSettings,
+} from "react-icons/md";
 
-export const SideBar = ()=>{
+import { useState } from "react";
 
-    return (
-         <aside className="pump-sidebar">
-                <div className="pump-brand">
-                  <div className="pump-brand-icon">
-                        <FaGasPump/>
-                  </div>
-                  <h2>PumpCheck</h2>
-                </div>
-        
-                <nav className="pump-button">
-                  <a href="#" className="pump-nav-link active">
-                    Dashboard
-                  </a>
-                  <a href="#" className="pump-nav-link">
-                    My station
-                  </a>
-                  <a href="#" className="pump-nav-link">
-                    Fuel stock
-                  </a>
-                  <a href="#" className="pump-nav-link">
-                    Map view
-                  </a>
-                  <a href="#" className="pump-nav-link">
-                    Settings
-                  </a>
-                </nav>
-        
-                <div className="pump-sidebar-footer">
-                  <span/>
-                  <GrStatusGoodSmall className="pump-status-dot" />
-                  Station owner portal
-                </div>
-              </aside>
-    )
-}
+export const SideBar = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const menuItems = [
+    { name: "Dashboard", path: "/dashboard", icon: <MdDashboard /> },
+    { name: "My station", path: "/myStation", icon: <MdLocalGasStation /> },
+    { name: "Fuel stock", path: "/fuel-stock", icon: <MdWaterDrop /> },
+    { name: "Map view", path: "/map-view", icon: <MdMap /> },
+    { name: "Settings", path: "/settings", icon: <MdSettings /> },
+  ];
+
+  return (
+    <aside className={`pump-sidebar ${isCollapsed ? "collapsed" : ""}`}>
+      <div className="pump-brand">
+        <div className="pump-brand-icon">
+          <FaGasPump />
+        </div>
+
+        {!isCollapsed && <h2>PumpCheck</h2>}
+
+        <button
+          className="pump-toggle-btn"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          aria-label="Toggle sidebar"
+        >
+          <FiMenu />
+        </button>
+      </div>
+
+      <nav className="pump-button">
+        {menuItems.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            end
+            className={({ isActive }) =>
+              `pump-nav-link ${isActive ? "active" : ""}`
+            }
+            title={item.name}
+          >
+            <span className="pump-nav-icon">{item.icon}</span>
+
+            {!isCollapsed && <span>{item.name}</span>}
+          </NavLink>
+        ))}
+      </nav>
+
+      {!isCollapsed && (
+        <div className="pump-sidebar-footer">
+          <GrStatusGoodSmall className="pump-status-dot" />
+          <span>Station owner portal</span>
+        </div>
+      )}
+    </aside>
+  );
+};

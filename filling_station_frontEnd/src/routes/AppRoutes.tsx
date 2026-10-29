@@ -5,10 +5,12 @@ import Login from "../pages/login";
 import Dashboard from "../pages/dashboard";
 import Register from "../pages/register";
 import AddStationMap from "../pages/addStationMap";
+// import myStations from "../pages/myStations";
 import {AuthProvider,useAuth } from "../context/AuthConext";
 import Unauthorized from "../pages/Unauthorized";
 import ProtectedRoute from "../components/protectedRoute";
 import LocationSearchMap from "../pages/addStationMap";
+import MyStation from "../pages/myStations";
 
 function AppRoutes() {
   return (
@@ -19,6 +21,7 @@ function AppRoutes() {
           <Route path="/register" element={<Register />} />
           <Route path="/unauthorized" element={<Unauthorized />}/>
           <Route path="/stationMap" element={<AddStationMap />}/>
+          {/* <Route path="/stationMap" element={< />}/> */}
 
           <Route
             path="/dashboard"
@@ -34,6 +37,15 @@ function AppRoutes() {
             element={
               <ProtectedRoute allowedRoles={["owner"]}>
                 <AddStationMap />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/myStation"
+            element={
+              <ProtectedRoute allowedRoles={["owner"]}>
+                <MyStation/>
               </ProtectedRoute>
             }
           />

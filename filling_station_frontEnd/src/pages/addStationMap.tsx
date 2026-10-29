@@ -16,6 +16,7 @@ import "leaflet/dist/leaflet.css";
 import { SideBar } from "./sidebar";
 import "./addStation.css"
 import { loadStation } from "../services/stationService";
+import { useNavigate } from 'react-router-dom';
 
 export interface FuelOption{
   fuelType :string,
@@ -71,6 +72,7 @@ useEffect(() => {
 }
 
 export default function AddStationMap() {
+  const navigate = useNavigate();
   const [fuel, setFuelDetail] = useState<FuelOption[]>([
     { fuelType: 'OcTane92', currentStock: 7600,  tankCapacity : 10000,fuelPrice : 414},
      { fuelType: 'OcTane95', currentStock:8000,  tankCapacity : 10000,fuelPrice : 453},
@@ -479,7 +481,7 @@ useEffect(() => {
   <button
     type="button"
     className="cancel-station-btn"
-    onClick={() => window.history.back()}
+    onClick={() => navigate('/dashboard')}
   >
     Cancel
   </button>
