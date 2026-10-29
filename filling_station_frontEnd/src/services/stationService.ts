@@ -44,3 +44,13 @@ export const loadStation = async (
 //   console.log(openingTime);
 //   console.log(closingTime);
 };
+
+
+export const getUserStationDetail = async()=>{
+    try{
+        const response=await api.get("/getUserFilligStation"); 
+        return response
+    }catch(error:any){
+        throw error.message;
+    }
+}

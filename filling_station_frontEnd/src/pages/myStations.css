@@ -1,644 +1,241 @@
+/* My Station dashboard — dark, red-accented responsive design */
+
+.pump-dashboard {
+  min-height: 100vh;
+  display: flex;
+  background: #0b0b0d;
+  color: #f5f5f7;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
 
 .my-station-main {
+  box-sizing: border-box;
   min-width: 0;
   flex: 1;
-  padding: 32px;
-  background: #0d0d0f;
-  color: #f5f5f5;
-  font-family: Arial, sans-serif;
-  box-sizing: border-box;
+  padding: 30px;
+  background:
+    radial-gradient(ellipse at 85% 0%, rgba(127, 29, 29, 0.08), transparent 34%),
+    #0b0b0d;
+  color: #f5f5f7;
 }
 
 .my-station-main *,
 .my-station-main *::before,
-.my-station-main *::after {
-  box-sizing: border-box;
-}
-
-/* =========================
-   HEADER
-========================= */
+.my-station-main *::after { box-sizing: border-box; }
 
 .my-station-header {
   position: relative;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
   gap: 24px;
-  padding: 27px 30px;
-  margin-bottom: 26px;
-  overflow: hidden;
-  background:
-    radial-gradient(
-      circle at 0% 0%,
-      rgba(239, 68, 68, 0.12),
-      transparent 48%
-    ),
-    linear-gradient(115deg, #19191d, #121214);
-  border: 1px solid #303036;
-  border-radius: 16px;
+  margin-bottom: 22px;
+  padding: 4px 0 22px;
+  border-bottom: 1px solid #242428;
 }
 
-.my-station-header::before {
-  content: "";
-  position: absolute;
-  top: 22px;
-  bottom: 22px;
-  left: 0;
-  width: 3px;
-  background: linear-gradient(
-    to bottom,
-    #ff7377,
-    #ef4444,
-    #991b1b
-  );
-  border-radius: 0 5px 5px 0;
-}
-
-.my-station-header-content {
-  display: flex;
-  align-items: center;
-  gap: 19px;
-  min-width: 0;
-}
-
+.my-station-header-content { display: flex; align-items: center; gap: 15px; min-width: 0; }
 .my-station-header-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60px;
-  height: 60px;
-  flex-shrink: 0;
-  background: linear-gradient(145deg, #402023, #261719);
-  border: 1px solid rgba(248, 113, 113, 0.2);
-  border-radius: 15px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  display: grid;
+  place-items: center;
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  color: #ff666b;
+  background: linear-gradient(145deg, #321719, #1c1113);
+  border: 1px solid #492326;
+  border-radius: 13px;
 }
-
-.my-station-header-icon span {
-  font-size: 29px;
-  filter: drop-shadow(0 3px 5px rgba(239, 68, 68, 0.2));
-}
-
-.my-station-header-text {
-  min-width: 0;
-}
-
-.my-station-breadcrumb {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin-bottom: 9px;
-  color: #92929b;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-}
-
-.my-station-breadcrumb-divider {
-  color: #55555e;
-}
-
-.my-station-breadcrumb span:last-child {
-  color: #f87171;
-}
-
-.my-station-header h1 {
-  margin: 0;
-  color: #fafafa;
-  font-size: 30px;
-  font-weight: 750;
-  line-height: 1.2;
-  letter-spacing: -0.8px;
-}
-
-.my-station-title-dot {
-  color: #ef4444;
-}
-
-.my-station-eyebrow {
-  color: #ef4444;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  margin: 0 0 8px;
-}
-
-.my-station-subtitle {
-  max-width: 560px;
-  margin: 10px 0 0;
-  color: #a1a1aa;
-  font-size: 13px;
-  line-height: 1.7;
-}
-
+.my-station-header-icon span { display: flex; font-size: 21px; }
+.my-station-header-text { min-width: 0; }
+.my-station-breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 5px; color: #777780; font-size: 11px; }
+.my-station-breadcrumb-divider { color: #4b4b52; }
+.my-station-breadcrumb span:last-child { color: #f87171; }
+.my-station-header h1 { margin: 0; color: #fafafa; font-size: clamp(23px, 2vw, 30px); font-weight: 750; line-height: 1.15; letter-spacing: -0.7px; }
+.my-station-title-dot { color: #ef4444; }
+.my-station-subtitle { max-width: 560px; margin: 7px 0 0; color: #96969f; font-size: 12px; line-height: 1.6; }
 .my-station-edit-btn {
   display: inline-flex;
+  align-items: center;
   justify-content: center;
+  gap: 9px;
+  min-height: 39px;
+  padding: 0 14px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 110, 110, .3);
+  border-radius: 9px;
+  color: #fff;
+  background: linear-gradient(135deg, #ef4444, #c91f28);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(220, 38, 38, .12);
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+.my-station-edit-btn:hover { transform: translateY(-1px); filter: brightness(1.08); box-shadow: 0 8px 22px rgba(220, 38, 38, .22); }
+.my-station-edit-icon { font-size: 15px; }
+.my-station-edit-arrow { margin-left: 2px; font-size: 14px; opacity: .8; }
+
+.station-selector {
+  margin-bottom: 20px;
+  padding: 17px 18px;
+  border: 1px solid #28282e;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #151518, #101012);
+}
+.station-selector-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 13px; }
+.station-selector-heading h2 { margin: 3px 0 0; font-size: 16px; font-weight: 700; }
+.station-section-kicker { display: block; margin-bottom: 6px; color: #ef686d; font-size: 9px; font-weight: 800; letter-spacing: 1.25px; }
+.station-count { padding: 5px 9px; border: 1px solid #343439; border-radius: 999px; color: #b7b7bf; background: #202024; font-size: 10px; }
+.station-selector-list { display: flex; flex-wrap: wrap; gap: 9px; }
+.station-selector-button {
+  display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
-  min-height: 44px;
-  padding: 0 16px;
-  color: #ffffff;
-  background: linear-gradient(135deg, #f05252, #dc2626);
-  border: 1px solid rgba(255, 120, 120, 0.35);
+  min-width: min(100%, 230px);
+  max-width: 100%;
+  padding: 10px 12px;
+  text-align: left;
+  border: 1px solid #303036;
   border-radius: 10px;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
+  background: #1b1b1f;
+  color: #ededf0;
   cursor: pointer;
-  box-shadow: 0 5px 16px rgba(220, 38, 38, 0.16);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+  transition: border-color .2s, background .2s, transform .2s;
 }
-
-.my-station-edit-btn:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #ff6262, #ef3333);
-  box-shadow: 0 8px 22px rgba(220, 38, 38, 0.25);
-}
-
-.my-station-edit-icon {
-  font-size: 17px;
-}
-
-.my-station-edit-arrow {
-  margin-left: 3px;
-  font-size: 15px;
-  opacity: 0.8;
-}
-
-/* =========================
-   STATION BANNER
-========================= */
+.station-selector-button:hover { border-color: #7f3438; background: #211719; transform: translateY(-1px); }
+.station-selector-button.active { border-color: #e84b50; background: linear-gradient(120deg, #321719, #201416); box-shadow: inset 0 0 0 1px rgba(239,68,68,.08); }
+.station-selector-button-icon { display: grid; place-items: center; flex: 0 0 33px; width: 33px; height: 33px; border-radius: 9px; color: #ff6a6f; background: #3a1b1e; }
+.station-selector-button-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.station-selector-button-text strong { overflow: hidden; max-width: 245px; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.station-selector-button-text small { overflow: hidden; max-width: 245px; color: #8c8c95; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+.station-selector-chevron { margin-left: auto; color: #b6b6bd; }
+.station-selector-message { margin: 0; color: #92929b; font-size: 12px; }
 
 .my-station-banner {
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 25px;
-  margin-bottom: 24px;
-  border: 1px solid #303036;
-  border-radius: 15px;
-  background: linear-gradient(110deg, #1b1b1f, #141416);
-}
-
-.my-station-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 65px;
-  height: 65px;
-  flex-shrink: 0;
-  border-radius: 14px;
-  background: #351719;
-  color: #ff5a5f;
-  font-size: 30px;
-}
-
-.my-station-banner-info {
-  min-width: 0;
-}
-
-.my-station-title-row {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.my-station-title-row h2 {
-  margin: 0;
-  font-size: 21px;
-  font-weight: 700;
-}
-
-.my-station-banner-info > p {
-  margin: 9px 0;
-  color: #b2b2ba;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.my-station-label {
-  color: #777780;
-  font-size: 12px;
-}
-
-.my-station-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-}
-
-.my-station-status.is-open {
-  color: #4ade80;
-  background: #142c20;
-}
-
-.my-station-status.is-closed {
-  color: #f87171;
-  background: #32191b;
-}
-
-.my-station-status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: currentColor;
-}
-
-/* =========================
-   MAIN GRID AND CARDS
-========================= */
-
-.my-station-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-}
-
-.my-station-card {
-  min-width: 0;
-  padding: 23px;
-  background: #171719;
-  border: 1px solid #2b2b30;
-  border-radius: 14px;
-}
-
-.my-station-card-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.my-station-card-heading h2 {
-  margin: 0;
-  font-size: 17px;
-  font-weight: 700;
-}
-
-.my-station-card-heading p {
-  color: #92929b;
-  font-size: 12px;
-  margin: 8px 0 0;
-  line-height: 1.5;
-}
-
-.my-station-card-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  color: #ff6267;
-  background: #321719;
-  border-radius: 10px;
-  font-size: 21px;
-}
-
-/* =========================
-   FUEL AVAILABILITY
-========================= */
-
-.my-station-fuel-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.my-station-fuel-item {
-  min-width: 0;
-}
-
-.my-station-fuel-top,
-.my-station-fuel-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.my-station-fuel-top {
-  margin-bottom: 11px;
-  font-size: 13px;
-}
-
-.my-station-fuel-top strong {
-  color: #f5f5f5;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.my-station-progress {
-  width: 100%;
-  height: 7px;
+  gap: 17px;
+  min-height: 132px;
+  margin-bottom: 20px;
+  padding: 24px;
   overflow: hidden;
-  border-radius: 10px;
-  background: #303036;
+  border: 1px solid #34272a;
+  border-radius: 15px;
+  background:
+    radial-gradient(circle at 78% 10%, rgba(239, 30, 37, .32), transparent 30%),
+    linear-gradient(110deg, #191719 0%, #291011 55%, #120d0e 100%);
+}
+.station-banner-glow {
+  position: absolute;
+  z-index: -1;
+  top: -55px;
+  right: 17%;
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, .16);
+  filter: blur(36px);
+}
+.my-station-icon { display: grid; place-items: center; flex: 0 0 54px; width: 54px; height: 54px; border: 1px solid #633034; border-radius: 14px; color: #ff6a6f; background: linear-gradient(145deg, #471d21, #251315); font-size: 25px; }
+.my-station-banner-info { min-width: 0; flex: 1; }
+.my-station-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.my-station-title-row h2 { margin: 0; font-size: clamp(16px, 1.5vw, 21px); font-weight: 750; letter-spacing: -.3px; }
+.my-station-banner-info > p { margin: 8px 0; color: #b5b1b5; font-size: 12px; line-height: 1.5; }
+.my-station-label { color: #88828a; font-size: 10px; }
+.my-station-status { display: inline-flex; align-items: center; gap: 6px; padding: 5px 9px; border-radius: 999px; font-size: 10px; font-weight: 700; }
+.my-station-status.is-open { color: #5ee49a; background: #143023; border: 1px solid #24583b; }
+.my-station-status.is-closed { color: #ff8589; background: #35191c; border: 1px solid #5d292e; }
+.my-station-status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px currentColor; }
+.station-banner-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.station-live-label { display: inline-flex; align-items: center; gap: 6px; color: #b4a6a8; font-size: 10px; white-space: nowrap; }
+.station-live-label span { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 9px #4ade80; }
+
+.my-station-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 18px; align-items: stretch; }
+.my-station-card { min-width: 0; padding: 21px; border: 1px solid #29292f; border-radius: 14px; background: linear-gradient(145deg, #171719, #121214); box-shadow: 0 8px 22px rgba(0,0,0,.08); }
+.my-station-card-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 22px; }
+.my-station-card-heading h2 { margin: 0; font-size: 16px; font-weight: 750; letter-spacing: -.2px; }
+.my-station-card-heading p { margin: 6px 0 0; color: #92929b; font-size: 11px; line-height: 1.5; }
+.my-station-card-icon { display: grid; place-items: center; flex: 0 0 35px; width: 35px; height: 35px; border: 1px solid #4a2428; border-radius: 10px; color: #ff6b70; background: #301719; font-size: 19px; }
+
+.my-station-fuel-list { display: flex; flex-direction: column; gap: 21px; }
+.my-station-fuel-item { min-width: 0; }
+.my-station-fuel-top, .my-station-fuel-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.my-station-fuel-top { margin-bottom: 9px; color: #e9e9ed; font-size: 11px; }
+.my-station-fuel-top strong { color: #f5f5f7; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.my-station-progress { width: 100%; height: 6px; overflow: hidden; border-radius: 99px; background: #303036; }
+.my-station-progress-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, #16c784, #22d38b); transition: width .3s ease; }
+.my-station-fuel-bottom { margin-top: 7px; color: #85858e; font-size: 10px; }
+.station-fuel-meta { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; color: #9999a2; font-size: 10px; }
+.fuel-available, .fuel-unavailable { padding: 3px 7px; border-radius: 999px; font-size: 9px; font-weight: 700; }
+.fuel-available { color: #61e5a0; background: #143023; }
+.fuel-unavailable { color: #ff8b8f; background: #361a1d; }
+.station-empty-state { margin: 0; padding: 14px; border: 1px dashed #38383f; border-radius: 9px; color: #92929b; font-size: 11px; line-height: 1.5; }
+.my-station-outline-btn, .my-station-map-btn { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; margin-top: 22px; padding: 11px 13px; border: 1px solid #37373e; border-radius: 9px; color: #e9e9ed; background: #202024; font-size: 11px; font-weight: 650; cursor: pointer; transition: background .2s, border-color .2s, transform .2s; }
+.my-station-outline-btn:hover { border-color: #5b3437; background: #292024; }
+.my-station-map-btn { border-color: #e83d43; color: white; background: linear-gradient(135deg, #f04449, #c91f28); box-shadow: 0 6px 15px rgba(220,38,38,.12); }
+.my-station-map-btn:hover { border-color: #ff6c70; background: linear-gradient(135deg, #ff555a, #d92730); transform: translateY(-1px); }
+
+.my-station-location-card { grid-column: 2; grid-row: 1; }
+.station-map-preview { position: relative; display: grid; place-items: center; min-height: 145px; margin-bottom: 13px; overflow: hidden; border: 1px solid #303036; border-radius: 10px; background: radial-gradient(circle at 50% 45%, rgba(220,38,38,.13), transparent 18%), linear-gradient(145deg, #101013, #151518); }
+.station-map-grid { position: absolute; inset: 0; opacity: .25; background-image: linear-gradient(#35353b 1px, transparent 1px), linear-gradient(90deg, #35353b 1px, transparent 1px); background-size: 25px 25px; mask-image: linear-gradient(to bottom, black, transparent); }
+.station-map-pin { position: relative; display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid rgba(255,92,98,.45); border-radius: 50%; color: #ff6b70; background: rgba(111,24,29,.55); box-shadow: 0 0 0 8px rgba(239,68,68,.06), 0 0 32px rgba(239,68,68,.28); font-size: 18px; }
+.station-map-coordinate { position: absolute; right: 10px; bottom: 9px; color: #a5a5ad; font-size: 9px; }
+.my-station-coordinates { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.my-station-coordinates > div { min-width: 0; padding: 12px; border: 1px solid #303036; border-radius: 9px; background: #202024; }
+.my-station-coordinates label { display: block; margin-bottom: 7px; color: #92929b; font-size: 10px; }
+.my-station-coordinates strong { display: block; overflow-wrap: anywhere; color: #f5f5f7; font-size: 12px; font-weight: 700; }
+
+.my-station-detail-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 16px; }
+.my-station-detail { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+.my-station-detail-icon { display: grid; place-items: center; flex: 0 0 32px; width: 32px; height: 32px; border: 1px solid #303036; border-radius: 9px; color: #ff7277; background: #242428; font-size: 17px; }
+.my-station-detail > div { min-width: 0; }
+.my-station-detail label { display: block; margin-bottom: 5px; color: #92929b; font-size: 10px; }
+.my-station-detail p { margin: 0; overflow-wrap: anywhere; color: #e5e5e8; font-size: 11px; line-height: 1.55; }
+
+.my-station-hours { display: flex; flex-direction: column; gap: 12px; padding: 15px; border: 1px solid #303036; border-radius: 10px; background: #202024; }
+.my-station-hours > div { display: flex; flex-direction: column; gap: 8px; }
+.my-station-hours > div span { color: #92929b; font-size: 11px; }
+.my-station-hours strong { font-size: 14px; }
+.my-station-hours-status { align-self: flex-start; padding: 5px 9px; border: 1px solid #24583b; border-radius: 999px; color: #4ade80; background: #142c20; font-size: 10px; font-weight: 650; }
+
+.my-station-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; margin-top: 26px; padding: 16px 0 3px; border-top: 1px solid #25252a; color: #777780; font-size: 10px; }
+.footer-dot { padding: 0 5px; color: #ef4444; }
+
+@media (max-width: 1100px) {
+  .my-station-main { padding: 24px; }
+  .my-station-grid { gap: 14px; }
+  .my-station-card { padding: 17px; }
+  .my-station-location-card { grid-column: auto; grid-row: auto; }
 }
 
-.my-station-progress-fill {
-  height: 100%;
-  border-radius: inherit;
-  background: #ef4444;
-  transition: width 0.3s ease;
+@media (max-width: 760px) {
+  .my-station-main { padding: 18px; }
+  .my-station-header { align-items: flex-start; flex-direction: column; gap: 15px; }
+  .my-station-header-content { align-items: flex-start; }
+  .my-station-edit-btn { min-height: 40px; }
+  .my-station-banner { align-items: flex-start; flex-wrap: wrap; padding: 18px; }
+  .station-banner-actions { flex-direction: row; align-items: center; justify-content: space-between; width: 100%; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.07); }
+  .my-station-grid { grid-template-columns: minmax(0, 1fr); }
+  .my-station-location-card { grid-column: auto; grid-row: auto; }
 }
 
-.my-station-fuel-bottom {
-  margin-top: 8px;
-  color: #92929b;
-  font-size: 11px;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-.my-station-outline-btn,
-.my-station-map-btn {
-  border: 1px solid #34343a;
-  border-radius: 9px;
-  padding: 11px 16px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-.my-station-outline-btn {
-  width: 100%;
-  margin-top: 25px;
-  color: #ededed;
-  background: #202024;
-}
-
-.my-station-outline-btn:hover {
-  background: #29292e;
-  border-color: #55555e;
-}
-
-.my-station-map-btn {
-  width: 100%;
-  margin-top: 22px;
-  color: white;
-  background: #ef4444;
-  border-color: #ef4444;
-}
-
-.my-station-map-btn:hover {
-  background: #dc2626;
-  border-color: #dc2626;
-}
-
-/* =========================
-   STATION DETAILS
-========================= */
-
-.my-station-detail-list {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.my-station-detail {
-  display: flex;
-  align-items: flex-start;
-  gap: 13px;
-}
-
-.my-station-detail-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 36px;
-  height: 36px;
-  flex-shrink: 0;
-  border-radius: 9px;
-  background: #242428;
-  color: #ff686d;
-  font-size: 19px;
-}
-
-.my-station-detail label,
-.my-station-coordinates label {
-  display: block;
-  margin-bottom: 7px;
-  color: #92929b;
-  font-size: 11px;
-}
-
-.my-station-detail p {
-  margin: 0;
-  color: #e5e5e8;
-  font-size: 13px;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-/* =========================
-   LOCATION
-========================= */
-
-.my-station-coordinates {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.my-station-coordinates > div {
-  padding: 16px;
-  border: 1px solid #303036;
-  border-radius: 10px;
-  background: #202024;
-}
-
-.my-station-coordinates strong {
-  display: block;
-  color: #f5f5f5;
-  font-size: 14px;
-  overflow-wrap: anywhere;
-}
-
-/* =========================
-   OPENING HOURS
-========================= */
-
-.my-station-hours {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 17px;
-  border: 1px solid #303036;
-  border-radius: 10px;
-  background: #202024;
-}
-
-.my-station-hours > div {
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-}
-
-.my-station-hours > div span {
-  color: #92929b;
-  font-size: 12px;
-}
-
-.my-station-hours strong {
-  font-size: 15px;
-}
-
-.my-station-hours-status {
-  padding: 6px 10px;
-  border-radius: 20px;
-  color: #4ade80;
-  background: #142c20;
-  font-size: 11px;
-  font-weight: 600;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-.my-station-footer {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 30px;
-  padding: 18px 0 5px;
-  border-top: 1px solid #27272c;
-  color: #777780;
-  font-size: 11px;
-}
-
-/* =========================
-   RESPONSIVE LAYOUT
-========================= */
-
-@media (max-width: 1000px) {
-  .my-station-main {
-    padding: 24px;
-  }
-
-  .my-station-grid {
-    gap: 16px;
-  }
-
-  .my-station-card {
-    padding: 19px;
-  }
-}
-
-@media (max-width: 700px) {
-  .my-station-main {
-    padding: 18px;
-  }
-
-  .my-station-header {
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 23px 20px;
-  }
-
-  .my-station-header-content {
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .my-station-header-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-  }
-
-  .my-station-header-icon span {
-    font-size: 24px;
-  }
-
-  .my-station-header h1 {
-    font-size: 25px;
-  }
-
-  .my-station-subtitle {
-    font-size: 12px;
-  }
-
-  .my-station-edit-btn {
-    width: 100%;
-  }
-
-  .my-station-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .my-station-banner {
-    align-items: flex-start;
-    padding: 18px;
-  }
-
-  .my-station-icon {
-    width: 48px;
-    height: 48px;
-    font-size: 23px;
-  }
-
-  .my-station-title-row h2 {
-    font-size: 17px;
-  }
-}
-
-@media (max-width: 450px) {
-  .my-station-main {
-    padding: 14px;
-  }
-
-  .my-station-header {
-    padding: 20px 16px;
-  }
-
-  .my-station-header-content {
-    gap: 11px;
-  }
-
-  .my-station-header h1 {
-    font-size: 22px;
-  }
-
-  .my-station-breadcrumb {
-    gap: 6px;
-    font-size: 10px;
-  }
-
-  .my-station-banner {
-    flex-direction: column;
-  }
-
-  .my-station-card {
-    padding: 16px;
-  }
-
-  .my-station-fuel-bottom {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 5px;
-  }
-
-  .my-station-footer {
-    flex-direction: column;
-  }
+@media (max-width: 480px) {
+  .my-station-main { padding: 13px; }
+  .my-station-header h1 { font-size: 24px; }
+  .my-station-header-icon { flex-basis: 40px; width: 40px; height: 40px; }
+  .my-station-subtitle { font-size: 11px; }
+  .station-selector { padding: 14px; }
+  .station-selector-button { width: 100%; min-width: 0; }
+  .station-selector-button-text strong, .station-selector-button-text small { max-width: 220px; }
+  .my-station-banner { gap: 12px; padding: 15px; }
+  .my-station-icon { flex-basis: 44px; width: 44px; height: 44px; font-size: 21px; }
+  .my-station-title-row h2 { font-size: 16px; }
+  .my-station-card { padding: 15px; }
+  .my-station-detail-list { grid-template-columns: minmax(0, 1fr); }
+  .my-station-fuel-bottom { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .my-station-footer { flex-direction: column; }
 }
