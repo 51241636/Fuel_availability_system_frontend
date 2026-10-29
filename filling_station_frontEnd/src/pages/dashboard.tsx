@@ -60,11 +60,6 @@ let value;
              <p className="pump-stat-label">{stat.label}</p>
              
         </article>
-    //         <p className="pump-stat-label">{stat.label}</p>
-    //   <div className="pump-fuel-count">
-    //     <h2>{stat.value}</h2>
-    //     <span>{stat.suffix}</span>
-    //   </div>
     )
     }else{
          value = (
