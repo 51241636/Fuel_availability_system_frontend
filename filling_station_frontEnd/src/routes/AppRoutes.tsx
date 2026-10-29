@@ -11,11 +11,13 @@ import Unauthorized from "../pages/Unauthorized";
 import ProtectedRoute from "../components/protectedRoute";
 import LocationSearchMap from "../pages/addStationMap";
 import MyStation from "../pages/myStations";
+import { StationProvider } from "../context/StationContext";
 
 function AppRoutes() {
   return (
     <BrowserRouter>
        <AuthProvider>
+               <StationProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -31,7 +33,8 @@ function AppRoutes() {
               </ProtectedRoute>
             }
           />
-
+   
+            
           <Route
             path="/addNewStation"
             element={
@@ -40,7 +43,6 @@ function AppRoutes() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/myStation"
             element={
@@ -50,6 +52,7 @@ function AppRoutes() {
             }
           />
 
+       
 
         
 {/* 
@@ -65,7 +68,7 @@ function AppRoutes() {
           <Route path="*" element={<Navigate to="/login" replace />} /> */}
         </Routes>
 
-      
+         </StationProvider>
     </AuthProvider>
       </BrowserRouter>
 

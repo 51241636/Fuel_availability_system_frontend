@@ -11,12 +11,13 @@ import {
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import "leaflet-geosearch/dist/geosearch.css";
 
-import type { LatLng } from "leaflet";
+import L,{type  LatLng } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { SideBar } from "./sidebar";
 import "./addStation.css"
 import { loadStation } from "../services/stationService";
 import { useNavigate } from 'react-router-dom';
+import { UseStationDetailsContext } from "../context/StationContext";
 
 export interface FuelOption{
   fuelType :string,
@@ -72,6 +73,31 @@ useEffect(() => {
 }
 
 export default function AddStationMap() {
+  const{selectedStation,isEditMode,setIsEditMode}=UseStationDetailsContext();
+  useEffect(()=>{
+    if(!isEditMode || !selectedStation) return;
+
+    setStationDetails({
+      stationName:selectedStation.stationName,
+      stationContact:selectedStation.stationContact,
+      stationEmail: selectedStation.stationEmail,
+      stationAddress: selectedStation.stationAddress
+    })
+
+    setOpeningTime(selectedStation.openTime);
+    setClosingTime(selectedStation.closeTime);
+
+    setPosition(L.latLng(
+      selectedStation.location.coordinates[1],
+      selectedStation.location.coordinates[0]
+    ))
+
+
+
+    
+
+    
+  },[selectedStation,isEditMode])
   const navigate = useNavigate();
   const [fuel, setFuelDetail] = useState<FuelOption[]>([
     { fuelType: 'OcTane92', currentStock: 7600,  tankCapacity : 10000,fuelPrice : 414},
@@ -203,7 +229,16 @@ function AddFillingStationLocation() {
 }, [selectedItems]);
 
 const addFillingStation=async()=>{
-    await loadStation(stationDetails,position,selectedItems,openingTime,closingTime);
+  if(!isEditMode){
+     await loadStation(stationDetails,position,selectedItems,openingTime,closingTime);
+  }else{
+    if (!selectedStation) {
+        alert("Please select a station first");
+        return;
+    }
+    console.log("Selected Station ID:", selectedStation._id);
+  }
+   
 }
 
 
@@ -310,21 +345,6 @@ useEffect(() => {
         </div>
 
         <div className="station-map-design">
-          {/* <div className="station-map-search">
-            <span className="search-icon">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </span>
-
-            <input
-              type="text"
-              placeholder="Search city, town or station address..."
-              className="station-location-search"
-            />
-
-            <button type="button" className="station-search-btn">
-              Search
-            </button>
-            </div> */}
 
   <div className="station-map-container">
     
@@ -481,13 +501,16 @@ useEffect(() => {
   <button
     type="button"
     className="cancel-station-btn"
-    onClick={() => navigate('/dashboard')}
+    onClick={() => {
+  setIsEditMode(false);
+  navigate('/dashboard');
+}}
   >
     Cancel
   </button>
 
   <button type="submit" className="add-station-btn" onClick={addFillingStation}>
-    Add Station to the map
+    {isEditMode ?"update Station":"Add Station to the map"}
   </button>
 </div>
 </section>

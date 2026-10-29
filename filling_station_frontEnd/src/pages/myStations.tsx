@@ -4,11 +4,15 @@ import "./myStations.css";
 import { FaGasPump } from "react-icons/fa";
 import { getUserStationDetail } from "../services/stationService";
 import type { UserStation } from "../interface/stationDetailInterface";
+import { UseStationDetailsContext } from "../context/StationContext";
+import { useNavigate } from "react-router-dom";
 
 const MyStation = () => {
+    const navigate=useNavigate()
   const [userStation, setStation] = useState<UserStation[]>([]);
   const [selectedStation, setSelectedStation] = useState<UserStation | null>(null);
   const [loading, setLoading] = useState(true);
+  const {setUserSelectedStation,setIsEditMode}=UseStationDetailsContext();
 
   useEffect(() => {
     const fetchStation = async () => {
@@ -46,6 +50,17 @@ const MyStation = () => {
     const url = `https://www.google.com/maps?q=${station.latitude},${station.longitude}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
+
+  const editAddedStation=()=>{
+    if (!selectedStation) {
+        alert("Please select a station first");
+        return;
+    }
+    setUserSelectedStation(selectedStation);
+    setIsEditMode(true);
+    navigate("/addNewStation")
+
+  }
 
   return (
     <div className="pump-dashboard">
@@ -131,7 +146,7 @@ const MyStation = () => {
 
           <div className="station-banner-actions">
             <span className="station-live-label"><span /> Station overview</span>
-            <button className="my-station-edit-btn" onClick={async () => {}}>
+            <button className="my-station-edit-btn" onClick={editAddedStation  }>
               <span className="my-station-edit-icon">✎</span>
               <span>Edit station</span>
             </button>
