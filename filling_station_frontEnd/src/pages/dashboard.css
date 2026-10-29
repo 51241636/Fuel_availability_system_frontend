@@ -1,0 +1,624 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+  background: #0d0d0f;
+  border: none;
+  outline: none;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+.pump-dashboard {
+  --pump-bg: #0d0d0f;
+  --pump-sidebar: #080809;
+  --pump-card: #18181b;
+  --pump-border: #202024;
+  --pump-text: #ffffff;
+  --pump-muted: #a5a5b0;
+  --pump-red: #f00000;
+  --pump-warning: #ff806b;
+
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--pump-bg);
+  color: var(--pump-text);
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.pump-dashboard a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Sidebar */
+
+.pump-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 18px 24px;
+  background: var(--pump-sidebar);
+  border: 3px;
+  border-right: 1px solid #202024;
+}
+
+.pump-brand {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 58px;
+  margin-bottom: 18px;
+}
+
+.pump-brand-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  background: var(--pump-red);
+  font-size: 24px;
+}
+
+.pump-brand h2 {
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+.pump-button {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.pump-nav-link {
+  min-height: 44px;
+  padding: 11px 15px;
+  border: none;
+  border-left: 3px solid transparent;
+  border-radius: 11px;
+  color: #c3c3cc !important;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.pump-nav-link:hover {
+  background: #1c1515;
+}
+
+.pump-nav-link.active {
+  background: #300b0b;
+  color: #ffffff !important;
+  border-left-color: var(--pump-red);
+}
+
+.pump-sidebar-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  color: var(--pump-muted);
+  font-size: 12px;
+  border-top: 1px solid #202024;
+}
+
+.pump-status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: #35c77a;
+}
+
+/* Main content */
+
+.pump-main {
+  flex: 1;
+  min-width: 0;
+  padding: 0 44px 30px;
+  background: #0d0d0f;
+  border: none;
+}
+
+.pump-nameBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 27px;
+  margin-top: 15px;
+}
+
+.pump-welcome h1 {
+  margin: 4px 0 0;
+  font-size: clamp(25px, 2.5vw, 32px);
+  line-height: 1.25;
+  letter-spacing: -0.7px;
+}
+
+.pump-welcome p {
+  margin-top: 3px;
+  color: var(--pump-muted);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.pump-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-top: 13px;
+  flex-shrink: 0;
+}
+
+.pump-profile-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pump-avatar {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  border: 1px solid #252529;
+  border-radius: 50%;
+  background: #171719;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Statistics cards */
+
+.pump-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 31px;
+}
+
+.pump-stat-card {
+  min-height: 104px;
+  padding: 22px 24px;
+  border: 1px solid #252529;
+  border-radius: 18px;
+  background: #18181b;
+}
+
+.pump-stat-label {
+  margin-bottom: 1px;
+  color: var(--pump-muted);
+  font-size: 14px;
+}
+
+.pump-stat-value {
+  font-size: 24px;
+  line-height: 1.35;
+}
+
+.pump-stat-value.muted {
+  color: #a4a4b0;
+}
+
+.pump-stat-value.warning {
+  color: var(--pump-warning);
+}
+
+.pump-fuel-count {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.pump-fuel-count h2 {
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+.pump-fuel-count span {
+  color: #c5c5cf;
+  font-size: 14px;
+}
+
+/* Getting started */
+
+.pump-steps-card {
+  margin-bottom: 50px;
+  padding: 28px 31px;
+  border: 1px solid #252529;
+  border-radius: 18px;
+  background: #18181b;
+}
+
+.pump-section-heading {
+  margin-bottom: 22px;
+}
+
+.pump-section-heading h2 {
+  font-size: 20px;
+}
+
+.pump-section-heading p {
+  color: var(--pump-muted);
+  font-size: 15px;
+}
+
+.pump-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 23px;
+}
+
+.pump-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  min-width: 0;
+}
+
+.pump-step-number {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border: 1px solid var(--pump-red);
+  border-radius: 50%;
+  color: var(--pump-red);
+  font-size: 18px;
+}
+
+.pump-step-content {
+  min-width: 0;
+}
+
+.pump-step-content h3 {
+  margin-bottom: 3px;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.pump-step-content p {
+  color: var(--pump-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Add station */
+
+.pump-add-station {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 290px;
+  overflow: hidden;
+  border: 1px solid #451515;
+  border-radius: 19px;
+  background: #171416;
+}
+
+.pump-station-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 36px 39px;
+  background: linear-gradient(
+    135deg,
+    #3b0c0c,
+    #211517 65%,
+    #171416
+  );
+}
+
+.pump-station-info h2 {
+  margin-bottom: 22px;
+  font-size: clamp(24px, 2.3vw, 31px);
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+.pump-station-info p {
+  max-width: 420px;
+  margin-bottom: 20px;
+  color: #b9b5be;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.pump-primary-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  padding: 17px 25px;
+  border: none;
+  border-radius: 13px;
+  background: var(--pump-red);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.pump-primary-button:hover {
+  background: #d40000;
+  transform: translateY(-2px);
+}
+
+.pump-primary-button span {
+  font-size: 21px;
+}
+
+/* Map preview */
+
+.pump-station-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 290px;
+  overflow: hidden;
+  border: none;
+  border-left: 1px solid #252529;
+  background: #101012;
+}
+
+.pump-map-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(#1b1b1f 1px, transparent 1px),
+    linear-gradient(90deg, #1b1b1f 1px, transparent 1px);
+  background-size: 35px 35px;
+}
+
+.pump-location-marker {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.pump-marker-ring {
+  display: grid;
+  place-items: center;
+  width: 92px;
+  height: 92px;
+  border: 2px dashed #ff2020;
+  border-radius: 50%;
+  background: rgba(240, 0, 0, 0.08);
+}
+
+.pump-marker-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--pump-red);
+  box-shadow: 0 0 0 8px rgba(240, 0, 0, 0.2);
+}
+
+.pump-map-caption {
+     animation: liveBlink 1.5s ease-in-out infinite;
+  position: absolute;
+  top: calc(43% + 58px);
+  left: 0;
+  right: 0;
+  color: var(--pump-muted);
+  font-size: 13px;
+  text-align: center;
+}
+@keyframes liveBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Footer */
+
+.pump-footer {
+  margin-top: 28px;
+  color: #777781;
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Tablet */
+
+@media (max-width: 1100px) {
+  .pump-sidebar {
+    width: 220px;
+  }
+
+  .pump-main {
+    padding-right: 25px;
+    padding-left: 25px;
+  }
+
+  .pump-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pump-steps-card {
+    padding: 25px;
+  }
+
+  .pump-steps-grid {
+    gap: 18px;
+  }
+
+  .pump-step {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pump-station-info {
+    padding: 28px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .pump-dashboard {
+    flex-direction: column;
+  }
+
+  .pump-sidebar {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    border-bottom: 1px solid #202024;
+  }
+
+  .pump-brand {
+    height: auto;
+    margin-bottom: 14px;
+  }
+
+  .pump-navigation {
+    flex-direction: row;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .pump-nav-link {
+    flex-shrink: 0;
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .pump-sidebar-footer {
+    display: none;
+  }
+
+  .pump-main {
+    padding: 22px 16px 25px;
+  }
+
+  .pump-topbar {
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .pump-welcome h1 {
+    font-size: 27px;
+  }
+
+  .pump-welcome p {
+    font-size: 14px;
+  }
+
+  .pump-profile {
+    padding-top: 0;
+  }
+
+  .pump-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .pump-stat-card {
+    min-height: 95px;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .pump-stat-value {
+    font-size: 20px;
+  }
+
+  .pump-fuel-count h2 {
+    font-size: 27px;
+  }
+
+  .pump-steps-card {
+    padding: 21px 18px;
+    margin-bottom: 25px;
+  }
+
+  .pump-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .pump-step {
+    flex-direction: row;
+    gap: 13px;
+  }
+
+  .pump-add-station {
+    grid-template-columns: 1fr;
+  }
+
+  .pump-station-info {
+    padding: 26px 22px;
+  }
+
+  .pump-station-info h2 {
+    font-size: 25px;
+    margin-bottom: 14px;
+  }
+
+  .pump-station-info p {
+    font-size: 14px;
+  }
+
+  .pump-primary-button {
+    width: 100%;
+    padding: 15px 12px;
+    font-size: 14px;
+  }
+
+  .pump-station-visual {
+    min-height: 230px;
+    border: none;
+    border-top: 1px solid #252529;
+  }
+}
+
+/* Small mobile */
+
+@media (max-width: 380px) {
+  .pump-main {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .pump-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pump-profile-name {
+    font-size: 13px;
+  }
+
+  .pump-stat-card {
+    min-height: 85px;
+  }
+}
