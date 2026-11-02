@@ -1,18 +1,17 @@
 
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Login from "../pages/login";
 import Dashboard from "../pages/dashboard";
 import Register from "../pages/register";
 import AddStationMap from "../pages/addStationMap";
-// import myStations from "../pages/myStations";
-import {AuthProvider,useAuth } from "../context/AuthConext";
+import {AuthProvider } from "../context/AuthConext";
 import Unauthorized from "../pages/Unauthorized";
 import ProtectedRoute from "../components/protectedRoute";
-import LocationSearchMap from "../pages/addStationMap";
 import MyStation from "../pages/myStations";
 import { StationProvider } from "../context/StationContext";
 import FuelStock from "../pages/fuelStockManage";
+import Setting from "../pages/setting";
 
 function AppRoutes() {
   return (
@@ -24,7 +23,6 @@ function AppRoutes() {
           <Route path="/register" element={<Register />} />
           <Route path="/unauthorized" element={<Unauthorized />}/>
           <Route path="/stationMap" element={<AddStationMap />}/>
-          {/* <Route path="/stationMap" element={< />}/> */}
 
           <Route
             path="/dashboard"
@@ -61,22 +59,16 @@ function AppRoutes() {
               </ProtectedRoute>
             }
           />
-          
 
-       
-
-        
-{/* 
           <Route
-            path="/stationMap"
+            path="/setting"
             element={
-              <ProtectedRoute />
+              <ProtectedRoute allowedRoles={["owner"]}>
+                <Setting/>
+              </ProtectedRoute>
             }
-          /> */}
-{/* 
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
-          <Route path="*" element={<Navigate to="/login" replace />} /> */}
+          />
+          
         </Routes>
 
          </StationProvider>

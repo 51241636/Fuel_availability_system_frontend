@@ -182,8 +182,8 @@ const updateFuel = async () => {
         </div>
 
         <div className="header-actions">
-          <button className="cancel-btn">Discard</button>
-          <button className="save-btn">Save stock update</button>
+          <button className="cancel-btn" onClick={discardBtn}>Discard</button>
+          <button className="save-btn" onClick={updateFuel}>Save stock update</button>
         </div>
       </div>
 

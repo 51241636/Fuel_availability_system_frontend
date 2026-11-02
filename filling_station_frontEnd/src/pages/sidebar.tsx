@@ -21,7 +21,7 @@ export const SideBar = () => {
     { name: "My station", path: "/myStation", icon: <MdLocalGasStation /> },
     { name: "Fuel stock", path: "/fuelStock", icon: <MdWaterDrop /> },
     { name: "Map view", path: "/map-view", icon: <MdMap /> },
-    { name: "Settings", path: "/settings", icon: <MdSettings /> },
+    { name: "Settings", path: "/setting", icon: <MdSettings /> },
   ];
 
   return (

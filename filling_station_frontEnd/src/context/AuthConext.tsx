@@ -9,6 +9,7 @@ import {
 
 import { getMyDetails } from "../services/AuthService";
 import api from "../services/Api";
+import { clearRefreshToken } from "../services/settingService";
 
 export type UserRole = "admin" | "driver" | "owner";
 
@@ -99,9 +100,15 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
     checkAuthentication();
   }, []);
 
-  const logout = () => {
-    setUser(null);
+   const logout = async() => {
+
+   try{
+    await clearRefreshToken();
+       setUser(null);
     localStorage.removeItem("accessToken");
+   }catch(error){
+    console.error("Logout failed:", error);
+   }
   };
 
   return (
