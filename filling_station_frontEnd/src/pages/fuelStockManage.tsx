@@ -11,7 +11,8 @@ import {
     confirmFuelDelete,
     showSuccessAlert,
     showErrorAlert,
-    showWarningAlert
+    showWarningAlert,
+    confirmDiscardChanges,
 } from "../services/alertService";
 
 
@@ -25,6 +26,7 @@ const FuelStock = () => {
         outOfStockCount:0
     });
     const [selectedStation, setSelectedStation] = useState<UserStation | null>(null);
+    const [selectedStationCopy, setSelectedStationCopy] = useState<UserStation | null>(null);
     const [loading, setLoading] = useState(true);
     const [selectedItems, setSelectedItems] = useState<FuelOption[]>([]);
 
@@ -72,11 +74,28 @@ const FuelStock = () => {
             }
                setFuelCountDetail({totalStock,availableCount,lowCount,outOfStockCount});
                setSelectedItems(selectedStation.fuels);
+           
       },[selectedStation])
 
       useEffect(()=>{
         console.log("selected item",selectedItems)
+        console.log("selected station",selectedStation)
       },[selectedItems])
+
+      const discardBtn = async() => {
+    if (!selectedStation) {
+        await showWarningAlert("Please select a station first.");
+        return;
+    }
+     const confirmed = await confirmDiscardChanges();
+
+     if (!confirmed) return;
+
+     setSelectedStation(
+        selectedStationCopy
+    );
+    await showSuccessAlert("All unsaved changes have been discarded.");
+};
 
    const handleFieldChange = (
     fuelType: string,
@@ -124,6 +143,7 @@ const handleRemoveFuel = async(fuelType: string) => {
 
 
 const updateFuel = async () => {
+
     if (!selectedStation?._id) {
         showWarningAlert("Station ID not found.");
         return;
@@ -208,13 +228,20 @@ const updateFuel = async () => {
                 ) : (
                   <div className="station-selector-list">
                     {userStation.map((item) => (
-                      <button
+                     <button
                         key={item._id}
-                        onClick={() => setSelectedStation(item)}
-                        className={`station-selector-button ${
-                          selectedStation?._id === item._id ? "active" : ""
-                        }`}
-                      >
+                        onClick={() => {
+                            setSelectedStation(item);
+
+                            setSelectedStationCopy({
+                                ...item,
+                                fuels: item.fuels.map(fuel => ({ ...fuel }))
+                            });
+                        }}
+                    className={`station-selector-button ${
+                        selectedStation?._id === item._id ? "active" : ""
+                    }`}
+                         >
                         <span className="station-selector-button-icon"><FaGasPump /></span>
                         <span className="station-selector-button-text">
                           <strong>{item.stationName}</strong>
@@ -274,7 +301,7 @@ const updateFuel = async () => {
                  type="number"
                  min="0" 
                   step="1"
-                    defaultValue={stationFuel.currentStock}
+                    value={stationFuel.currentStock}
                     onChange={(e) => {
                             const value = e.target.value;
                             if (value === "") {
@@ -300,7 +327,7 @@ const updateFuel = async () => {
               <label>Price per litre (Rs)</label>
               <input
                 type="number"
-                defaultValue={stationFuel.fuelPrice}
+                value={stationFuel.fuelPrice}
                 min="0" 
                 step="1"
                 onChange={(e) =>
@@ -355,7 +382,7 @@ const updateFuel = async () => {
               <h2>update your fuel stock</h2>
             </div>
            <div className="header-actions">
-          <button className="cancel-btn">Discard</button>
+          <button className="cancel-btn" onClick={discardBtn}>Discard</button>
           <button className="save-btn" onClick={updateFuel}>Save stock update</button>
         </div>
           </div>

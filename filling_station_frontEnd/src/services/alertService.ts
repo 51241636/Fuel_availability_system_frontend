@@ -64,3 +64,18 @@ export const showWarningAlert = (message: string) => {
         iconColor: "#F2A93B"
     });
 };
+
+
+export const confirmDiscardChanges = async () => {
+    const result = await alertTheme.fire({
+        icon: "warning",
+        title: "Discard changes?",
+        text: "All unsaved fuel stock changes will be lost.",
+        showCancelButton: true,
+        confirmButtonText: "Yes, discard",
+        cancelButtonText: "Keep editing",
+        iconColor: "#F2A93B"
+    });
+
+    return result.isConfirmed;
+};
