@@ -1,0 +1,380 @@
+/* Main Container */
+
+.fuel-stock-container {
+  width: 100%;
+  min-height: 100vh;
+  padding: 25px;
+  background: #101012;
+  color: #ffffff;
+  font-family: Arial, Helvetica, sans-serif; /* same as dashboard */
+  box-sizing: border-box;
+}
+
+/* Header */
+
+.fuel-stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.fuel-stock-header h2 {
+  font-size: clamp(25px, 2.5vw, 32px); /* dashboard welcome title */
+  line-height: 1.25;
+  letter-spacing: -0.7px;
+  margin: 0 0 7px;
+  font-weight: 700;
+}
+
+.fuel-stock-header p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #a5a5b0; /* dashboard muted */
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.header-actions button {
+  padding: 11px 18px;
+  border-radius: 7px;
+  font-family: inherit; /* buttons don't inherit fonts by default */
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #19191c;
+  color: #ffffff;
+  border: 1px solid #34343a;
+}
+
+.save-btn {
+  background: #ed1010;
+  color: #ffffff;
+  border: 1px solid #ed1010;
+}
+
+/* Summary Cards */
+
+.stock-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.summary-card {
+  background: #1a1a1e;
+  border: 1px solid #29292e;
+  border-radius: 13px;
+  padding: 18px;
+}
+
+.summary-card span {
+  display: block;
+  font-size: 14px; /* dashboard stat label */
+  color: #a5a5b0;
+  margin-bottom: 7px;
+}
+
+.summary-card h2 {
+  font-size: 30px; /* dashboard fuel-count number */
+  line-height: 1.2;
+  margin: 0;
+  font-weight: 700;
+}
+
+.summary-card small {
+  font-size: 14px;
+  color: #c5c5cf;
+  font-weight: 400;
+}
+
+.green-text {
+  color: #20c66a;
+}
+
+.yellow-text {
+  color: #ffb21c;
+}
+
+.red-text {
+  color: #ff5151;
+}
+
+/* Fuel Cards Container */
+
+.fuel-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* Fuel Card */
+
+.fuel-card {
+  background: #1a1a1e;
+  border: 1px solid #29292e;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.fuel-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.fuel-card-header h3 {
+  font-size: 20px; /* dashboard section heading */
+  line-height: 1.4;
+  letter-spacing: -0.3px;
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Status */
+
+.status {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: 20px;
+}
+
+.available {
+  background: #123c29;
+  color: #fdfcfc;
+}
+
+.running-low {
+  background: #493719;
+  color: #ffbd35;
+}
+
+/* Fuel Content */
+
+.fuel-content {
+  display: grid;
+  grid-template-columns: 65px 1fr;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+/* Fuel Level Indicator */
+
+.fuel-level-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.fuel-level {
+  width: 55px;
+  height: 160px;
+  background: #101012;
+  border: 1px solid #34343b;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.fuel-level-fill {
+  width: 100%;
+  border-radius: 0 0 7px 7px;
+  transition: height 0.4s ease, background 0.4s ease;
+}
+
+.high-stock {
+  background: #20c66a;
+}
+
+.low-stock {
+  background: #ffa600;
+}
+
+.out-of-stock {
+  background: #ff4545;
+}
+/* Fuel Inputs */
+
+.fuel-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fuel-inputs label {
+  font-size: 14px;
+  color: #a5a5b0;
+  font-weight: 600;
+}
+
+.fuel-inputs input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 42px;
+  padding: 0 12px;
+  background: #101012;
+  border: 1px solid #29292e;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: inherit; /* inputs don't inherit fonts by default */
+  font-size: 16px;
+  font-weight: 700;
+  outline: none;
+}
+
+.fuel-inputs input:focus {
+  border-color: #ed1010;
+}
+
+.capacity-text {
+  font-size: 13px;
+  color: #a5a5b0;
+  margin: 0 0 3px;
+}
+
+/* Stock Status */
+
+.stock-status-section {
+  margin-bottom: 16px;
+}
+
+.stock-status-section label {
+  display: block;
+  font-size: 14px;
+  color: #a5a5b0;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stock-status-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #101012;
+  border: 1px solid #303036;
+  border-radius: 9px;
+  padding: 12px;
+  text-align: center;
+}
+
+.stock-status-options span {
+  font-size: 14px;
+  color: #c3c3cc; /* dashboard nav text color */
+  font-weight: 600;
+}
+
+/* Stock Adjustment Buttons */
+
+.stock-adjustments {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.stock-adjustments button {
+  background: #19191d;
+  border: 1px solid #303036;
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 11px 5px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stock-adjustments button:hover {
+  background: #29292f;
+  border-color: #55555e;
+}
+
+/* Updated Time */
+
+.updated-time {
+  font-size: 12px;
+  color: #777781; /* dashboard footer color */
+  margin: 0;
+}
+
+/* Responsive Design */
+
+@media (max-width: 900px) {
+
+  .stock-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fuel-cards-container {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 550px) {
+
+  .fuel-stock-container {
+    padding: 15px;
+  }
+
+  .fuel-stock-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .header-actions button {
+    flex: 1;
+  }
+
+  .stock-summary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .summary-card {
+    padding: 13px;
+  }
+
+  .summary-card h2 {
+    font-size: 27px; /* matches dashboard mobile */
+  }
+
+  .fuel-card {
+    padding: 14px;
+  }
+
+  .fuel-content {
+    grid-template-columns: 48px 1fr;
+    gap: 10px;
+  }
+
+  .fuel-level {
+    width: 42px;
+    height: 140px;
+  }
+
+  .stock-adjustments {
+    gap: 5px;
+  }
+
+  .stock-adjustments button {
+    font-size: 12px;
+    padding: 10px 3px;
+  }
+
+}

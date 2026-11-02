@@ -15,7 +15,7 @@ import L,{type  LatLng } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { SideBar } from "./sidebar";
 import "./addStation.css"
-import { loadStation } from "../services/stationService";
+import { loadStation, updateStationService } from "../services/stationService";
 import { useNavigate } from 'react-router-dom';
 import { UseStationDetailsContext } from "../context/StationContext";
 
@@ -27,10 +27,11 @@ export interface FuelOption{
 }
 
 export interface StationFormDetail{
+  stationId:string | undefined
   stationName:string,
   stationContact:string,
    stationEmail:string;
-        stationAddress:string;
+    stationAddress:string;
 
 }
 
@@ -78,6 +79,7 @@ export default function AddStationMap() {
     if(!isEditMode || !selectedStation) return;
 
     setStationDetails({
+      stationId:selectedStation._id,
       stationName:selectedStation.stationName,
       stationContact:selectedStation.stationContact,
       stationEmail: selectedStation.stationEmail,
@@ -91,6 +93,8 @@ export default function AddStationMap() {
       selectedStation.location.coordinates[1],
       selectedStation.location.coordinates[0]
     ))
+
+    setSelectedItems(selectedStation.fuels);
 
 
 
@@ -109,6 +113,7 @@ export default function AddStationMap() {
 
   // 2. Selected items array
   const [stationDetails, setStationDetails] = useState<StationFormDetail>({
+    stationId:"",
       stationName: "",
       stationContact: "",
       stationEmail: "",
@@ -236,7 +241,10 @@ const addFillingStation=async()=>{
         alert("Please select a station first");
         return;
     }
-    console.log("Selected Station ID:", selectedStation._id);
+    if(!stationDetails.stationId){
+      alert("update station id not found please add station id for update")
+    }
+    await updateStationService(stationDetails,position,selectedItems,openingTime,closingTime)
   }
    
 }

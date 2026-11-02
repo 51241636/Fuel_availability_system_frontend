@@ -12,6 +12,7 @@ import ProtectedRoute from "../components/protectedRoute";
 import LocationSearchMap from "../pages/addStationMap";
 import MyStation from "../pages/myStations";
 import { StationProvider } from "../context/StationContext";
+import FuelStock from "../pages/fuelStockManage";
 
 function AppRoutes() {
   return (
@@ -51,6 +52,16 @@ function AppRoutes() {
               </ProtectedRoute>
             }
           />
+
+           <Route
+            path="/fuelStock"
+            element={
+              <ProtectedRoute allowedRoles={["owner"]}>
+                <FuelStock/>
+              </ProtectedRoute>
+            }
+          />
+          
 
        
 

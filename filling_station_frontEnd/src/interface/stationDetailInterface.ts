@@ -32,3 +32,10 @@ export interface UserStation {
   closeTime: string;
   available: boolean;
 }
+
+export interface AvailableFuelDetailCount{
+  totalStock:number,
+  availableCount:number,
+  lowCount:number,
+  outOfStockCount:number
+}
