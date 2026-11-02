@@ -4,9 +4,16 @@ import "./myStations.css"
 import { SideBar } from "./sidebar";
 import type { AvailableFuelDetailCount, UserStation } from "../interface/stationDetailInterface";
 import { getUserStationDetail } from "../services/stationService";
-import { FaGasPump } from "react-icons/fa";
+import { FaGasPump,FaTrash  } from "react-icons/fa";
 import type { FuelOption } from "./addStationMap";
 import { UpdateFuelDetails } from "../services/fuelService";
+import {
+    confirmFuelDelete,
+    showSuccessAlert,
+    showErrorAlert,
+    showWarningAlert
+} from "../services/alertService";
+
 
 const FuelStock = () => {
 
@@ -94,13 +101,51 @@ const FuelStock = () => {
     
 };
 
-const updateFuel=async()=>{
+const handleRemoveFuel = async(fuelType: string) => {
+     const confirmed = await confirmFuelDelete(fuelType);
+
+    if (!confirmed) return;
+
+    setSelectedStation(prev => {
+        if (!prev) return prev;
+
+        const updatedFuels = prev.fuels.filter(
+            fuel => fuel.fuelType !== fuelType
+        );
+
+        setSelectedItems(updatedFuels);
+
+        return {
+            ...prev,
+            fuels: updatedFuels
+        };
+    });
+};
+
+
+const updateFuel = async () => {
     if (!selectedStation?._id) {
-    alert("Station ID not found");
-    return;
-    }   
-        const response=await UpdateFuelDetails(selectedStation?._id,selectedItems)
+        showWarningAlert("Station ID not found.");
+        return;
     }
+
+    try {
+        await UpdateFuelDetails(
+            selectedStation._id,
+            selectedItems
+        );
+
+        await showSuccessAlert(
+            "Fuel stock details updated successfully."
+        );
+
+    } catch (error) {
+        showErrorAlert(
+            "Unable to update fuel details. Please try again."
+        );
+    }
+};
+
   return (
     <div className="pump-dashboard">
         <SideBar/>
@@ -241,7 +286,7 @@ const updateFuel=async()=>{
                              if(numberValue >= 0 && numberValue <= stationFuel.tankCapacity){
                                 handleFieldChange(stationFuel.fuelType, value,"currentStock")
                              }else{
-                                alert("enter correct value check tank capacity first")
+                                showWarningAlert("Current stock cannot exceed the tank capacity.");
                              }
 
 
@@ -274,7 +319,14 @@ const updateFuel=async()=>{
             </div>
 
           </div>
-          <p className="updated-time">Last updated 8 minutes ago</p>
+          <button
+            type="button"
+            className="delete-fuel-btn"
+            title="Remove fuel"
+            onClick={() => handleRemoveFuel(stationFuel.fuelType)}
+        >
+            <FaTrash />
+        </button>
 
         </div>
                 );
