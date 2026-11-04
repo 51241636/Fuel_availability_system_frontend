@@ -16,7 +16,6 @@ import api from "./Api"
 }
 
 export const getMyDetails=async()=>{
-  console.log("response user details : ","calling")
   const response=await api.get("/getMyDetails");
   console.log("response user details : ",response)
   return response;

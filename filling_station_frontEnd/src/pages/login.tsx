@@ -40,7 +40,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [userLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const {user,loading}=useAuth();
 
   if(loading){
@@ -49,10 +49,18 @@ function Login() {
     )
   }
 
-  if(user?.userRole === "owner"){
-    return <Navigate to="/dashboard" replace />;
+  const signinUser=()=>{
+    console.log("click")
+    //  if(user?.userRole === "owner"){
+       console.log("click 02")
+      navigate("/dashboard", { replace: true })
+
+    
+  // }
     
   }
+
+ 
 
   const copy = ROLE_COPY[role];
 
@@ -266,7 +274,7 @@ function Login() {
               </a>
             </div>
 
-            <button type="submit" className="fs-submit" disabled={userLoading}>
+            <button type="submit" className="fs-submit" disabled={userLoading} onClick={signinUser}>
               {userLoading ? "Signing in..." : copy.button}
             </button>
           </form>

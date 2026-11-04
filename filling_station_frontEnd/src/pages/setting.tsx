@@ -17,17 +17,10 @@ import {
   FaShieldAlt
 } from "react-icons/fa";
 import { getMyDetails } from "../services/AuthService";
-import { clearRefreshToken } from "../services/settingService";
+import { ChangePassword, clearRefreshToken, updateUserDetails } from "../services/settingService";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthConext";
-
-interface ProfileDetails {
-    userId:string;
-  name: string;
-  email: string;
-  address: string;
-  contact: string;
-}
+import type { ProfileDetails } from "../interface/profileDetail";
 
 
 
@@ -39,7 +32,10 @@ const Setting = () => {
         const fetchStation = async () => {
           try {
             const response = await getMyDetails();
+            
             setProfile(response.data.myDetails);
+            console.log(response.data.image)
+            setPreviewImage(response.data.image)
           } catch (error) {
             console.error("Failed to load station details:", error);
           } finally {
@@ -52,7 +48,7 @@ const Setting = () => {
 
   // Replace these sample values with your logged-in user's details.
   const [profile, setProfile] = useState<ProfileDetails>({
-    userId:"",
+    _id:"",
     name: "",
     email: "",
     address: "",
@@ -71,7 +67,8 @@ const Setting = () => {
     confirm: false
   });
 
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const handleProfileChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -100,6 +97,7 @@ const Setting = () => {
       ...prev,
       [field]: !prev[field]
     }));
+    
   };
 
   const handleImageChange = (
@@ -108,7 +106,8 @@ const Setting = () => {
     const file = e.target.files?.[0];
 
     if (file) {
-      setProfileImage(URL.createObjectURL(file));
+      setPreviewImage(URL.createObjectURL(file));
+      setProfileImage(file);
     }
   };
 
@@ -116,9 +115,8 @@ const Setting = () => {
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-
-    // Connect your profile update API here.
-    console.log("Updated profile:", profile);
+    const message=await updateUserDetails(profileImage,profile)
+    console.log(message)
   };
 
   const handleUpdatePassword = async (
@@ -155,6 +153,16 @@ const Setting = () => {
         console.error("Logout failed:", error);
     }
   };
+
+  const changePassword=async()=>{
+    try{
+      const response=await ChangePassword(password.currentPassword,password.newPassword)
+      console.log("password changed successfully")
+    }catch(error){
+      console.error("Logout failed:", error);
+    }
+  }
+
 
   return (
     <div className="pump-dashboard">
@@ -207,8 +215,8 @@ const Setting = () => {
 
                 <div className="setting-profile-image-section">
                   <div className="setting-avatar">
-                    {profileImage ? (
-                      <img src={profileImage} alt="Profile" />
+                    {previewImage ? (
+                      <img src={previewImage} alt="Profile" />
                     ) : (
                       <span>
                         {profile.name
@@ -251,8 +259,8 @@ const Setting = () => {
                     <div className="setting-input-wrapper">
                       <FaUser />
                       <input
-                        type="text"
-                        name="fullName"
+                        type="name"
+                        name="name"
                         value={profile.name}
                         onChange={handleProfileChange}
                         placeholder="Enter your full name"
@@ -281,8 +289,8 @@ const Setting = () => {
                     <div className="setting-input-wrapper">
                       <FaPhone />
                       <input
-                        type="tel"
-                        name="contactNumber"
+                        type="contact"
+                        name="contact"
                         value={profile.contact}
                         onChange={handleProfileChange}
                         placeholder="Enter contact number"
@@ -414,7 +422,7 @@ const Setting = () => {
                 </p>
 
                 <div className="setting-form-actions">
-                  <button type="submit" className="setting-save-btn">
+                  <button type="submit" className="setting-save-btn"onClick={changePassword}>
                     <FaLock />
                     Update password
                   </button>
@@ -432,8 +440,8 @@ const Setting = () => {
             <section className="setting-account-card">
 
               <div className="setting-account-avatar">
-                {profileImage ? (
-                  <img src={profileImage} alt="Profile" />
+                {previewImage ? (
+                  <img src={previewImage} alt="Profile" />
                 ) : (
                   profile.name
                     .split(" ")
