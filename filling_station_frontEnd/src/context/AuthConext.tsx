@@ -18,6 +18,7 @@ export interface User {
   username: string;
   email: string;
   userRole: UserRole;
+  
 }
 
 interface AuthContextType {
@@ -25,6 +26,7 @@ interface AuthContextType {
   loading: boolean;
   setUser: (user: User | null) => void;
   logout: () => void;
+  previewImage:string | null
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -38,6 +40,7 @@ const isValidRole = (role: unknown): role is UserRole =>
 
 export const AuthProvider = ({ children }: AuthProviderTypes) => {
   const [user, setUser] = useState<User | null>(null);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -78,12 +81,16 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
 
           localStorage.setItem("accessToken", newToken);
           response = await getMyDetails();
+          
         }
 
         const myDetails = response?.data?.myDetails;
+        const userProfileImage=response.data.image;
 
-        if (myDetails && isValidRole(myDetails.userRole)) {
+        if (myDetails && isValidRole(myDetails.userRole) ) {
           setUser(myDetails);
+          setPreviewImage(userProfileImage)
+          
         } else {
           setUser(null);
           localStorage.removeItem("accessToken");
@@ -113,7 +120,7 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, setUser, logout }}
+      value={{ user, loading, setUser, logout,previewImage }}
     >
       {children}
     </AuthContext.Provider>

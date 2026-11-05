@@ -44,6 +44,8 @@ const FuelStock = () => {
     
         fetchStation();
       }, []);
+
+
       useEffect(()=>{
          if (!selectedStation?.fuels) {
              setFuelCountDetail({

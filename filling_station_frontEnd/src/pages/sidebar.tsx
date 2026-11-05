@@ -20,7 +20,7 @@ export const SideBar = () => {
     { name: "Dashboard", path: "/dashboard", icon: <MdDashboard /> },
     { name: "My station", path: "/myStation", icon: <MdLocalGasStation /> },
     { name: "Fuel stock", path: "/fuelStock", icon: <MdWaterDrop /> },
-    { name: "Map view", path: "/map-view", icon: <MdMap /> },
+    { name: "Map view", path: "/mapView", icon: <MdMap /> },
     { name: "Settings", path: "/setting", icon: <MdSettings /> },
   ];
 

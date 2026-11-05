@@ -5,6 +5,7 @@ import type { FormEvent } from "react";
 import { loginUser } from "../services/AuthService";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthConext";
+import ForgotPassword from "../pages/forgotPassword";
 
 type Role = "driver" | "owner" ;
 
@@ -40,6 +41,7 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [userLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
   const {user,loading}=useAuth();
 
@@ -269,15 +271,30 @@ function Login() {
                 <input type="checkbox" />
                 Keep me signed in
               </label>
-              <a href="#" className="fs-link">
-                Forgot password?
-              </a>
+                  <button className="fs-link"
+                  type="button"
+                  onClick={() => setShowForgotPassword(true)}
+                >
+                  Forgot Password?
+                </button>
             </div>
 
             <button type="submit" className="fs-submit" disabled={userLoading} onClick={signinUser}>
               {userLoading ? "Signing in..." : copy.button}
             </button>
           </form>
+
+            {/* Forgot Password Popup */}
+            {showForgotPassword && (
+              <ForgotPassword
+                onClose={() => setShowForgotPassword(false)}
+                onSubmit={async (email) => {
+                  console.log("Forgot password email:", email);
+
+                  // await forgotPassword(email);
+                }}
+              />
+            )}
 
           <p className="fs-switch">
             {copy.helper}{" "}

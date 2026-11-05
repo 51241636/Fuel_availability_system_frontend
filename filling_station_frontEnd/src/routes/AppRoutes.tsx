@@ -12,6 +12,8 @@ import MyStation from "../pages/myStations";
 import { StationProvider } from "../context/StationContext";
 import FuelStock from "../pages/fuelStockManage";
 import Setting from "../pages/setting";
+import MapView from "../pages/mapView";
+import ForgotPassword from "../pages/forgotPassword";
 
 function AppRoutes() {
   return (
@@ -68,6 +70,16 @@ function AppRoutes() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/mapView"
+            element={
+              <ProtectedRoute allowedRoles={["owner"]}>
+                <MapView/>
+              </ProtectedRoute>
+            }
+          />
+
           
         </Routes>
 

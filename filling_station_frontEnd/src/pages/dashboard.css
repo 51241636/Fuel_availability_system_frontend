@@ -1,3 +1,6 @@
+/* ==============================
+   Global Styles
+================================ */
 
 * {
   margin: 0;
@@ -11,8 +14,6 @@ body,
   width: 100%;
   min-height: 100%;
   background: #0d0d0f;
-  border: none;
-  outline: none;
 }
 
 body {
@@ -21,24 +22,31 @@ body {
   overflow-x: hidden;
 }
 
+/* ==============================
+   Dashboard Theme
+================================ */
+
 .pump-dashboard {
   --pump-bg: #0d0d0f;
   --pump-sidebar: #080809;
   --pump-card: #18181b;
-  --pump-border: #202024;
+  --pump-border: #252529;
   --pump-text: #ffffff;
   --pump-muted: #a5a5b0;
   --pump-red: #f00000;
   --pump-warning: #ff806b;
+  --pump-good: #35c77a;
+
+  /* fluid layout tokens: they grow with the screen */
+  --pump-max: 1480px;
+  --pump-pad: clamp(16px, 3.2vw, 64px);
+  --pump-gap: clamp(12px, 1.2vw, 22px);
 
   display: flex;
   width: 100%;
   min-height: 100vh;
   background: var(--pump-bg);
   color: var(--pump-text);
-  border: none;
-  outline: none;
-  box-shadow: none;
 }
 
 .pump-dashboard a {
@@ -46,7 +54,9 @@ body {
   text-decoration: none;
 }
 
-/* Sidebar */
+/* ==============================
+   Sidebar (unchanged)
+================================ */
 
 .pump-sidebar {
   width: 260px;
@@ -55,8 +65,7 @@ body {
   flex-direction: column;
   padding: 0 18px 24px;
   background: var(--pump-sidebar);
-  border: 3px;
-  border-right: 1px solid #202024;
+  border-right: 1px solid var(--pump-border);
 }
 
 .pump-brand {
@@ -97,7 +106,7 @@ body {
   color: #c3c3cc !important;
   font-size: 15px;
   font-weight: 600;
-  transition: background 0.2s;
+  transition: background 0.2s ease;
 }
 
 .pump-nav-link:hover {
@@ -115,7 +124,7 @@ body {
   padding-top: 16px;
   color: var(--pump-muted);
   font-size: 12px;
-  border-top: 1px solid #202024;
+  border-top: 1px solid var(--pump-border);
 }
 
 .pump-status-dot {
@@ -127,257 +136,277 @@ body {
   background: #35c77a;
 }
 
-/* Main content */
+/* ==============================
+   Loader
+================================ */
+
+.pump-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 100vh;
+  color: #a5a5b0;
+  font-size: 14px;
+}
+
+.pump-loader-ring {
+  width: 38px;
+  height: 38px;
+  border: 3px solid #2a2a2f;
+  border-top-color: #f00000;
+  border-radius: 50%;
+  animation: pumpSpin 0.8s linear infinite;
+}
+
+@keyframes pumpSpin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==============================
+   Entrance animation (runs once)
+================================ */
+
+.pump-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.is-ready .pump-reveal {
+  animation: pumpRise 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+@keyframes pumpRise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==============================
+   Main Content
+   - main fills all remaining width (no max-width on it)
+   - every direct child is centered and capped by --pump-max
+================================ */
 
 .pump-main {
   flex: 1;
+  width: 100%;
   min-width: 0;
-  padding: 0 44px 30px;
-  background: #0d0d0f;
-  border: none;
+  padding: 0 var(--pump-pad) 30px;
+  background: var(--pump-bg);
+}
+
+.pump-main > * {
+  width: 100%;
+  max-width: var(--pump-max);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .pump-nameBar {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 24px;
-  margin-bottom: 27px;
-  margin-top: 15px;
+  margin-top: clamp(18px, 2vw, 36px);
+  margin-bottom: clamp(20px, 2vw, 34px);
 }
 
-.pump-welcome h1 {
-  margin: 4px 0 0;
-  font-size: clamp(25px, 2.5vw, 32px);
-  line-height: 1.25;
-  letter-spacing: -0.7px;
+.pump-welcome-Tag h1 {
+  font-size: clamp(25px, 2.2vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -0.8px;
 }
 
-.pump-welcome p {
-  margin-top: 3px;
+.pump-welcome-Tag p {
+  max-width: 60ch;
+  margin-top: 8px;
   color: var(--pump-muted);
-  font-size: 15px;
+  font-size: clamp(15px, 1vw, 18px);
   line-height: 1.6;
 }
+
+/* ==============================
+   Profile
+================================ */
 
 .pump-profile {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding-top: 13px;
+  gap: 13px;
+  padding: 7px 8px 7px 16px;
   flex-shrink: 0;
+  background: #18181b;
+  border: 1px solid #29292e;
+  border-radius: 50px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.pump-profile:hover {
+  background: #211719;
+  border-color: #702020;
 }
 
 .pump-profile-name {
+  color: #eeeeee;
   font-size: 14px;
   font-weight: 600;
 }
 
 .pump-avatar {
-  display: grid;
-  place-items: center;
-  width: 45px;
-  height: 45px;
-  border: 1px solid #252529;
-  border-radius: 50%;
-  background: #171719;
-  font-size: 14px;
-  font-weight: 700;
-}
-
-/* Statistics cards */
-
-.pump-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin-bottom: 31px;
-}
-
-.pump-stat-card {
-  min-height: 104px;
-  padding: 22px 24px;
-  border: 1px solid #252529;
-  border-radius: 18px;
-  background: #18181b;
-}
-
-.pump-stat-label {
-  margin-bottom: 1px;
-  color: var(--pump-muted);
-  font-size: 14px;
-}
-
-.pump-stat-value {
-  font-size: 24px;
-  line-height: 1.35;
-}
-
-.pump-stat-value.muted {
-  color: #a4a4b0;
-}
-
-.pump-stat-value.warning {
-  color: var(--pump-warning);
-}
-
-.pump-fuel-count {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
-}
-
-.pump-fuel-count h2 {
-  font-size: 30px;
-  line-height: 1.2;
-}
-
-.pump-fuel-count span {
-  color: #c5c5cf;
-  font-size: 14px;
-}
-
-/* Getting started */
-
-.pump-steps-card {
-  margin-bottom: 50px;
-  padding: 28px 31px;
-  border: 1px solid #252529;
-  border-radius: 18px;
-  background: #18181b;
-}
-
-.pump-section-heading {
-  margin-bottom: 22px;
-}
-
-.pump-section-heading h2 {
-  font-size: 20px;
-}
-
-.pump-section-heading p {
-  color: var(--pump-muted);
-  font-size: 15px;
-}
-
-.pump-steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 23px;
-}
-
-.pump-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  min-width: 0;
-}
-
-.pump-step-number {
-  display: grid;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
   width: 44px;
   height: 44px;
   min-width: 44px;
-  border: 1px solid var(--pump-red);
+  overflow: hidden;
   border-radius: 50%;
-  color: var(--pump-red);
-  font-size: 18px;
+  background: linear-gradient(135deg, #ff3030, #970000);
+  border: 2px solid #ef4444;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.pump-step-content {
-  min-width: 0;
+.pump-avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
-.pump-step-content h3 {
-  margin-bottom: 3px;
-  font-size: 17px;
-  line-height: 1.4;
+.pump-profile:hover .pump-avatar {
+  transform: scale(1.06);
+  box-shadow: 0 0 15px rgba(240, 0, 0, 0.35);
 }
 
-.pump-step-content p {
-  color: var(--pump-muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-/* Add station */
+/* ==============================
+   Add Station (primary action)
+================================ */
 
 .pump-add-station {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  min-height: 290px;
+  min-height: clamp(300px, 24vw, 440px);
+  margin-bottom: var(--pump-gap);
   overflow: hidden;
   border: 1px solid #451515;
-  border-radius: 19px;
+  border-radius: 22px;
   background: #171416;
+  box-shadow: 0 20px 50px -30px rgba(240, 0, 0, 0.45);
 }
 
 .pump-station-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 36px 39px;
-  background: linear-gradient(
-    135deg,
-    #3b0c0c,
-    #211517 65%,
-    #171416
-  );
+  justify-content: center;
+  padding: clamp(28px, 3vw, 56px) clamp(28px, 3.4vw, 64px);
+  background: linear-gradient(135deg, #3b0c0c, #211517 65%, #171416);
 }
 
 .pump-station-info h2 {
-  margin-bottom: 22px;
-  font-size: clamp(24px, 2.3vw, 31px);
-  line-height: 1.3;
+  margin-bottom: 14px;
+  font-size: clamp(25px, 2.3vw, 42px);
+  line-height: 1.25;
   letter-spacing: -0.5px;
 }
 
 .pump-station-info p {
-  max-width: 420px;
-  margin-bottom: 20px;
-  color: #b9b5be;
-  font-size: 16px;
+  max-width: 46ch;
+  margin-bottom: 26px;
+  color: #c2bdc7;
+  font-size: clamp(16px, 1.05vw, 19px);
   line-height: 1.7;
 }
 
 .pump-primary-button {
+  position: relative;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: 7px;
-  padding: 17px 25px;
+  gap: 8px;
+  padding: 16px 28px;
+  overflow: hidden;
   border: none;
-  border-radius: 13px;
+  border-radius: 14px;
   background: var(--pump-red);
   color: #ffffff;
   font-family: inherit;
-  font-size: 16px;
+  font-size: clamp(16px, 1.05vw, 19px);
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 10px 24px -8px rgba(240, 0, 0, 0.65);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* soft shine that sweeps across the button every few seconds */
+.pump-primary-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-20deg);
+  animation: pumpShine 4.5s ease-in-out 1.5s infinite;
+}
+
+@keyframes pumpShine {
+  0%, 60% { left: -60%; }
+  100% { left: 140%; }
 }
 
 .pump-primary-button:hover {
   background: #d40000;
   transform: translateY(-2px);
+  box-shadow: 0 14px 28px -8px rgba(240, 0, 0, 0.75);
 }
 
-.pump-primary-button span {
-  font-size: 21px;
+.pump-primary-button:active {
+  transform: translateY(0) scale(0.98);
 }
 
-/* Map preview */
+.pump-primary-button:focus-visible {
+  outline: 3px solid #ffb3b3;
+  outline-offset: 3px;
+}
+
+.pump-plus {
+  font-size: 22px;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.pump-primary-button:hover .pump-plus {
+  transform: rotate(90deg);
+}
+
+.pump-hint {
+  margin-top: 12px;
+  color: var(--pump-muted);
+  font-size: 13px;
+}
+
+/* ==============================
+   Map Preview
+================================ */
 
 .pump-station-visual {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 290px;
+  min-height: 260px;
   overflow: hidden;
-  border: none;
-  border-left: 1px solid #252529;
+  border-left: 1px solid var(--pump-border);
   background: #101012;
 }
 
@@ -388,6 +417,32 @@ body {
     linear-gradient(#1b1b1f 1px, transparent 1px),
     linear-gradient(90deg, #1b1b1f 1px, transparent 1px);
   background-size: 35px 35px;
+  animation: pumpDrift 30s linear infinite;
+}
+
+@keyframes pumpDrift {
+  to { background-position: 35px 35px; }
+}
+
+.pump-map-road {
+  position: absolute;
+  height: 10px;
+  border-radius: 10px;
+  background: #1a1a1f;
+}
+
+.pump-road-a {
+  top: 62%;
+  left: -10%;
+  width: 120%;
+  transform: rotate(-8deg);
+}
+
+.pump-road-b {
+  top: 20%;
+  left: 55%;
+  width: 90%;
+  transform: rotate(62deg);
 }
 
 .pump-location-marker {
@@ -398,13 +453,34 @@ body {
 }
 
 .pump-marker-ring {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 92px;
-  height: 92px;
+  width: clamp(92px, 7vw, 130px);
+  height: clamp(92px, 7vw, 130px);
   border: 2px dashed #ff2020;
   border-radius: 50%;
   background: rgba(240, 0, 0, 0.08);
+}
+
+/* radar pulse */
+.pump-marker-ring::before,
+.pump-marker-ring::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border: 2px solid rgba(255, 32, 32, 0.5);
+  border-radius: 50%;
+  animation: pumpPulse 2.6s ease-out infinite;
+}
+
+.pump-marker-ring::after {
+  animation-delay: 1.3s;
+}
+
+@keyframes pumpPulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.1); opacity: 0; }
 }
 
 .pump-marker-dot {
@@ -413,30 +489,252 @@ body {
   border-radius: 50%;
   background: var(--pump-red);
   box-shadow: 0 0 0 8px rgba(240, 0, 0, 0.2);
+  animation: pumpBob 2.4s ease-in-out infinite;
+}
+
+@keyframes pumpBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
 }
 
 .pump-map-caption {
-     animation: liveBlink 1.5s ease-in-out infinite;
   position: absolute;
-  top: calc(43% + 58px);
+  top: calc(43% + clamp(66px, 5.2vw, 90px));
   left: 0;
   right: 0;
   color: var(--pump-muted);
   font-size: 13px;
   text-align: center;
+  animation: liveBlink 2s ease-in-out infinite;
 }
+
 @keyframes liveBlink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.3;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 
-/* Footer */
+/* ==============================
+   Statistics Cards
+================================ */
+
+.pump-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--pump-gap);
+  margin-bottom: var(--pump-gap);
+}
+
+.pump-stat-card {
+  position: relative;
+  min-height: clamp(104px, 8vw, 140px);
+  padding: 20px 20px 20px 22px;
+  overflow: hidden;
+  border: 1px solid var(--pump-border);
+  border-radius: 16px;
+  background: var(--pump-card);
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+/* colored accent edge shows status at a glance */
+.pump-stat-card::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  left: 0;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--accent, #44444c);
+}
+
+.pump-stat-card:hover {
+  transform: translateY(-3px);
+  border-color: #632020;
+  background: #1d191b;
+}
+
+.tone-neutral { --accent: #7b7b86; }
+.tone-good    { --accent: var(--pump-good); }
+.tone-live    { --accent: #5aa9ff; }
+.tone-warning { --accent: var(--pump-warning); }
+
+.pump-stat-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: var(--pump-muted);
+  font-size: clamp(13px, 0.9vw, 16px);
+}
+
+.pump-stat-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.tone-live .pump-stat-dot {
+  animation: pumpLive 1.6s ease-out infinite;
+}
+
+@keyframes pumpLive {
+  0%   { box-shadow: 0 0 0 0 rgba(90, 169, 255, 0.7); }
+  100% { box-shadow: 0 0 0 8px rgba(90, 169, 255, 0); }
+}
+
+.pump-stat-value {
+  font-size: clamp(20px, 1.6vw, 30px);
+  line-height: 1.3;
+}
+
+.tone-warning .pump-stat-value {
+  color: var(--pump-warning);
+}
+
+.pump-fuel-count {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.pump-fuel-count h2 {
+  font-size: clamp(28px, 2.2vw, 40px);
+  line-height: 1.2;
+}
+
+.pump-fuel-count span {
+  color: #c5c5cf;
+  font-size: 14px;
+}
+
+/* ==============================
+   Getting Started
+================================ */
+
+.pump-steps-card {
+  margin-bottom: var(--pump-gap);
+  padding: clamp(24px, 2.2vw, 40px) clamp(24px, 2.4vw, 44px);
+  border: 1px solid var(--pump-border);
+  border-radius: 20px;
+  background: var(--pump-card);
+}
+
+.pump-section-heading {
+  margin-bottom: 24px;
+}
+
+.pump-section-heading h2 {
+  margin-bottom: 6px;
+  font-size: clamp(20px, 1.5vw, 28px);
+}
+
+.pump-section-heading p {
+  color: var(--pump-muted);
+  font-size: clamp(15px, 1vw, 17px);
+}
+
+.pump-steps-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 2vw, 40px);
+  list-style: none;
+}
+
+/* line that connects the steps and draws itself on load */
+.pump-steps-grid::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 44px;
+  right: 44px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--pump-red), #3a2a2c);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.is-ready .pump-steps-grid::before {
+  animation: pumpDraw 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.9s forwards;
+}
+
+@keyframes pumpDraw {
+  to { transform: scaleX(1); }
+}
+
+.pump-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+}
+
+.pump-step-number {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  border: 1px solid #4a2326;
+  border-radius: 50%;
+  background: #231a1c;
+  color: #ff6b6b;
+  font-size: 18px;
+  font-weight: 700;
+  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.pump-step:hover .pump-step-number {
+  transform: scale(1.1);
+  background: var(--pump-red);
+  color: #ffffff;
+}
+
+.pump-step.is-current .pump-step-number {
+  border-color: var(--pump-red);
+  background: rgba(240, 0, 0, 0.14);
+  color: #ff3939;
+  animation: pumpRing 2.4s ease-out infinite;
+}
+
+@keyframes pumpRing {
+  0%   { box-shadow: 0 0 0 0 rgba(240, 0, 0, 0.45); }
+  100% { box-shadow: 0 0 0 14px rgba(240, 0, 0, 0); }
+}
+
+.pump-step-content {
+  min-width: 0;
+}
+
+.pump-step-content h3 {
+  margin-bottom: 5px;
+  font-size: clamp(17px, 1.2vw, 21px);
+  line-height: 1.4;
+}
+
+.pump-step-content p {
+  color: var(--pump-muted);
+  font-size: clamp(14px, 0.95vw, 17px);
+  line-height: 1.55;
+}
+
+.pump-step-badge {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(240, 0, 0, 0.14);
+  color: #ff7a7a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ==============================
+   Footer
+================================ */
 
 .pump-footer {
   margin-top: 28px;
@@ -445,33 +743,64 @@ body {
   text-align: center;
 }
 
-/* Tablet */
+/* ==============================
+   Large screens (1600px and up)
+================================ */
+
+@media (min-width: 1600px) {
+  .pump-dashboard {
+    --pump-max: 1680px;
+  }
+
+  .pump-sidebar {
+    width: 280px;
+  }
+}
+
+/* ==============================
+   Extra large / 2K+ screens
+================================ */
+
+@media (min-width: 2200px) {
+  .pump-dashboard {
+    --pump-max: 2000px;
+  }
+
+  .pump-sidebar {
+    width: 320px;
+  }
+
+  .pump-add-station,
+  .pump-steps-card,
+  .pump-stat-card {
+    border-radius: 26px;
+  }
+
+  .pump-step-number {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    font-size: 21px;
+  }
+
+  .pump-steps-grid::before {
+    top: 26px;
+    left: 52px;
+    right: 52px;
+  }
+}
+
+/* ==============================
+   Laptop / tablet landscape
+================================ */
 
 @media (max-width: 1100px) {
   .pump-sidebar {
     width: 220px;
   }
 
-  .pump-main {
-    padding-right: 25px;
-    padding-left: 25px;
-  }
-
   .pump-stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .pump-steps-card {
-    padding: 25px;
-  }
-
-  .pump-steps-grid {
-    gap: 18px;
-  }
-
-  .pump-step {
-    flex-direction: column;
-    gap: 10px;
   }
 
   .pump-station-info {
@@ -479,7 +808,25 @@ body {
   }
 }
 
-/* Mobile */
+/* ==============================
+   Tablet portrait
+================================ */
+
+@media (max-width: 900px) {
+  .pump-add-station {
+    grid-template-columns: 1fr;
+  }
+
+  .pump-station-visual {
+    min-height: 240px;
+    border-left: none;
+    border-top: 1px solid var(--pump-border);
+  }
+}
+
+/* ==============================
+   Mobile
+================================ */
 
 @media (max-width: 700px) {
   .pump-dashboard {
@@ -490,7 +837,7 @@ body {
     width: 100%;
     padding: 12px 16px;
     border: none;
-    border-bottom: 1px solid #202024;
+    border-bottom: 1px solid var(--pump-border);
   }
 
   .pump-brand {
@@ -516,100 +863,86 @@ body {
   }
 
   .pump-main {
-    padding: 22px 16px 25px;
+    padding-top: 22px;
+    padding-bottom: 25px;
   }
 
-  .pump-topbar {
+  .pump-nameBar {
     flex-direction: column;
-    gap: 14px;
-    margin-bottom: 22px;
-  }
-
-  .pump-welcome h1 {
-    font-size: 27px;
-  }
-
-  .pump-welcome p {
-    font-size: 14px;
+    align-items: flex-start;
+    gap: 16px;
+    margin-top: 0;
+    margin-bottom: 20px;
   }
 
   .pump-profile {
-    padding-top: 0;
+    align-self: flex-end;
   }
 
-  .pump-stats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-bottom: 22px;
-  }
-
-  .pump-stat-card {
-    min-height: 95px;
-    padding: 16px;
-    border-radius: 14px;
-  }
-
-  .pump-stat-value {
-    font-size: 20px;
-  }
-
-  .pump-fuel-count h2 {
-    font-size: 27px;
-  }
-
-  .pump-steps-card {
-    padding: 21px 18px;
-    margin-bottom: 25px;
-  }
-
-  .pump-steps-grid {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-
-  .pump-step {
-    flex-direction: row;
-    gap: 13px;
-  }
-
-  .pump-add-station {
-    grid-template-columns: 1fr;
+  .pump-avatar {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    font-size: 15px;
   }
 
   .pump-station-info {
     padding: 26px 22px;
   }
 
-  .pump-station-info h2 {
-    font-size: 25px;
-    margin-bottom: 14px;
-  }
-
-  .pump-station-info p {
-    font-size: 14px;
-  }
-
   .pump-primary-button {
     width: 100%;
     padding: 15px 12px;
-    font-size: 14px;
   }
 
   .pump-station-visual {
-    min-height: 230px;
-    border: none;
-    border-top: 1px solid #252529;
+    min-height: 220px;
+  }
+
+  .pump-stat-card {
+    min-height: 95px;
+    padding: 16px 16px 16px 18px;
+  }
+
+  .pump-steps-card {
+    padding: 21px 18px;
+  }
+
+  .pump-steps-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .pump-steps-grid::before {
+    top: 22px;
+    bottom: 22px;
+    left: 21px;
+    right: auto;
+    width: 2px;
+    height: auto;
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .is-ready .pump-steps-grid::before {
+    animation-name: pumpDrawY;
+  }
+
+  .pump-step {
+    flex-direction: row;
+    gap: 14px;
   }
 }
 
-/* Small mobile */
+@keyframes pumpDrawY {
+  to { transform: scaleY(1); }
+}
+
+/* ==============================
+   Small mobile
+================================ */
 
 @media (max-width: 380px) {
-  .pump-main {
-    padding-right: 12px;
-    padding-left: 12px;
-  }
-
   .pump-stats-grid {
     grid-template-columns: 1fr;
   }
@@ -617,8 +950,27 @@ body {
   .pump-profile-name {
     font-size: 13px;
   }
+}
 
-  .pump-stat-card {
-    min-height: 85px;
+/* ==============================
+   Respect reduced-motion settings
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .pump-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .is-ready .pump-reveal,
+  .pump-dashboard *,
+  .pump-dashboard *::before,
+  .pump-dashboard *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .pump-steps-grid::before {
+    transform: none;
   }
 }
