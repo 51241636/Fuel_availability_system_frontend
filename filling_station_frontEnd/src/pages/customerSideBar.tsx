@@ -14,8 +14,8 @@ export const CustomerSideBar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = [
-    { name: "Map view", path: "/mapView", icon: <MdMap /> },
-    { name: "Settings", path: "/setting", icon: <MdSettings /> },
+    { name: "Map view", path: "/customerMapView", icon: <MdMap /> },
+    { name: "Settings", path: "/customerSetting", icon: <MdSettings /> },
   ];
 
   return (

@@ -14,6 +14,8 @@ import FuelStock from "../pages/fuelStockManage";
 import Setting from "../pages/setting";
 import MapView from "../pages/mapView";
 import ForgotPassword from "../pages/forgotPassword";
+import CustomerMapView from "../pages/customerMapView";
+import CustomerSetting from "../pages/customerSetting";
 
 function AppRoutes() {
   return (
@@ -76,6 +78,24 @@ function AppRoutes() {
             element={
               <ProtectedRoute allowedRoles={["owner"]}>
                 <MapView/>
+              </ProtectedRoute>
+            }
+          />
+
+           <Route
+            path="/customerMapView"
+            element={
+              <ProtectedRoute allowedRoles={["customer"]}>
+                <CustomerMapView />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/customerSetting"
+            element={
+              <ProtectedRoute allowedRoles={["customer"]}>
+                <CustomerSetting />
               </ProtectedRoute>
             }
           />
