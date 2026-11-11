@@ -107,16 +107,23 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
     checkAuthentication();
   }, []);
 
-   const logout = async() => {
+   const logout = async () => {
+  try {
+    setLoading(true);
 
-   try{
     await clearRefreshToken();
-       setUser(null);
+
+    setUser(null);
+    setPreviewImage(null);
+
     localStorage.removeItem("accessToken");
-   }catch(error){
+
+  } catch (error) {
     console.error("Logout failed:", error);
-   }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <AuthContext.Provider

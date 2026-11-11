@@ -18,6 +18,11 @@ import "./addStation.css"
 import { loadStation, updateStationService } from "../services/stationService";
 import { useNavigate } from 'react-router-dom';
 import { UseStationDetailsContext } from "../context/StationContext";
+import {
+    showSuccessAlert,
+    showErrorAlert,
+    showWarningAlert
+} from "../services/alertService";
 
 export interface FuelOption{
   fuelType :string,
@@ -234,18 +239,65 @@ function AddFillingStationLocation() {
 }, [selectedItems]);
 
 const addFillingStation=async()=>{
-  if(!isEditMode){
-     await loadStation(stationDetails,position,selectedItems,openingTime,closingTime);
-  }else{
-    if (!selectedStation) {
-        alert("Please select a station first");
+
+   if (!stationDetails.stationName.trim()) {
+        await showWarningAlert("Please enter your station name.");
         return;
     }
-    if(!stationDetails.stationId){
-      alert("update station id not found please add station id for update")
+
+    if (!stationDetails.stationContact.trim()) {
+        await showWarningAlert("Please enter your station contact number.");
+        return;
     }
-    await updateStationService(stationDetails,position,selectedItems,openingTime,closingTime)
+
+
+     if (!stationDetails.stationAddress.trim()) {
+        await showWarningAlert("Please enter your station address.");
+        return;
+    }
+
+
+    if (!position) {
+        await showWarningAlert("Please select your station location on the map.");
+        return;
+    }
+
+     if (selectedItems.length === 0) {
+        await showWarningAlert("Please select at least one fuel type.");
+        return;
+    }
+
+    try{
+       if(!isEditMode){
+     await loadStation(stationDetails,position,selectedItems,openingTime,closingTime);
+      await showSuccessAlert(
+                "Your fuel station has been registered successfully!"
+            );
+  }else{
+      if (!selectedStation) {
+          await showWarningAlert("Please select a station first.");
+          return;
+      }
+        if(!stationDetails.stationId){
+            await showWarningAlert("Station ID not found. Please try again.");
+        }
+        await updateStationService(stationDetails,position,selectedItems,openingTime,closingTime)
+         await showSuccessAlert(
+                "Station details updated successfully!"
+            );
+
+             setIsEditMode(false);
+          navigate("/dashboard");
   }
+    }catch(error){
+        await showErrorAlert(
+            isEditMode
+                ? "Unable to update station details. Please try again."
+                : "Unable to register your station. Please try again."
+        );
+    }
+
+ 
    
 }
 
@@ -397,6 +449,7 @@ useEffect(() => {
                 <span></span>
                 <span>Tank capacity (L)</span>
                 <span>Current stock (L)</span>
+                <span>FuelPrice(Rs.)</span>
               </div>
                 <div className="fuel-list">
                   {fuel.map((availableFuel) => {
@@ -434,7 +487,6 @@ useEffect(() => {
             }
             placeholder="0.00"
         />
-          <label className="fuel-name">Fuel unit price</label>
         <input
           type="number"
           defaultValue={availableFuel.fuelPrice}

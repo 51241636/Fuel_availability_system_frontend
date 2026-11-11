@@ -81,9 +81,11 @@ function Login() {
       const response = await loginUser({ username, password, role });
       console.log(response.data.userData.userRole)
       if(response.data.userData.userRole === "owner"){
-        return <Navigate to="/dashboard" replace />;
+         await navigate("/dashboard", { replace: true });
       }
-      // console.log("Login successful:", response);
+        
+      // }
+      console.log("Login successful:", response);
     } catch (error:any) {
       console.error("Login failed:", error.response.message);
       setError("Username or password is incorrect. Check them and try again.");
@@ -298,7 +300,7 @@ function Login() {
 
           <p className="fs-switch">
             {copy.helper}{" "}
-            <a href="#" className="fs-link">
+            <a href="/register" className="fs-link">
               {copy.link}
             </a>
           </p>

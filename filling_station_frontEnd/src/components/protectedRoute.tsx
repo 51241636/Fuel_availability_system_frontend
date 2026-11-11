@@ -17,11 +17,14 @@ function ProtectedRoute({
   console.log("user0202", user)
 
   if (loading) {
+    console.log("loadinfkbkjnjkn",loading)
     return (
       <div className="flex min-h-screen items-center justify-center">
         <p className="text-gray-600">Checking authentication...</p>
       </div>
     );
+  }else{
+    console.log("loadinf",loading)
   }
 
   // User is not logged in

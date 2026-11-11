@@ -6,6 +6,11 @@ import { getUserStationDetail } from "../services/stationService";
 import type { UserStation } from "../interface/stationDetailInterface";
 import { UseStationDetailsContext } from "../context/StationContext";
 import { useNavigate } from "react-router-dom";
+import {
+    showSuccessAlert,
+    showErrorAlert,
+    showWarningAlert
+} from "../services/alertService";
 
 const MyStation = () => {
     const navigate=useNavigate()
@@ -21,6 +26,9 @@ const MyStation = () => {
         setStation(response.data.station);
       } catch (error) {
         console.error("Failed to load station details:", error);
+         await showErrorAlert(
+                "Unable to load your station details. Please try again."
+            );
       } finally {
         setLoading(false);
       }
@@ -41,9 +49,9 @@ const MyStation = () => {
     isOpen: true,
   };
 
-  const openGoogleMaps = () => {
+  const openGoogleMaps = async() => {
     if (station.latitude == null || station.longitude == null) {
-      alert("Location coordinates are not available");
+       await showWarningAlert("Location coordinates are not available.");
       return;
     }
 
@@ -51,9 +59,9 @@ const MyStation = () => {
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  const editAddedStation=()=>{
-    if (!selectedStation) {
-        alert("Please select a station first");
+  const editAddedStation=async()=>{
+     if (!selectedStation) {
+        await showWarningAlert("Please select a station first.");
         return;
     }
     setUserSelectedStation(selectedStation);
@@ -203,7 +211,7 @@ const MyStation = () => {
               )}
             </div>
 
-            <button className="my-station-outline-btn" onClick={() => alert("Connect your fuel update form here.")}>
+            <button className="my-station-outline-btn" onClick={editAddedStation}>
               Update Fuel Stock <span>↗</span>
             </button>
           </section>
@@ -269,7 +277,7 @@ const MyStation = () => {
               </div>
             </div>
 
-            <button className="my-station-outline-btn" onClick={() => alert("Connect your station details form here.")}>
+            <button className="my-station-outline-btn" onClick={editAddedStation  }>
               Manage Details <span>↗</span>
             </button>
           </section>
@@ -294,7 +302,7 @@ const MyStation = () => {
               </span>
             </div>
 
-            <button className="my-station-outline-btn" onClick={() => alert("Connect your opening hours form here.")}>
+            <button className="my-station-outline-btn" onClick={editAddedStation}>
               Edit Opening Hours <span>↗</span>
             </button>
           </section>

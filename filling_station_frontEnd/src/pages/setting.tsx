@@ -21,7 +21,13 @@ import { ChangePassword, clearRefreshToken, updateUserDetails } from "../service
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthConext";
 import type { ProfileDetails } from "../interface/profileDetail";
-
+import {
+    showSuccessAlert,
+    showErrorAlert,
+    showWarningAlert,
+    confirmDiscardChanges
+} from "../services/alertService";
+// import type { Url } from "url";
 
 
 const Setting = () => {
@@ -32,9 +38,7 @@ const Setting = () => {
         const fetchStation = async () => {
           try {
             const response = await getMyDetails();
-            
             setProfile(response.data.myDetails);
-            console.log(response.data.image)
             setPreviewImage(response.data.image)
           } catch (error) {
             console.error("Failed to load station details:", error);
@@ -49,7 +53,7 @@ const Setting = () => {
   // Replace these sample values with your logged-in user's details.
   const [profile, setProfile] = useState<ProfileDetails>({
     _id:"",
-    name: "",
+    userName: "",
     email: "",
     address: "",
     contact: ""
@@ -100,23 +104,40 @@ const Setting = () => {
     
   };
 
-  const handleImageChange = (
+  const handleImageChange = async(
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
 
-    if (file) {
+    if (!file) return;
+
+     if (file.size > 5 * 1024 * 1024) {
+        await showWarningAlert("Image size must be less than 5 MB.");
+        e.target.value = "";
+        return;
+    }
       setPreviewImage(URL.createObjectURL(file));
       setProfileImage(file);
-    }
   };
 
   const handleUpdateProfile = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    const message=await updateUserDetails(profileImage,profile)
-    console.log(message)
+    
+    try{
+      const message=await updateUserDetails(profileImage,profile)
+       await showSuccessAlert(
+            "Your profile details have been updated successfully!"
+        );
+        setProfileImage(null);
+    }catch(error){
+      console.error("Profile update failed:", error);
+
+        await showErrorAlert(
+            "Unable to update your profile. Please try again."
+        );
+    }
   };
 
   const handleUpdatePassword = async (
@@ -125,17 +146,18 @@ const Setting = () => {
     e.preventDefault();
 
     if (password.newPassword !== password.confirmPassword) {
-      alert("New password and confirm password do not match.");
+        await showWarningAlert(
+            "New password and confirm password do not match."
+        );
       return;
     }
 
     if (password.newPassword.length < 8) {
-      alert("Password must contain at least 8 characters.");
+      await showWarningAlert(
+            "Password must contain at least 8 characters."
+        );
       return;
     }
-
-    // Connect your change password API here.
-    console.log("Password update requested");
 
     setPassword({
       currentPassword: "",
@@ -147,19 +169,38 @@ const Setting = () => {
   const handleLogout = async() => {
     try{
         await logout();
-        navigate("/login", { replace: true });
+         await showSuccessAlert(
+            "You have been logged out successfully."
+        );
+        // navigate("/login", { replace: true });
+       const url: string = "/login";
+
+        window.location.replace(url);
         
     }catch(error){
         console.error("Logout failed:", error);
+        await showErrorAlert(
+            "Unable to log out. Please try again."
+        );
     }
   };
 
   const changePassword=async()=>{
     try{
       const response=await ChangePassword(password.currentPassword,password.newPassword)
-      console.log("password changed successfully")
+      await showSuccessAlert(
+            "Your password has been changed successfully!"
+        );
+        setPassword({
+            currentPassword: "",
+            newPassword: "",
+            confirmPassword: ""
+        });
     }catch(error){
       console.error("Logout failed:", error);
+      await showErrorAlert(
+            "Unable to change your password. Please check your current password."
+        );
     }
   }
 
@@ -219,9 +260,9 @@ const Setting = () => {
                       <img src={previewImage} alt="Profile" />
                     ) : (
                       <span>
-                        {profile.name
+                        {profile.userName
                           .split(" ")
-                          .map(name => name[0])
+                          .map(userName => userName[0])
                           .join("")
                           .slice(0, 2)
                           .toUpperCase()}
@@ -246,7 +287,7 @@ const Setting = () => {
                   </div>
 
                   <div>
-                    <h3>{profile.name || "Your Name"}</h3>
+                    <h3>{profile.userName || "Your Name"}</h3>
                     <p>{profile.email}</p>
                     <span>Account profile</span>
                   </div>
@@ -261,7 +302,7 @@ const Setting = () => {
                       <input
                         type="name"
                         name="name"
-                        value={profile.name}
+                        value={profile.userName}
                         onChange={handleProfileChange}
                         placeholder="Enter your full name"
                         required
@@ -422,7 +463,7 @@ const Setting = () => {
                 </p>
 
                 <div className="setting-form-actions">
-                  <button type="submit" className="setting-save-btn"onClick={changePassword}>
+                  <button type="submit" className="setting-save-btn">
                     <FaLock />
                     Update password
                   </button>
@@ -443,16 +484,16 @@ const Setting = () => {
                 {previewImage ? (
                   <img src={previewImage} alt="Profile" />
                 ) : (
-                  profile.name
+                  profile.userName
                     .split(" ")
-                    .map(name => name[0])
+                    .map(userName => userName[0])
                     .join("")
                     .slice(0, 2)
                     .toUpperCase()
                 )}
               </div>
 
-              <h2>{profile.name}</h2>
+              <h2>{profile.userName}</h2>
               <p>{profile.email}</p>
 
               <span className="setting-account-status">
@@ -464,7 +505,7 @@ const Setting = () => {
               <div className="setting-account-info">
                 <div>
                   <span>Username</span>
-                  <strong>{profile.name}</strong>
+                  <strong>{profile.userName}</strong>
                 </div>
 
                 <div>

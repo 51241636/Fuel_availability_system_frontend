@@ -2,7 +2,7 @@
 
 export interface ProfileDetails {
   _id:string;
-  name: string;
+  userName: string;
   email: string;
   address: string;
   contact: string;

@@ -2,18 +2,11 @@ import "./Register.css";
 
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { registerAccountService } from "../services/registerService";
 // Add a `registerUser` function to your AuthService (POST to your register endpoint)
 // import { registerUser } from "../services/AuthService";
 
 type Role = "customer" | "owner";
-
-const FUEL_TYPES = [
-  "Petrol 92",
-  "Petrol 95",
-  "Auto Diesel",
-  "Super Diesel",
-  "Kerosene",
-];
 
 const ROLE_INFO: Record<
   Role,
@@ -50,14 +43,12 @@ function getStrength(pw: string) {
 }
 
 function Register() {
-  const [role, setRole] = useState<Role>("customer");
-  const [fullName, setFullName] = useState("");
-  const [username, setUsername] = useState("");
+  const [userRole, setRole] = useState<Role>("customer");
+  const [firstName, setFullName] = useState("");
+  const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [stationName, setStationName] = useState("");
-  const [city, setCity] = useState("");
-  const [fuels, setFuels] = useState<string[]>([]);
+  const [contact, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -66,25 +57,15 @@ function Register() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const info = ROLE_INFO[role];
+  const info = ROLE_INFO[userRole];
   const strength = getStrength(password);
 
-  const toggleFuel = (name: string) =>
-    setFuels((prev) =>
-      prev.includes(name) ? prev.filter((f) => f !== name) : [...prev, name]
-    );
-
   const validate = (): string => {
-    if (!fullName.trim()) return "Enter your full name.";
-    if (username.trim().length < 4)
+    if (!firstName.trim()) return "Enter your full name.";
+    if (userName.trim().length < 4)
       return "Username must be at least 4 characters.";
     if (!/^\S+@\S+\.\S+$/.test(email)) return "Enter a valid email address.";
-    if (!/^[0-9+\s-]{9,15}$/.test(phone)) return "Enter a valid phone number.";
-    if (role === "owner") {
-      if (!stationName.trim()) return "Enter your filling station name.";
-      if (!city.trim()) return "Enter the city or town of your station.";
-      if (fuels.length === 0) return "Select at least one fuel you sell.";
-    }
+    if (!/^[0-9+\s-]{9,15}$/.test(contact)) return "Enter a valid phone number.";
     if (password.length < 8) return "Password must be at least 8 characters.";
     if (password !== confirm) return "Passwords do not match.";
     if (!agree) return "Accept the terms to create your account.";
@@ -115,7 +96,7 @@ function Register() {
     //   });
     //   console.log("Registration successful:", response);
       setSuccess(
-        role === "owner"
+        userRole === "owner"
           ? "Account created. Sign in to pin your station on the map."
           : "Account created. You can sign in now."
       );
@@ -126,6 +107,99 @@ function Register() {
       setLoading(false);
     }
   };
+
+
+  function clearForm() {
+    setFullName("")
+    setUsername("")
+    setEmail("")
+    setPhone("")
+    setAddress("")
+    setPassword("")
+    setAgree(false)
+    setLoading(false)
+    setError("")
+    setSuccess("")
+}
+
+
+  const registerAccount=async()=>{
+    try{
+      const problem = validate();
+        if (problem) {
+          setError(problem);
+          return;
+        }
+        const response=await registerAccountService(firstName,userName,email,address,contact,password,userRole)
+        if(response.data.role == "owner"){
+            const paymentUrl = await response.paymentUrl;
+        const paymentData = await response.payment;
+
+        if(paymentUrl && paymentData){
+          console.log("payment url : ",paymentUrl)
+          console.log("payment Data : ",paymentData)
+           startPayHerePayment(paymentUrl,paymentData)
+        }else{
+           setError("Payment details not received from server.");
+        }
+        }else{
+          const url: string = "/login";
+
+          window.location.replace(url);
+        }
+        
+        // clearForm();
+      }catch(error){
+      console.error(error)
+       setError("Registration failed. Please try again.");
+    }
+  }
+
+  interface PayHerePayment {
+    merchant_id: string;
+    return_url: string;
+    cancel_url: string;
+    notify_url: string;
+
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    address: string;
+    city: string;
+    country: string;
+
+    order_id: string;
+    items: string;
+    currency: string;
+    amount: string;
+    hash: string;
+}
+
+  const startPayHerePayment = (
+    paymentUrl: string,
+    paymentData: PayHerePayment
+) => {
+    const form = document.createElement("form");
+    
+
+    form.method = "POST";
+    form.action = paymentUrl;
+
+    Object.entries(paymentData).forEach(([key, value]) => {
+        const input = document.createElement("input");
+
+        input.type = "hidden";
+        input.name = key;
+        input.value = value;
+
+        form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+
+    form.submit();
+};
 
   return (
     <div className="reg-container">
@@ -173,8 +247,8 @@ function Register() {
             <button
               type="button"
               role="radio"
-              aria-checked={role === "customer"}
-              className={`reg-role ${role === "customer" ? "is-active" : ""}`}
+              aria-checked={userRole === "customer"}
+              className={`reg-role ${userRole === "customer" ? "is-active" : ""}`}
               onClick={() => setRole("customer")}
             >
               <span className="reg-role-title">Driver</span>
@@ -183,8 +257,8 @@ function Register() {
             <button
               type="button"
               role="radio"
-              aria-checked={role === "owner"}
-              className={`reg-role ${role === "owner" ? "is-active" : ""}`}
+              aria-checked={userRole === "owner"}
+              className={`reg-role ${userRole === "owner" ? "is-active" : ""}`}
               onClick={() => setRole("owner")}
             >
               <span className="reg-role-title">Station owner</span>
@@ -206,13 +280,13 @@ function Register() {
 
             <div className="reg-row">
               <div className="reg-group">
-                <label htmlFor="fullName">Full name</label>
+                <label htmlFor="fullName">First name</label>
                 <input
                   id="fullName"
                   type="text"
                   autoComplete="name"
-                  placeholder="Your full name"
-                  value={fullName}
+                  placeholder="Your First name"
+                  value={firstName}
                   onChange={(e) => setFullName(e.target.value)}
                 />
               </div>
@@ -223,7 +297,7 @@ function Register() {
                   type="text"
                   autoComplete="username"
                   placeholder="Choose a username"
-                  value={username}
+                  value={userName}
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
@@ -248,62 +322,27 @@ function Register() {
                   type="tel"
                   autoComplete="tel"
                   placeholder="07X XXX XXXX"
-                  value={phone}
+                  value={contact}
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
             </div>
 
-            {/* Owner-only section */}
-            {role === "owner" && (
-              <fieldset className="reg-station">
-                <legend>Your filling station</legend>
-
-                <div className="reg-row">
-                  <div className="reg-group">
-                    <label htmlFor="stationName">Station name</label>
-                    <input
-                      id="stationName"
-                      type="text"
-                      placeholder="e.g. Galle Road Filling Station"
-                      value={stationName}
-                      onChange={(e) => setStationName(e.target.value)}
-                    />
-                  </div>
-                  <div className="reg-group">
-                    <label htmlFor="city">City / town</label>
-                    <input
-                      id="city"
-                      type="text"
-                      placeholder="e.g. Colombo 03"
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                    />
-                  </div>
+            <div className="reg-row">
+                <div className="reg-group">
+                     <label htmlFor="email">Address</label>
+                <input
+                  id="address"
+                  type="address"
+                  autoComplete="address"
+                  placeholder="Enter your address"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                />
                 </div>
+            </div>
 
-                <span className="reg-label">Fuels you sell</span>
-                <div className="reg-chips">
-                  {FUEL_TYPES.map((f) => (
-                    <label
-                      key={f}
-                      className={`reg-chip ${fuels.includes(f) ? "is-on" : ""}`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={fuels.includes(f)}
-                        onChange={() => toggleFuel(f)}
-                      />
-                      {f}
-                    </label>
-                  ))}
-                </div>
-                <p className="reg-hint">
-                  After you sign in, you will pin your station on the map and
-                  set your stock levels.
-                </p>
-              </fieldset>
-            )}
+            
 
             <div className="reg-row">
               <div className="reg-group">
@@ -366,10 +405,10 @@ function Register() {
               </span>
             </label>
 
-            <button type="submit" className="reg-submit" disabled={loading}>
+            <button type="submit" className="reg-submit" disabled={loading} onClick={registerAccount}>
               {loading
                 ? "Creating account..."
-                : role === "owner"
+                : userRole === "owner"
                 ? "Register my station"
                 : "Create account"}
             </button>
