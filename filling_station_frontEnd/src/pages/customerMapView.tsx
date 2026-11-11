@@ -126,11 +126,60 @@ function CustomerMapView() {
   },[])
 
    if (loading) {
-    return <p>Loading stations...</p>;
-  }
-  
-  if (!selectedStation) {
-    return <p>No stations available.</p>;
+  return (
+    <div className="station-loading">
+      <div className="loading-content">
+
+        <div className="fuel-loader">
+          <div className="loader-ring"></div>
+          <div className="loader-ring-inner"></div>
+          <i className="fa-solid fa-gas-pump"></i>
+        </div>
+
+        <h2>Finding Fuel Stations</h2>
+
+        <p>
+          Please wait while we fetch the latest station information...
+        </p>
+
+        <div className="loading-progress">
+          <span></span>
+        </div>
+
+        <div className="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+if (!selectedStation) {
+  return (
+    <div className="no-station-container">
+      <div className="no-station-card">
+        <div className="no-station-icon">
+          <i className="fa-solid fa-gas-pump"></i>
+          <span className="no-station-cross">!</span>
+        </div>
+
+        <h2>No Stations Available</h2>
+
+        <p>
+          We couldn't find any fuel stations at the moment.
+          Please check again later.
+        </p>
+
+        <div className="no-station-status">
+          <span></span>
+          No station data found
+        </div>
+      </div>
+    </div>
+  );
 }
 
 
