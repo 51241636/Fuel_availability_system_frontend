@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { FaGasPump } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { GrStatusGoodSmall } from "react-icons/gr";
-import "./customerSideBar.css"
+import "./sidebar.css"
 import {
   MdMap,
   MdSettings,
