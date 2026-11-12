@@ -42,7 +42,13 @@
   width: 100%;
   padding: 28px;
   color: var(--text);
-  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-family:
+    "Manrope",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Arial,
+    sans-serif;
   background: var(--bg);
   box-sizing: border-box;
 }
@@ -97,7 +103,9 @@
   cursor: pointer;
   white-space: nowrap;
   box-shadow: 0 6px 18px rgba(231, 71, 60, 0.35);
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
 }
 
 .my-pin-button:hover {
@@ -137,7 +145,8 @@
 
 /* Dark-mode the OpenStreetMap tiles (markers are unaffected) */
 .leaflet-map .leaflet-tile-pane {
-  filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.88) saturate(0.55);
+  filter: invert(1) hue-rotate(180deg) brightness(0.92) contrast(0.88)
+    saturate(0.55);
 }
 
 /* ---------- Floating toolbar (search + filters) ---------- */
@@ -185,7 +194,9 @@
   font-size: 14px;
   outline: none;
   box-shadow: var(--shadow-float);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .map-search input::placeholder {
@@ -194,7 +205,9 @@
 
 .map-search input:focus {
   border-color: var(--accent);
-  box-shadow: var(--shadow-float), 0 0 0 3px var(--accent-soft);
+  box-shadow:
+    var(--shadow-float),
+    0 0 0 3px var(--accent-soft);
 }
 
 .map-filters {
@@ -221,7 +234,10 @@
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .map-filters button:hover {
@@ -395,7 +411,9 @@
   border-radius: 50%;
   background: #4c9bff;
   border: 3px solid #ffffff;
-  box-shadow: 0 0 0 6px rgba(76, 155, 255, 0.28), 0 3px 8px rgba(0, 0, 0, 0.5);
+  box-shadow:
+    0 0 0 6px rgba(76, 155, 255, 0.28),
+    0 3px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* ---------- Nearby panel ---------- */
@@ -470,7 +488,9 @@
   border-radius: var(--radius-md);
   background: var(--surface-2);
   cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
 }
 
 .nearby-station-card:hover {
@@ -479,7 +499,9 @@
 
 .nearby-station-card.selected {
   border-color: var(--accent);
-  background: linear-gradient(0deg, var(--accent-soft), var(--accent-soft)), var(--surface-2);
+  background:
+    linear-gradient(0deg, var(--accent-soft), var(--accent-soft)),
+    var(--surface-2);
 }
 
 .station-card-header {
@@ -662,7 +684,10 @@
   font-weight: 800;
   text-decoration: none;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
-  transition: background 0.25s ease, color 0.25s ease, transform 0.15s ease;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.15s ease;
 }
 
 .panel-direction-button i:first-child {
@@ -689,7 +714,10 @@
   background: #eeeef2;
   color: #14141a;
   font-size: 12px;
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .panel-direction-button:hover {
@@ -792,7 +820,13 @@
   flex-direction: column;
   width: 100%;
   color: #ffffff;
-  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  font-family:
+    "Manrope",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Arial,
+    sans-serif;
 }
 
 /* Everything below the header gets side spacing */
@@ -818,7 +852,11 @@
   align-items: center;
   padding: 18px 44px 16px 18px;
   background:
-    radial-gradient(120% 140% at 100% 0%, rgba(255, 190, 120, 0.35) 0%, transparent 55%),
+    radial-gradient(
+      120% 140% at 100% 0%,
+      rgba(255, 190, 120, 0.35) 0%,
+      transparent 55%
+    ),
     linear-gradient(135deg, #f0583d 0%, #c92f3a 100%);
   border-bottom: 0;
 }
@@ -980,10 +1018,18 @@
   overflow: hidden;
   border-radius: 3px;
   -webkit-mask-image: repeating-linear-gradient(
-    90deg, #000 0, #000 calc(10% - 3px), transparent calc(10% - 3px), transparent 10%
+    90deg,
+    #000 0,
+    #000 calc(10% - 3px),
+    transparent calc(10% - 3px),
+    transparent 10%
   );
   mask-image: repeating-linear-gradient(
-    90deg, #000 0, #000 calc(10% - 3px), transparent calc(10% - 3px), transparent 10%
+    90deg,
+    #000 0,
+    #000 calc(10% - 3px),
+    transparent calc(10% - 3px),
+    transparent 10%
   );
 }
 
@@ -1043,7 +1089,9 @@
   font-size: 13px;
   font-weight: 800;
   text-decoration: none !important;
-  transition: background 0.25s ease, color 0.25s ease;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .fuel-station-popup .popup-direction-button i:first-child {
@@ -1070,7 +1118,10 @@
   background: #eeeef2;
   color: #14141a;
   font-size: 11px;
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .fuel-station-popup .popup-direction-button:hover {
@@ -1176,7 +1227,7 @@
 
 .call-button {
   display: inline-flex;
-  align-items: center;  
+  align-items: center;
   justify-content: center;
   gap: 10px;
   padding: 10px 18px;
@@ -1199,11 +1250,6 @@
 .call-button:active {
   transform: scale(0.97);
 }
-
-
-
-
-
 
 .station-loading {
   min-height: 75vh;
@@ -1332,7 +1378,8 @@
 }
 
 @keyframes pumpPulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
@@ -1352,7 +1399,9 @@
 }
 
 @keyframes dotBounce {
-  0%, 60%, 100% {
+  0%,
+  60%,
+  100% {
     transform: translateY(0);
     opacity: 0.4;
   }
@@ -1382,11 +1431,6 @@
     font-size: 13px;
   }
 }
-
-
-
-
-
 
 .no-station-container {
   min-height: 65vh;

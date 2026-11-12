@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import "./forgotPassword.css";
 
@@ -7,10 +6,7 @@ interface ForgotPasswordProps {
   onSubmit?: (email: string) => void;
 }
 
-const ForgotPassword = ({
-  onClose,
-  onSubmit,
-}: ForgotPasswordProps) => {
+const ForgotPassword = ({ onClose, onSubmit }: ForgotPasswordProps) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -47,10 +43,7 @@ const ForgotPassword = ({
 
   return (
     <div className="forgot-overlay" onClick={onClose}>
-      <div
-        className="forgot-modal"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="forgot-modal" onClick={(e) => e.stopPropagation()}>
         <button
           className="forgot-close"
           onClick={onClose}
@@ -86,8 +79,8 @@ const ForgotPassword = ({
             <h2>Forgot Password?</h2>
 
             <p className="forgot-description">
-              Don't worry! It happens. Enter your registered email
-              address and we'll help you reset your password.
+              Don't worry! It happens. Enter your registered email address and
+              we'll help you reset your password.
             </p>
 
             <form onSubmit={handleSubmit}>
@@ -116,9 +109,7 @@ const ForgotPassword = ({
                 />
               </div>
 
-              {error && (
-                <p className="forgot-error">{error}</p>
-              )}
+              {error && <p className="forgot-error">{error}</p>}
 
               <button
                 className="forgot-submit"
@@ -139,11 +130,7 @@ const ForgotPassword = ({
               </button>
             </form>
 
-            <button
-              className="forgot-back"
-              type="button"
-              onClick={onClose}
-            >
+            <button className="forgot-back" type="button" onClick={onClose}>
               <span>←</span> Back to Login
             </button>
           </>
@@ -165,15 +152,11 @@ const ForgotPassword = ({
             <h2>Check Your Email!</h2>
 
             <p>
-              If an account exists for <strong>{email}</strong>,
-              you will receive password reset instructions.
+              If an account exists for <strong>{email}</strong>, you will
+              receive password reset instructions.
             </p>
 
-            <button
-              className="forgot-submit"
-              onClick={onClose}
-              type="button"
-            >
+            <button className="forgot-submit" onClick={onClose} type="button">
               Back to Login
               <span>→</span>
             </button>

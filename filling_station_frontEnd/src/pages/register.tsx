@@ -65,7 +65,8 @@ function Register() {
     if (userName.trim().length < 4)
       return "Username must be at least 4 characters.";
     if (!/^\S+@\S+\.\S+$/.test(email)) return "Enter a valid email address.";
-    if (!/^[0-9+\s-]{9,15}$/.test(contact)) return "Enter a valid phone number.";
+    if (!/^[0-9+\s-]{9,15}$/.test(contact))
+      return "Enter a valid phone number.";
     if (password.length < 8) return "Password must be at least 8 characters.";
     if (password !== confirm) return "Passwords do not match.";
     if (!agree) return "Accept the terms to create your account.";
@@ -85,20 +86,20 @@ function Register() {
 
     try {
       setLoading(true);
-    //   const response = await registerUser({
-    //     role,
-    //     fullName,
-    //     username,
-    //     email,
-    //     phone,
-    //     password,
-    //     ...(role === "owner" ? { stationName, city, fuels } : {}),
-    //   });
-    //   console.log("Registration successful:", response);
+      //   const response = await registerUser({
+      //     role,
+      //     fullName,
+      //     username,
+      //     email,
+      //     phone,
+      //     password,
+      //     ...(role === "owner" ? { stationName, city, fuels } : {}),
+      //   });
+      //   console.log("Registration successful:", response);
       setSuccess(
         userRole === "owner"
           ? "Account created. Sign in to pin your station on the map."
-          : "Account created. You can sign in now."
+          : "Account created. You can sign in now.",
       );
     } catch (err) {
       console.error("Registration failed:", err);
@@ -108,52 +109,58 @@ function Register() {
     }
   };
 
-
   function clearForm() {
-    setFullName("")
-    setUsername("")
-    setEmail("")
-    setPhone("")
-    setAddress("")
-    setPassword("")
-    setAgree(false)
-    setLoading(false)
-    setError("")
-    setSuccess("")
-}
+    setFullName("");
+    setUsername("");
+    setEmail("");
+    setPhone("");
+    setAddress("");
+    setPassword("");
+    setAgree(false);
+    setLoading(false);
+    setError("");
+    setSuccess("");
+  }
 
-
-  const registerAccount=async()=>{
-    try{
+  const registerAccount = async () => {
+    try {
       const problem = validate();
-        if (problem) {
-          setError(problem);
-          return;
-        }
-        const response=await registerAccountService(firstName,userName,email,address,contact,password,userRole)
-        if(response.data.role == "owner"){
-            const paymentUrl = await response.paymentUrl;
+      if (problem) {
+        setError(problem);
+        return;
+      }
+      const response = await registerAccountService(
+        firstName,
+        userName,
+        email,
+        address,
+        contact,
+        password,
+        userRole,
+      );
+      if (response.data.role == "owner") {
+        const paymentUrl = await response.paymentUrl;
         const paymentData = await response.payment;
 
-        if(paymentUrl && paymentData){
-          console.log("payment url : ",paymentUrl)
-          console.log("payment Data : ",paymentData)
-           startPayHerePayment(paymentUrl,paymentData)
-        }else{
-           setError("Payment details not received from server.");
+        if (paymentUrl && paymentData) {
+          console.log("payment url : ", paymentUrl);
+          console.log("payment Data : ", paymentData);
+          startPayHerePayment(paymentUrl, paymentData);
+        } else {
+          setError("Payment details not received from server.");
         }
-        }else{
-          const url: string = "/login";
+      } else {
+        const url: string = "/login";
 
-          window.location.replace(url);
-        }
-        
-        // clearForm();
-      }catch(error){
-      console.error(error)
-       setError("Registration failed. Please try again.");
+        window.location.replace(url);
+      }
+
+      // clearForm();
+    } catch (error) {
+      console.error(error);
+      setError("Registration failed. Please try again.");
     }
-  }
+  };
 
   interface PayHerePayment {
     merchant_id: string;
@@ -174,32 +181,31 @@ function Register() {
     currency: string;
     amount: string;
     hash: string;
-}
+  }
 
   const startPayHerePayment = (
     paymentUrl: string,
-    paymentData: PayHerePayment
-) => {
+    paymentData: PayHerePayment,
+  ) => {
     const form = document.createElement("form");
-    
 
     form.method = "POST";
     form.action = paymentUrl;
 
     Object.entries(paymentData).forEach(([key, value]) => {
-        const input = document.createElement("input");
+      const input = document.createElement("input");
 
-        input.type = "hidden";
-        input.name = key;
-        input.value = value;
+      input.type = "hidden";
+      input.name = key;
+      input.value = value;
 
-        form.appendChild(input);
+      form.appendChild(input);
     });
 
     document.body.appendChild(form);
 
     form.submit();
-};
+  };
 
   return (
     <div className="reg-container">
@@ -243,7 +249,11 @@ function Register() {
           <p className="reg-sub">Choose how you will use PumpCheck.</p>
 
           {/* Role cards */}
-          <div className="reg-roles" role="radiogroup" aria-label="Account type">
+          <div
+            className="reg-roles"
+            role="radiogroup"
+            aria-label="Account type"
+          >
             <button
               type="button"
               role="radio"
@@ -329,8 +339,8 @@ function Register() {
             </div>
 
             <div className="reg-row">
-                <div className="reg-group">
-                     <label htmlFor="email">Address</label>
+              <div className="reg-group">
+                <label htmlFor="email">Address</label>
                 <input
                   id="address"
                   type="address"
@@ -339,10 +349,8 @@ function Register() {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
-                </div>
+              </div>
             </div>
-
-            
 
             <div className="reg-row">
               <div className="reg-group">
@@ -405,12 +413,17 @@ function Register() {
               </span>
             </label>
 
-            <button type="submit" className="reg-submit" disabled={loading} onClick={registerAccount}>
+            <button
+              type="submit"
+              className="reg-submit"
+              disabled={loading}
+              onClick={registerAccount}
+            >
               {loading
                 ? "Creating account..."
                 : userRole === "owner"
-                ? "Register my station"
-                : "Create account"}
+                  ? "Register my station"
+                  : "Create account"}
             </button>
           </form>
 

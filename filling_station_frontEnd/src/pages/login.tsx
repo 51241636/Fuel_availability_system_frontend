@@ -7,9 +7,12 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthConext";
 import ForgotPassword from "../pages/forgotPassword";
 
-type Role = "customer" | "owner" ;
+type Role = "customer" | "owner";
 
-const ROLE_COPY: Record<Role,{ heading: string; sub: string; button: string; helper: string; link: string }> = {
+const ROLE_COPY: Record<
+  Role,
+  { heading: string; sub: string; button: string; helper: string; link: string }
+> = {
   customer: {
     heading: "Find fuel near you",
     sub: "Sign in to see which stations have stock right now.",
@@ -34,7 +37,7 @@ const FUELS = [
   { name: "Kerosene", level: 62, state: "ok", label: "Available" },
 ] as const;
 
-function Login() { 
+function Login() {
   const [role, setRole] = useState<Role>("customer");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -43,17 +46,11 @@ function Login() {
   const [error, setError] = useState("");
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
-  const {user,loading,setUser}=useAuth();
+  const { user, loading, setUser } = useAuth();
 
-  if(loading){
-    return(
-      <p> checkAuthentication</p>
-    )
+  if (loading) {
+    return <p> checkAuthentication</p>;
   }
-
-
-
- 
 
   const copy = ROLE_COPY[role];
 
@@ -71,16 +68,16 @@ function Login() {
 
       const response = await loginUser({ username, password, role });
       setUser(response.data.userData);
-      console.log(response.data.userData.userRole)
-      if(response.data.userData.userRole === "owner"){
-         await navigate("/dashboard", { replace: true });
-      }else if(response.data.userData.userRole === "customer"){
+      console.log(response.data.userData.userRole);
+      if (response.data.userData.userRole === "owner") {
+        await navigate("/dashboard", { replace: true });
+      } else if (response.data.userData.userRole === "customer") {
         await navigate("/customerMapView", { replace: true });
       }
-        
+
       // }
       console.log("Login successful:", response);
-    } catch (error:any) {
+    } catch (error: any) {
       console.error("Login failed:", error.response.message);
       setError("Username or password is incorrect. Check them and try again.");
     } finally {
@@ -98,7 +95,10 @@ function Login() {
           preserveAspectRatio="xMidYMid slice"
           aria-hidden="true"
         >
-          <path className="fs-water" d="M-20 640 C 150 560, 260 700, 420 640 S 700 560, 840 620 L 840 920 L -20 920 Z" />
+          <path
+            className="fs-water"
+            d="M-20 640 C 150 560, 260 700, 420 640 S 700 560, 840 620 L 840 920 L -20 920 Z"
+          />
           <g className="fs-block">
             <rect x="60" y="80" width="150" height="110" rx="10" />
             <rect x="250" y="60" width="120" height="150" rx="10" />
@@ -128,16 +128,40 @@ function Login() {
         <div className="fs-map-shade" />
 
         {/* Pins */}
-        <span className="fs-pin fs-pin--ok" style={{ left: "17%", top: "34%" }} />
-        <span className="fs-pin fs-pin--low" style={{ left: "72%", top: "22%" }} />
-        <span className="fs-pin fs-pin--ok" style={{ left: "80%", top: "54%" }} />
-        <span className="fs-pin fs-pin--out" style={{ left: "14%", top: "62%" }} />
-        <span className="fs-pin fs-pin--ok" style={{ left: "46%", top: "70%" }} />
+        <span
+          className="fs-pin fs-pin--ok"
+          style={{ left: "17%", top: "34%" }}
+        />
+        <span
+          className="fs-pin fs-pin--low"
+          style={{ left: "72%", top: "22%" }}
+        />
+        <span
+          className="fs-pin fs-pin--ok"
+          style={{ left: "80%", top: "54%" }}
+        />
+        <span
+          className="fs-pin fs-pin--out"
+          style={{ left: "14%", top: "62%" }}
+        />
+        <span
+          className="fs-pin fs-pin--ok"
+          style={{ left: "46%", top: "70%" }}
+        />
 
         <div className="fs-map-content">
           <header className="fs-brand">
             <div className="fs-logo" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M4 21V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16" />
                 <path d="M3 21h12" />
                 <path d="M7 8h4" />
@@ -215,7 +239,6 @@ function Login() {
             >
               Station owner
             </button>
-            
           </div>
 
           <h2 className="fs-form-heading">{copy.heading}</h2>
@@ -267,12 +290,13 @@ function Login() {
                 <input type="checkbox" />
                 Keep me signed in
               </label>
-                  <button className="fs-link"
-                  type="button"
-                  onClick={() => setShowForgotPassword(true)}
-                >
-                  Forgot Password?
-                </button>
+              <button
+                className="fs-link"
+                type="button"
+                onClick={() => setShowForgotPassword(true)}
+              >
+                Forgot Password?
+              </button>
             </div>
 
             <button type="submit" className="fs-submit" disabled={userLoading}>
@@ -280,17 +304,17 @@ function Login() {
             </button>
           </form>
 
-            {/* Forgot Password Popup */}
-            {showForgotPassword && (
-              <ForgotPassword
-                onClose={() => setShowForgotPassword(false)}
-                onSubmit={async (email) => {
-                  console.log("Forgot password email:", email);
+          {/* Forgot Password Popup */}
+          {showForgotPassword && (
+            <ForgotPassword
+              onClose={() => setShowForgotPassword(false)}
+              onSubmit={async (email) => {
+                console.log("Forgot password email:", email);
 
-                  // await forgotPassword(email);
-                }}
-              />
-            )}
+                // await forgotPassword(email);
+              }}
+            />
+          )}
 
           <p className="fs-switch">
             {copy.helper}{" "}

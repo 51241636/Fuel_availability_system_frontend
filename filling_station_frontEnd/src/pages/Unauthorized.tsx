@@ -6,7 +6,6 @@ function Unauthorized() {
   return (
     <div className="unauthorized-container">
       <div className="unauthorized-card">
-
         <div className="unauthorized-icon">
           <i className="fa-solid fa-lock"></i>
         </div>
@@ -16,21 +15,15 @@ function Unauthorized() {
         <h1>Access Denied</h1>
 
         <p className="unauthorized-description">
-          Sorry, you don't have permission to access this page.
-          Please contact your administrator if you think this is a mistake.
+          Sorry, you don't have permission to access this page. Please contact
+          your administrator if you think this is a mistake.
         </p>
 
-          <button
-          onClick={() => navigate(-1)}
-          className="unauthorized-button"
-        >
+        <button onClick={() => navigate(-1)} className="unauthorized-button">
           Back to Previous Page
         </button>
 
-        <p className="unauthorized-footer">
-          Error Code: 403 · Forbidden
-        </p>
-
+        <p className="unauthorized-footer">Error Code: 403 · Forbidden</p>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { SideBar } from "./sidebar";
 import "./setting.css";
@@ -14,203 +13,183 @@ import {
   FaSignOutAlt,
   FaSave,
   FaKey,
-  FaShieldAlt
+  FaShieldAlt,
 } from "react-icons/fa";
 import { getMyDetails } from "../services/AuthService";
-import { ChangePassword, clearRefreshToken, updateUserDetails } from "../services/settingService";
+import {
+  ChangePassword,
+  clearRefreshToken,
+  updateUserDetails,
+} from "../services/settingService";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthConext";
 import type { ProfileDetails } from "../interface/profileDetail";
 import {
-    showSuccessAlert,
-    showErrorAlert,
-    showWarningAlert,
-    confirmDiscardChanges
+  showSuccessAlert,
+  showErrorAlert,
+  showWarningAlert,
+  confirmDiscardChanges,
 } from "../services/alertService";
 // import type { Url } from "url";
 
-
 const Setting = () => {
-    const navigate = useNavigate();
-    const { logout } = useAuth();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
-    useEffect(() => {
-        const fetchStation = async () => {
-          try {
-            const response = await getMyDetails();
-            setProfile(response.data.myDetails);
-            setPreviewImage(response.data.image)
-          } catch (error) {
-            console.error("Failed to load station details:", error);
-          } finally {
-            // setLoading(false);
-          }
-        };
-    
-        fetchStation();
-      }, []);
+  useEffect(() => {
+    const fetchStation = async () => {
+      try {
+        const response = await getMyDetails();
+        setProfile(response.data.myDetails);
+        setPreviewImage(response.data.image);
+      } catch (error) {
+        console.error("Failed to load station details:", error);
+      } finally {
+        // setLoading(false);
+      }
+    };
+
+    fetchStation();
+  }, []);
 
   // Replace these sample values with your logged-in user's details.
   const [profile, setProfile] = useState<ProfileDetails>({
-    _id:"",
+    _id: "",
     userName: "",
     email: "",
     address: "",
-    contact: ""
+    contact: "",
   });
 
   const [password, setPassword] = useState({
     currentPassword: "",
     newPassword: "",
-    confirmPassword: ""
+    confirmPassword: "",
   });
 
   const [showPassword, setShowPassword] = useState({
     current: false,
     new: false,
-    confirm: false
+    confirm: false,
   });
 
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  const handleProfileChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setProfile(prev => ({
+    setProfile((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
-  const handlePasswordChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
-    setPassword(prev => ({
+    setPassword((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const togglePassword = (field: keyof typeof showPassword) => {
-    setShowPassword(prev => ({
+    setShowPassword((prev) => ({
       ...prev,
-      [field]: !prev[field]
+      [field]: !prev[field],
     }));
-    
   };
 
-  const handleImageChange = async(
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
 
-     if (file.size > 5 * 1024 * 1024) {
-        await showWarningAlert("Image size must be less than 5 MB.");
-        e.target.value = "";
-        return;
+    if (file.size > 5 * 1024 * 1024) {
+      await showWarningAlert("Image size must be less than 5 MB.");
+      e.target.value = "";
+      return;
     }
-      setPreviewImage(URL.createObjectURL(file));
-      setProfileImage(file);
+    setPreviewImage(URL.createObjectURL(file));
+    setProfileImage(file);
   };
 
-  const handleUpdateProfile = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    try{
-      const message=await updateUserDetails(profileImage,profile)
-       await showSuccessAlert(
-            "Your profile details have been updated successfully!"
-        );
-        setProfileImage(null);
-    }catch(error){
+
+    try {
+      const message = await updateUserDetails(profileImage, profile);
+      await showSuccessAlert(
+        "Your profile details have been updated successfully!",
+      );
+      setProfileImage(null);
+    } catch (error) {
       console.error("Profile update failed:", error);
 
-        await showErrorAlert(
-            "Unable to update your profile. Please try again."
-        );
+      await showErrorAlert("Unable to update your profile. Please try again.");
     }
   };
 
-  const handleUpdatePassword = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleUpdatePassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (password.newPassword !== password.confirmPassword) {
-        await showWarningAlert(
-            "New password and confirm password do not match."
-        );
+      await showWarningAlert("New password and confirm password do not match.");
       return;
     }
 
     if (password.newPassword.length < 8) {
-      await showWarningAlert(
-            "Password must contain at least 8 characters."
-        );
+      await showWarningAlert("Password must contain at least 8 characters.");
       return;
     }
 
     setPassword({
       currentPassword: "",
       newPassword: "",
-      confirmPassword: ""
+      confirmPassword: "",
     });
   };
 
-  const handleLogout = async() => {
-    try{
-        await logout();
-         await showSuccessAlert(
-            "You have been logged out successfully."
-        );
-        // navigate("/login", { replace: true });
-       const url: string = "/login";
+  const handleLogout = async () => {
+    try {
+      await logout();
+      await showSuccessAlert("You have been logged out successfully.");
+      // navigate("/login", { replace: true });
+      const url: string = "/login";
 
-        window.location.replace(url);
-        
-    }catch(error){
-        console.error("Logout failed:", error);
-        await showErrorAlert(
-            "Unable to log out. Please try again."
-        );
+      window.location.replace(url);
+    } catch (error) {
+      console.error("Logout failed:", error);
+      await showErrorAlert("Unable to log out. Please try again.");
     }
   };
 
-  const changePassword=async()=>{
-    try{
-      const response=await ChangePassword(password.currentPassword,password.newPassword)
-      await showSuccessAlert(
-            "Your password has been changed successfully!"
-        );
-        setPassword({
-            currentPassword: "",
-            newPassword: "",
-            confirmPassword: ""
-        });
-    }catch(error){
+  const changePassword = async () => {
+    try {
+      const response = await ChangePassword(
+        password.currentPassword,
+        password.newPassword,
+      );
+      await showSuccessAlert("Your password has been changed successfully!");
+      setPassword({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
       console.error("Logout failed:", error);
       await showErrorAlert(
-            "Unable to change your password. Please check your current password."
-        );
+        "Unable to change your password. Please check your current password.",
+      );
     }
-  }
-
+  };
 
   return (
     <div className="pump-dashboard">
       <SideBar />
 
       <main className="pump-main setting-main">
-
         {/* Page Header */}
         <header className="setting-header">
           <div className="setting-header-content">
@@ -219,8 +198,6 @@ const Setting = () => {
             </div>
 
             <div>
-              
-
               <h1>
                 Settings<span className="setting-title-dot">.</span>
               </h1>
@@ -233,13 +210,10 @@ const Setting = () => {
         </header>
 
         <div className="setting-layout">
-
           {/* Left Column */}
           <div className="setting-left-column">
-
             {/* Profile Details */}
             <section className="setting-card">
-
               <div className="setting-card-heading">
                 <div>
                   <span className="setting-kicker">PERSONAL INFORMATION</span>
@@ -253,7 +227,6 @@ const Setting = () => {
               </div>
 
               <form onSubmit={handleUpdateProfile}>
-
                 <div className="setting-profile-image-section">
                   <div className="setting-avatar">
                     {previewImage ? (
@@ -262,7 +235,7 @@ const Setting = () => {
                       <span>
                         {profile.userName
                           .split(" ")
-                          .map(userName => userName[0])
+                          .map((userName) => userName[0])
                           .join("")
                           .slice(0, 2)
                           .toUpperCase()}
@@ -294,7 +267,6 @@ const Setting = () => {
                 </div>
 
                 <div className="setting-form-grid">
-
                   <div className="setting-field">
                     <label>Full name</label>
                     <div className="setting-input-wrapper">
@@ -353,12 +325,14 @@ const Setting = () => {
                       />
                     </div>
                   </div>
-
                 </div>
 
                 <div className="setting-form-actions">
-                  <button type="reset" className="setting-cancel-btn"
-                    onClick={() => window.location.reload()}>
+                  <button
+                    type="reset"
+                    className="setting-cancel-btn"
+                    onClick={() => window.location.reload()}
+                  >
                     Cancel
                   </button>
 
@@ -367,13 +341,11 @@ const Setting = () => {
                     Update details
                   </button>
                 </div>
-
               </form>
             </section>
 
             {/* Change Password */}
             <section className="setting-card">
-
               <div className="setting-card-heading">
                 <div>
                   <span className="setting-kicker">ACCOUNT SECURITY</span>
@@ -387,7 +359,6 @@ const Setting = () => {
               </div>
 
               <form onSubmit={handleUpdatePassword}>
-
                 <div className="setting-field">
                   <label>Current password</label>
                   <div className="setting-input-wrapper password-input">
@@ -410,7 +381,6 @@ const Setting = () => {
                 </div>
 
                 <div className="setting-password-grid">
-
                   <div className="setting-field">
                     <label>New password</label>
                     <div className="setting-input-wrapper password-input">
@@ -454,7 +424,6 @@ const Setting = () => {
                       </button>
                     </div>
                   </div>
-
                 </div>
 
                 <p className="setting-password-hint">
@@ -468,25 +437,21 @@ const Setting = () => {
                     Update password
                   </button>
                 </div>
-
               </form>
             </section>
-
           </div>
 
           {/* Right Column */}
           <aside className="setting-right-column">
-
             {/* Account Overview */}
             <section className="setting-account-card">
-
               <div className="setting-account-avatar">
                 {previewImage ? (
                   <img src={previewImage} alt="Profile" />
                 ) : (
                   profile.userName
                     .split(" ")
-                    .map(userName => userName[0])
+                    .map((userName) => userName[0])
                     .join("")
                     .slice(0, 2)
                     .toUpperCase()
@@ -518,7 +483,6 @@ const Setting = () => {
                   <strong>{profile.address || "—"}</strong>
                 </div>
               </div>
-
             </section>
 
             {/* Security Info */}
@@ -546,16 +510,15 @@ const Setting = () => {
                 Log out
               </button>
             </section>
-
           </aside>
-
         </div>
 
         <footer className="setting-footer">
-          <span>Account Settings <span>•</span> Fuel station dashboard</span>
+          <span>
+            Account Settings <span>•</span> Fuel station dashboard
+          </span>
           <span>Keep your account information up to date.</span>
         </footer>
-
       </main>
     </div>
   );

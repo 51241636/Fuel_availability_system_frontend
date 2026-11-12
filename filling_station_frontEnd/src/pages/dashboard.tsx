@@ -69,7 +69,7 @@ const Dashboard = () => {
         <header className="pump-nameBar pump-reveal" style={{ ["--i" as any]: 0 }}>
           <div className="pump-welcome-Tag">
             <h1>
-              {greeting()}, {user?.name}
+              {greeting()}, {user?.username}
             </h1>
             <p>
               Your station is not on the map yet. Add it to start sharing stock
@@ -78,12 +78,12 @@ const Dashboard = () => {
           </div>
 
           <div className="pump-profile">
-            <span className="pump-profile-name">{user?.name}</span>
+            <span className="pump-profile-name">{user?.username}</span>
             <div className="pump-avatar">
               {previewImage ? (
                 <img src={previewImage} alt="Profile" />
               ) : (
-                <span>{user?.name?.slice(0, 2).toUpperCase() || "US"}</span>
+                <span>{user?.username?.slice(0, 2).toUpperCase() || "US"}</span>
               )}
             </div>
           </div>
