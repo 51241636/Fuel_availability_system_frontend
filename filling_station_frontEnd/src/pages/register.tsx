@@ -73,18 +73,6 @@ function Register() {
   };
 
 
-  function clearForm() {
-    setFullName("");
-    setUsername("");
-    setEmail("");
-    setPhone("");
-    setAddress("");
-    setPassword("");
-    setAgree(false);
-    setLoading(false);
-    setError("");
-    setSuccess("");
-  }
 
   const registerAccount = async () => {
     try {

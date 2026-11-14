@@ -16,10 +16,7 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import { getMyDetails } from "../services/AuthService";
-import {
-  ChangePassword,
-  updateUserDetails,
-} from "../services/settingService";
+import { ChangePassword, updateUserDetails } from "../services/settingService";
 import { useAuth } from "../context/AuthConext";
 import type { ProfileDetails } from "../interface/profileDetail";
 import {
@@ -27,7 +24,6 @@ import {
   showErrorAlert,
   showWarningAlert,
 } from "../services/alertService";
-// import type { Url } from "url";
 
 const Setting = () => {
   const { logout } = useAuth();
@@ -116,9 +112,16 @@ const Setting = () => {
 
     try {
       const message = await updateUserDetails(profileImage, profile);
-      await showSuccessAlert(
-        "Your profile details have been updated successfully!",
-      );
+      if (message) {
+        await showSuccessAlert(
+          "Your profile details have been updated successfully!",
+        );
+      } else {
+        await showErrorAlert(
+          "Your profile details have not been updated successfully!",
+        );
+      }
+
       setProfileImage(null);
     } catch (error) {
       console.error("Profile update failed:", error);
@@ -167,7 +170,11 @@ const Setting = () => {
         password.currentPassword,
         password.newPassword,
       );
-      await showSuccessAlert("Your password has been changed successfully!");
+      if (response) {
+        await showSuccessAlert("Your password has been changed successfully!");
+      } else {
+        await showErrorAlert("password not changed successfully");
+      }
       setPassword({
         currentPassword: "",
         newPassword: "",
@@ -428,7 +435,7 @@ const Setting = () => {
                 </p>
 
                 <div className="setting-form-actions">
-                  <button type="submit" className="setting-save-btn">
+                  <button type="submit" className="setting-save-btn" onClick={changePassword}>
                     <FaLock />
                     Update password
                   </button>

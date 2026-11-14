@@ -15,11 +15,7 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 import { getMyDetails } from "../services/AuthService";
-import {
-  ChangePassword,
-  updateUserDetails,
-} from "../services/settingService";
-import { useNavigate } from "react-router-dom";
+import { ChangePassword, updateUserDetails } from "../services/settingService";
 import { useAuth } from "../context/AuthConext";
 import type { ProfileDetails } from "../interface/profileDetail";
 import {
@@ -28,6 +24,7 @@ import {
   showWarningAlert,
 } from "../services/alertService";
 import { CustomerSideBar } from "./customerSideBar";
+// import { error } from "console";
 // import type { Url } from "url";
 
 const CustomerSetting = () => {
@@ -117,10 +114,14 @@ const CustomerSetting = () => {
 
     try {
       const message = await updateUserDetails(profileImage, profile);
-      await showSuccessAlert(
-        "Your profile details have been updated successfully!",
-      );
-      setProfileImage(null);
+      if (message) {
+        await showSuccessAlert(
+          "Your profile details have been updated successfully!",
+        );
+        setProfileImage(null);
+      } else{
+        await showErrorAlert("yuor profile details not updated successfully")
+      }
     } catch (error) {
       console.error("Profile update failed:", error);
 
@@ -168,8 +169,13 @@ const CustomerSetting = () => {
         password.currentPassword,
         password.newPassword,
       );
-      await showSuccessAlert("Your password has been changed successfully!");
-      setPassword({
+      if(response){
+         await showSuccessAlert("Your password has been changed successfully!");
+      }else{
+        await showErrorAlert("password not changed successfully")
+      }
+     
+       setPassword({
         currentPassword: "",
         newPassword: "",
         confirmPassword: "",
@@ -429,7 +435,7 @@ const CustomerSetting = () => {
                 </p>
 
                 <div className="setting-form-actions">
-                  <button type="submit" className="setting-save-btn">
+                  <button type="submit" className="setting-save-btn" onClick={changePassword}>
                     <FaLock />
                     Update password
                   </button>

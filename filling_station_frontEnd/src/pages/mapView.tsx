@@ -64,7 +64,7 @@ function MapView() {
 
   const [selectedStation, setSelectedStation] = useState<Station | null>(null);
 
-  const [activeFilter, setActiveFilter] = useState("All fuels");
+  const [activeFilter] = useState("All fuels");
   const [loading, setLoading] = useState<boolean>(true);
 
   const getFuelDetails = (fuels: Fuel[], fuelType: string): Fuel => {

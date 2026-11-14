@@ -97,7 +97,7 @@ export default function AddStationMap() {
     setSelectedItems(selectedStation.fuels);
   }, [selectedStation, isEditMode]);
   const navigate = useNavigate();
-  const [fuel, setFuelDetail] = useState<FuelOption[]>([
+  const [fuel] = useState<FuelOption[]>([
     {
       fuelType: "OcTane92",
       currentStock: 7600,
