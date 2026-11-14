@@ -18,7 +18,7 @@ const LoginRedirect = () => {
         return <Navigate to="/customerMapView" replace />;
 
       default:
-        return <Navigate to="/login" replace />;
+        return <Navigate to="/unauthorized" replace />;
     }
   }
 
