@@ -1,4 +1,3 @@
-
 import {
   createContext,
   useContext,
@@ -18,7 +17,6 @@ export interface User {
   username: string;
   email: string;
   userRole: UserRole;
-  
 }
 
 interface AuthContextType {
@@ -26,7 +24,7 @@ interface AuthContextType {
   loading: boolean;
   setUser: (user: User | null) => void;
   logout: () => void;
-  previewImage:string | null
+  previewImage: string | null;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -44,87 +42,82 @@ export const AuthProvider = ({ children }: AuthProviderTypes) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-  const checkAuthentication = async () => {
-    try {
-      const accessToken = localStorage.getItem("accessToken");
-
-      // No access token means user is not logged in.
-      if (!accessToken) {
-        setUser(null);
-        return;
-      }
-
-      let response;
-
+    const checkAuthentication = async () => {
       try {
-        response = await getMyDetails();
+        const accessToken = localStorage.getItem("accessToken");
 
-      } catch (error: any) {
-
-        if (error.response?.status !== 401) {
-          throw error;
+        // No access token means user is not logged in.
+        if (!accessToken) {
+          setUser(null);
+          return;
         }
 
-        // Access token expired. Try refreshing.
-        const refreshResponse = await api.post("/newAccessToken");
+        let response;
 
-        const newToken = refreshResponse.data.token;
+        try {
+          response = await getMyDetails();
+        } catch (error: any) {
+          if (error.response?.status !== 401) {
+            throw error;
+          }
 
-        if (!newToken) {
-          throw new Error("Unable to refresh token");
+          // Access token expired. Try refreshing.
+          const refreshResponse = await api.post("/newAccessToken");
+
+          const newToken = refreshResponse.data.token;
+
+          if (!newToken) {
+            throw new Error("Unable to refresh token");
+          }
+
+          localStorage.setItem("accessToken", newToken);
+
+          response = await getMyDetails();
         }
 
-        localStorage.setItem("accessToken", newToken);
+        const myDetails = response.data.myDetails;
 
-        response = await getMyDetails();
-      }
+        if (myDetails && isValidRole(myDetails.userRole)) {
+          setUser(myDetails);
+          setPreviewImage(response.data.image);
+        } else {
+          setUser(null);
+          localStorage.removeItem("accessToken");
+        }
+      } catch (error) {
+        console.error("Authentication check failed:", error);
 
-      const myDetails = response.data.myDetails;
-
-      if (myDetails && isValidRole(myDetails.userRole)) {
-        setUser(myDetails);
-        setPreviewImage(response.data.image);
-      } else {
         setUser(null);
+        setPreviewImage(null);
         localStorage.removeItem("accessToken");
+      } finally {
+        setLoading(false);
       }
+    };
 
-    } catch (error) {
-      console.error("Authentication check failed:", error);
+    checkAuthentication();
+  }, []);
+
+  const logout = async () => {
+    try {
+      setLoading(true);
+
+      await clearRefreshToken();
 
       setUser(null);
       setPreviewImage(null);
-      localStorage.removeItem("accessToken");
 
+      localStorage.removeItem("accessToken");
+    } catch (error) {
+      console.error("Logout failed:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  checkAuthentication();
-}, []);
-
-   const logout = async () => {
-  try {
-    setLoading(true);
-
-    await clearRefreshToken();
-
-    setUser(null);
-    setPreviewImage(null);
-
-    localStorage.removeItem("accessToken");
-
-  } catch (error) {
-    console.error("Logout failed:", error);
-  } finally {
-    setLoading(false);
-  }
-};
-
   return (
     <AuthContext.Provider
-      value={{ user, loading, setUser, logout,previewImage }}
+      value={{ user, loading, setUser, logout, previewImage }}
     >
       {children}
     </AuthContext.Provider>

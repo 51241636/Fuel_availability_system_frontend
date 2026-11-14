@@ -1,6 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import Login from "../pages/login";
 import Dashboard from "../pages/dashboard";
 import Register from "../pages/register";
 import AddStationMap from "../pages/addStationMap";
@@ -12,9 +11,10 @@ import { StationProvider } from "../context/StationContext";
 import FuelStock from "../pages/fuelStockManage";
 import Setting from "../pages/setting";
 import MapView from "../pages/mapView";
-import ForgotPassword from "../pages/forgotPassword";
 import CustomerMapView from "../pages/customerMapView";
 import CustomerSetting from "../pages/customerSetting";
+import LoginRedirect from "./loginRedirect";
+
 
 function AppRoutes() {
   return (
@@ -22,10 +22,18 @@ function AppRoutes() {
       <AuthProvider>
         <StationProvider>
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<LoginRedirect />} />
             <Route path="/register" element={<Register />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
-            <Route path="/stationMap" element={<AddStationMap />} />
+
+            <Route
+              path="/stationMap"
+              element={
+                <ProtectedRoute allowedRoles={["owner"]}>
+                  <AddStationMap />
+                </ProtectedRoute>
+              }
+            />
 
             <Route
               path="/dashboard"

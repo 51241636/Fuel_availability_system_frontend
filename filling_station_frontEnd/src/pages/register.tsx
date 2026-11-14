@@ -73,41 +73,6 @@ function Register() {
     return "";
   };
 
-  const handleRegister = async (e: FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
-
-    const problem = validate();
-    if (problem) {
-      setError(problem);
-      return;
-    }
-
-    try {
-      setLoading(true);
-      //   const response = await registerUser({
-      //     role,
-      //     fullName,
-      //     username,
-      //     email,
-      //     phone,
-      //     password,
-      //     ...(role === "owner" ? { stationName, city, fuels } : {}),
-      //   });
-      //   console.log("Registration successful:", response);
-      setSuccess(
-        userRole === "owner"
-          ? "Account created. Sign in to pin your station on the map."
-          : "Account created. You can sign in now.",
-      );
-    } catch (err) {
-      console.error("Registration failed:", err);
-      setError("We could not create your account. Try a different username.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   function clearForm() {
     setFullName("");
@@ -124,11 +89,16 @@ function Register() {
 
   const registerAccount = async () => {
     try {
+
+
+      setError("");
+      setSuccess("");
       const problem = validate();
       if (problem) {
         setError(problem);
         return;
       }
+
       const response = await registerAccountService(
         firstName,
         userName,
@@ -138,7 +108,8 @@ function Register() {
         password,
         userRole,
       );
-      if (response.data.role == "owner") {
+        console.log("response register : ",response)
+      if (response.role == "owner") {
         const paymentUrl = await response.paymentUrl;
         const paymentData = await response.payment;
 
@@ -156,9 +127,11 @@ function Register() {
       }
 
       // clearForm();
-    } catch (error) {
-      console.error(error);
-      setError("Registration failed. Please try again.");
+    } catch (err) {
+      console.error("Registration failed:", err);
+      setError("We could not create your account. Try a different username.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -276,7 +249,7 @@ function Register() {
             </button>
           </div>
 
-          <form onSubmit={handleRegister} noValidate>
+          <form onSubmit={registerAccount} noValidate>
             {error && (
               <div className="reg-alert reg-alert--error" role="alert">
                 {error}
@@ -414,7 +387,7 @@ function Register() {
             </label>
 
             <button
-              type="submit"
+              type="button"
               className="reg-submit"
               disabled={loading}
               onClick={registerAccount}
