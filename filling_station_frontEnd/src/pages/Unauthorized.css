@@ -1,4 +1,4 @@
- /* @import "tailwindcss"; */
+/* @import "tailwindcss"; */
 /* Main container */
 .unauthorized-container {
   min-height: 100vh;
@@ -117,7 +117,8 @@
 }
 
 @keyframes unauthorizedPulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }

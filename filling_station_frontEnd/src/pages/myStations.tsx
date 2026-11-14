@@ -7,7 +7,6 @@ import type { UserStation } from "../interface/stationDetailInterface";
 import { UseStationDetailsContext } from "../context/StationContext";
 import { useNavigate } from "react-router-dom";
 import {
-  showSuccessAlert,
   showErrorAlert,
   showWarningAlert,
 } from "../services/alertService";

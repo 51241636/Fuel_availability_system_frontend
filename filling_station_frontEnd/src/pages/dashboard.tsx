@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import "./Dashboard.css";
 
 import { SideBar } from "./sidebar";
@@ -66,7 +66,10 @@ const Dashboard = () => {
 
       <main className="pump-main">
         {/* Header */}
-        <header className="pump-nameBar pump-reveal" style={{ ["--i" as any]: 0 }}>
+        <header
+          className="pump-nameBar pump-reveal"
+          style={{ ["--i" as any]: 0 }}
+        >
           <div className="pump-welcome-Tag">
             <h1>
               {greeting()}, {user?.username}

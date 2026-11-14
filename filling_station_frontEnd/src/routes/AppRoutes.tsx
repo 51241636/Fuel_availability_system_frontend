@@ -15,7 +15,6 @@ import CustomerMapView from "../pages/customerMapView";
 import CustomerSetting from "../pages/customerSetting";
 import LoginRedirect from "./loginRedirect";
 
-
 function AppRoutes() {
   return (
     <BrowserRouter>

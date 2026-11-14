@@ -1,7 +1,5 @@
-
-
 export interface ProfileDetails {
-  _id:string;
+  _id: string;
   userName: string;
   email: string;
   address: string;

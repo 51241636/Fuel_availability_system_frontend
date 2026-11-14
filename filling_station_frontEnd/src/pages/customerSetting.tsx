@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { SideBar } from "./sidebar";
 import "./setting.css";
 import {
   FaUser,
@@ -18,7 +17,6 @@ import {
 import { getMyDetails } from "../services/AuthService";
 import {
   ChangePassword,
-  clearRefreshToken,
   updateUserDetails,
 } from "../services/settingService";
 import { useNavigate } from "react-router-dom";
@@ -28,13 +26,11 @@ import {
   showSuccessAlert,
   showErrorAlert,
   showWarningAlert,
-  confirmDiscardChanges,
 } from "../services/alertService";
 import { CustomerSideBar } from "./customerSideBar";
 // import type { Url } from "url";
 
 const CustomerSetting = () => {
-  const navigate = useNavigate();
   const { logout } = useAuth();
 
   useEffect(() => {

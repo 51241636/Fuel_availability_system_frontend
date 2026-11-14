@@ -190,7 +190,9 @@
 .fuel-level-fill {
   width: 100%;
   border-radius: 0 0 7px 7px;
-  transition: height 0.4s ease, background 0.4s ease;
+  transition:
+    height 0.4s ease,
+    background 0.4s ease;
 }
 
 .high-stock {
@@ -308,45 +310,44 @@
 }
 
 .fuel-card-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .delete-fuel-btn {
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    background: rgba(239, 68, 68, 0.08);
-    color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
 
-    border: 1px solid rgba(239, 68, 68, 0.2);
-    border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 8px;
 
-    font-size: 14px;
-    cursor: pointer;
+  font-size: 14px;
+  cursor: pointer;
 
-    transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .delete-fuel-btn:hover {
-    background: #ef4444;
-    color: #ffffff;
-    border-color: #ef4444;
-    transform: scale(1.05);
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  transform: scale(1.05);
 }
 
 .delete-fuel-btn:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 /* Responsive Design */
 
 @media (max-width: 900px) {
-
   .stock-summary {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -354,11 +355,9 @@
   .fuel-cards-container {
     grid-template-columns: 1fr;
   }
-
 }
 
 @media (max-width: 550px) {
-
   .fuel-stock-container {
     padding: 15px;
   }
@@ -412,46 +411,42 @@
     font-size: 12px;
     padding: 10px 3px;
   }
-
 }
-
 
 /* SweetAlert custom theme */
 
 .fuel-alert-popup {
-    border: 1px solid #303036 !important;
-    border-radius: 16px !important;
-    padding: 28px !important;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid #303036 !important;
+  border-radius: 16px !important;
+  padding: 28px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
 }
 
 .fuel-alert-title {
-    color: #F5F5F5 !important;
-    font-size: 22px !important;
-    font-weight: 700 !important;
+  color: #f5f5f5 !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
 }
 
 .fuel-alert-message {
-    color: #A1A1AA !important;
-    font-size: 14px !important;
-    line-height: 1.6 !important;
+  color: #a1a1aa !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
 }
 
 .fuel-alert-confirm,
 .fuel-alert-cancel {
-    border-radius: 8px !important;
-    padding: 11px 20px !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    transition: 0.2s ease !important;
+  border-radius: 8px !important;
+  padding: 11px 20px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  transition: 0.2s ease !important;
 }
 
 .fuel-alert-confirm:hover {
-    filter: brightness(1.12);
+  filter: brightness(1.12);
 }
 
 .fuel-alert-cancel:hover {
-    background: #4B4B55 !important;
+  background: #4b4b55 !important;
 }
-
-

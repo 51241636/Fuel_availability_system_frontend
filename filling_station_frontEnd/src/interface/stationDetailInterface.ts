@@ -2,8 +2,8 @@ export interface Fuel {
   fuelType: string;
   available: boolean;
   tankCapacity: number;
-  currentStock:number;
-  fuelPrice:number
+  currentStock: number;
+  fuelPrice: number;
 }
 
 export interface Fuel {
@@ -33,9 +33,9 @@ export interface UserStation {
   available: boolean;
 }
 
-export interface AvailableFuelDetailCount{
-  totalStock:number,
-  availableCount:number,
-  lowCount:number,
-  outOfStockCount:number
+export interface AvailableFuelDetailCount {
+  totalStock: number;
+  availableCount: number;
+  lowCount: number;
+  outOfStockCount: number;
 }

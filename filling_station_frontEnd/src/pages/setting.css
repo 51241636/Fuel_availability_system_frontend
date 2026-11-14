@@ -1,4 +1,3 @@
-
 /* ---------- Main layout ---------- */
 
 .setting-main {
@@ -255,12 +254,14 @@
   color: #ffffff;
   background: #101012;
   font-size: 13px;
-  transition: border-color .2s, box-shadow .2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .setting-field input:focus {
   border-color: #f00000;
-  box-shadow: 0 0 0 3px rgba(240, 0, 0, .10);
+  box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.1);
 }
 
 .setting-field input::placeholder {
@@ -277,12 +278,14 @@
   border: 1px solid #29292f;
   border-radius: 9px;
   background: #101012;
-  transition: border-color .2s, box-shadow .2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .setting-input-wrapper:focus-within {
   border-color: #f00000;
-  box-shadow: 0 0 0 3px rgba(240, 0, 0, .10);
+  box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.1);
 }
 
 .setting-input-wrapper > svg {
@@ -352,7 +355,9 @@
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: background .2s, transform .2s;
+  transition:
+    background 0.2s,
+    transform 0.2s;
 }
 
 .setting-save-btn {
@@ -534,7 +539,7 @@
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: background .2s;
+  transition: background 0.2s;
 }
 
 .setting-logout-card button:hover {

@@ -1,5 +1,5 @@
-import api from "./Api"
+import api from "./Api";
 
-export const getLoggedUserDetail=()=>{
-    api.get("/getMyDetail")
-}
+export const getLoggedUserDetail = () => {
+  api.get("/getMyDetail");
+};

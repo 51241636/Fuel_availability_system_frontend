@@ -22,12 +22,13 @@ api.interceptors.response.use(
 
   async (error) => {
     const originalRequest = error.config;
-    if (error.response?.status === 401 &&
-            !originalRequest._retry &&
-            !originalRequest.url?.includes("/newAccessToken")) {
-               originalRequest._retry = true;
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url?.includes("/newAccessToken")
+    ) {
+      originalRequest._retry = true;
       try {
-
         const refreshResponse = await api.post("/newAccessToken");
 
         const newToken = refreshResponse.data.token;

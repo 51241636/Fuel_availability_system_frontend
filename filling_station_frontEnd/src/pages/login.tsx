@@ -3,7 +3,7 @@ import "./Login.css";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { loginUser } from "../services/AuthService";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthConext";
 import ForgotPassword from "../pages/forgotPassword";
 
@@ -46,7 +46,7 @@ function Login() {
   const [error, setError] = useState("");
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
-  const { user, loading, setUser } = useAuth();
+  const {loading, setUser } = useAuth();
 
   if (loading) {
     return <p> checkAuthentication</p>;

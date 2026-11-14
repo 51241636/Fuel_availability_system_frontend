@@ -1,7 +1,6 @@
 import "./Register.css";
 
 import { useState } from "react";
-import type { FormEvent } from "react";
 import { registerAccountService } from "../services/registerService";
 // Add a `registerUser` function to your AuthService (POST to your register endpoint)
 // import { registerUser } from "../services/AuthService";

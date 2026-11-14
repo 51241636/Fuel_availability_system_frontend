@@ -161,7 +161,9 @@ body {
 }
 
 @keyframes pumpSpin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ==============================
@@ -242,7 +244,9 @@ body {
   background: #18181b;
   border: 1px solid #29292e;
   border-radius: 50px;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition:
+    background 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .pump-profile:hover {
@@ -270,7 +274,9 @@ body {
   color: #ffffff;
   font-size: 16px;
   font-weight: 700;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .pump-avatar img {
@@ -343,7 +349,10 @@ body {
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 10px 24px -8px rgba(240, 0, 0, 0.65);
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 /* soft shine that sweeps across the button every few seconds */
@@ -354,14 +363,24 @@ body {
   left: -60%;
   width: 40%;
   height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.28),
+    transparent
+  );
   transform: skewX(-20deg);
   animation: pumpShine 4.5s ease-in-out 1.5s infinite;
 }
 
 @keyframes pumpShine {
-  0%, 60% { left: -60%; }
-  100% { left: 140%; }
+  0%,
+  60% {
+    left: -60%;
+  }
+  100% {
+    left: 140%;
+  }
 }
 
 .pump-primary-button:hover {
@@ -421,7 +440,9 @@ body {
 }
 
 @keyframes pumpDrift {
-  to { background-position: 35px 35px; }
+  to {
+    background-position: 35px 35px;
+  }
 }
 
 .pump-map-road {
@@ -479,8 +500,14 @@ body {
 }
 
 @keyframes pumpPulse {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(2.1); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
 }
 
 .pump-marker-dot {
@@ -493,8 +520,13 @@ body {
 }
 
 @keyframes pumpBob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .pump-map-caption {
@@ -509,8 +541,13 @@ body {
 }
 
 @keyframes liveBlink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
 }
 
 /* ==============================
@@ -532,7 +569,10 @@ body {
   border: 1px solid var(--pump-border);
   border-radius: 16px;
   background: var(--pump-card);
-  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
 }
 
 /* colored accent edge shows status at a glance */
@@ -553,10 +593,18 @@ body {
   background: #1d191b;
 }
 
-.tone-neutral { --accent: #7b7b86; }
-.tone-good    { --accent: var(--pump-good); }
-.tone-live    { --accent: #5aa9ff; }
-.tone-warning { --accent: var(--pump-warning); }
+.tone-neutral {
+  --accent: #7b7b86;
+}
+.tone-good {
+  --accent: var(--pump-good);
+}
+.tone-live {
+  --accent: #5aa9ff;
+}
+.tone-warning {
+  --accent: var(--pump-warning);
+}
 
 .pump-stat-label {
   display: flex;
@@ -579,8 +627,12 @@ body {
 }
 
 @keyframes pumpLive {
-  0%   { box-shadow: 0 0 0 0 rgba(90, 169, 255, 0.7); }
-  100% { box-shadow: 0 0 0 8px rgba(90, 169, 255, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(90, 169, 255, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(90, 169, 255, 0);
+  }
 }
 
 .pump-stat-value {
@@ -660,7 +712,9 @@ body {
 }
 
 @keyframes pumpDraw {
-  to { transform: scaleX(1); }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .pump-step {
@@ -684,7 +738,10 @@ body {
   color: #ff6b6b;
   font-size: 18px;
   font-weight: 700;
-  transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
 }
 
 .pump-step:hover .pump-step-number {
@@ -701,8 +758,12 @@ body {
 }
 
 @keyframes pumpRing {
-  0%   { box-shadow: 0 0 0 0 rgba(240, 0, 0, 0.45); }
-  100% { box-shadow: 0 0 0 14px rgba(240, 0, 0, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(240, 0, 0, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgba(240, 0, 0, 0);
+  }
 }
 
 .pump-step-content {
@@ -935,7 +996,9 @@ body {
 }
 
 @keyframes pumpDrawY {
-  to { transform: scaleY(1); }
+  to {
+    transform: scaleY(1);
+  }
 }
 
 /* ==============================

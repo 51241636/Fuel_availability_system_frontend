@@ -18,22 +18,18 @@ import {
 import { getMyDetails } from "../services/AuthService";
 import {
   ChangePassword,
-  clearRefreshToken,
   updateUserDetails,
 } from "../services/settingService";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthConext";
 import type { ProfileDetails } from "../interface/profileDetail";
 import {
   showSuccessAlert,
   showErrorAlert,
   showWarningAlert,
-  confirmDiscardChanges,
 } from "../services/alertService";
 // import type { Url } from "url";
 
 const Setting = () => {
-  const navigate = useNavigate();
   const { logout } = useAuth();
 
   useEffect(() => {

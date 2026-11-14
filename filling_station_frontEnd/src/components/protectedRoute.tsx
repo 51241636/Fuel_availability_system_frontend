@@ -1,7 +1,6 @@
-
 import { Navigate } from "react-router-dom";
 
-import { use, type ReactNode } from "react";
+import {type ReactNode } from "react";
 import { useAuth } from "../context/AuthConext";
 
 interface ProtectedRouteProps {
@@ -9,22 +8,19 @@ interface ProtectedRouteProps {
   allowedRoles?: string[];
 }
 
-function ProtectedRoute({
-  children,
-  allowedRoles,
-}: ProtectedRouteProps) {
+function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
   const { user, loading } = useAuth();
-  console.log("user0202", user)
+  console.log("user0202", user);
 
   if (loading) {
-    console.log("loadinfkbkjnjkn",loading)
+    console.log("loadinfkbkjnjkn", loading);
     return (
       <div className="flex min-h-screen items-center justify-center">
         <p className="text-gray-600">Checking authentication...</p>
       </div>
     );
-  }else{
-    console.log("loadinf",loading)
+  } else {
+    console.log("loadinf", loading);
   }
 
   // User is not logged in

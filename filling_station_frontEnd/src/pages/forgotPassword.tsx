@@ -30,7 +30,7 @@ const ForgotPassword = ({ onClose, onSubmit }: ForgotPasswordProps) => {
 
     try {
       if (onSubmit) {
-        await onSubmit(email);
+         onSubmit(email);
       }
 
       setSuccess(true);
