@@ -35,7 +35,7 @@
   height: 100vh;
   border-right: 1px solid var(--border);
   background-color: #111;
-  background-image: url("/src/assets/vehicle-bg.jpg"); /* put your filling station image here */
+  background-image: url("../assets/logo-512.png"); /* put your filling station image here */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
