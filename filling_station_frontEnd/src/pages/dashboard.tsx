@@ -1,5 +1,5 @@
 import  { useEffect, useState } from "react";
-import "./Dashboard.css";
+import "../pages/dashboard.css";
 
 import { SideBar } from "./sidebar";
 import { useNavigate } from "react-router-dom";

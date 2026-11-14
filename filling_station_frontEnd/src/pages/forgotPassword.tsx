@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./forgotPassword.css";
+import "../pages/forgotPassword.css";
 
 interface ForgotPasswordProps {
   onClose: () => void;

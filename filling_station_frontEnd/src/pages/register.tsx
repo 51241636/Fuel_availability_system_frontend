@@ -1,4 +1,4 @@
-import "./Register.css";
+import "../pages/register.css";
 
 import { useState } from "react";
 import { registerAccountService } from "../services/registerService";

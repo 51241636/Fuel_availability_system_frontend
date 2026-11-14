@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./setting.css";
+import "../pages/setting.css";
 import {
   FaUser,
   FaEnvelope,

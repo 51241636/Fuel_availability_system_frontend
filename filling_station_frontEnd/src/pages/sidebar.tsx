@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { FaGasPump } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { GrStatusGoodSmall } from "react-icons/gr";
-import "./sidebar.css";
+import "../pages/sidebar.css";
 import {
   MdDashboard,
   MdLocalGasStation,

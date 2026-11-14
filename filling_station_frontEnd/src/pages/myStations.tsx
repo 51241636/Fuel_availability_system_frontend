@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { SideBar } from "./sidebar";
-import "./myStations.css";
+import "../pages/myStations.css";
 import { FaGasPump } from "react-icons/fa";
 import { getUserStationDetail } from "../services/stationService";
 import type { UserStation } from "../interface/stationDetailInterface";

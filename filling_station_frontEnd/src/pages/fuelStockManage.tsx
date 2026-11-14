@@ -1,5 +1,5 @@
 import  { useEffect, useState } from "react";
-import "./fuelStockManage.css";
+import "../pages/fuelStockManage.css";
 import "./myStations.css";
 import { SideBar } from "./sidebar";
 import type {

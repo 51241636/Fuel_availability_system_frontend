@@ -1,4 +1,4 @@
-import "./Unauthorized.css";
+import "../pages/Unauthorized.css";
 import {useNavigate } from "react-router-dom";
 
 function Unauthorized() {

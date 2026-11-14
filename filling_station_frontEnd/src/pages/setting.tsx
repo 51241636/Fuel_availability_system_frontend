@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SideBar } from "./sidebar";
-import "./setting.css";
+import "../pages/setting.css";
 import {
   FaUser,
   FaEnvelope,

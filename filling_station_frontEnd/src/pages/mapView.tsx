@@ -12,7 +12,7 @@ import {
 import L from "leaflet";
 
 import "leaflet/dist/leaflet.css";
-import "./mapview.css";
+import "../pages/mapView.css";
 import { SideBar } from "./sidebar";
 import { getAllStations } from "../services/mapViewService";
 import { FaPhone } from "react-icons/fa";

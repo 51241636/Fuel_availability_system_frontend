@@ -13,7 +13,7 @@ import "leaflet-geosearch/dist/geosearch.css";
 import L, { type LatLng } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { SideBar } from "./sidebar";
-import "./addStation.css";
+import "../pages/addStation.css";
 import { loadStation, updateStationService } from "../services/stationService";
 import { useNavigate } from "react-router-dom";
 import { UseStationDetailsContext } from "../context/StationContext";
