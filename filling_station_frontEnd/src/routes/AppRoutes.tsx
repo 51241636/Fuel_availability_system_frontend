@@ -21,7 +21,7 @@ function AppRoutes() {
       <AuthProvider>
         <StationProvider>
           <Routes>
-            <Route path="/login" element={<LoginRedirect />} />
+            <Route path="/" element={<LoginRedirect />} />
             <Route path="/register" element={<Register />} />
             <Route path="/unauthorized" element={<Unauthorized />} />
 
