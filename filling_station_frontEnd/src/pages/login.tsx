@@ -1,4 +1,4 @@
-import "./Login.css";
+import "../pages/login.css";
 
 import { useState } from "react";
 import type { FormEvent } from "react";
