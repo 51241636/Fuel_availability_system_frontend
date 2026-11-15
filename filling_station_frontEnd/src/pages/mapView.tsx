@@ -5,8 +5,7 @@ import {
   TileLayer,
   Marker,
   Popup,
-  ZoomControl,
-  Circle,
+  ZoomControl
 } from "react-leaflet";
 
 import L from "leaflet";
