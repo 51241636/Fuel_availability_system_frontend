@@ -1,355 +1,869 @@
-/* Main Container */
+
+/* =========================================
+   PUMPCHECK - FUEL STOCK MANAGEMENT
+   Modern Dark Dashboard UI
+========================================= */
+
+:root {
+  --fuel-bg: #0b0b0e;
+  --fuel-surface: #141419;
+  --fuel-card: #19191f;
+  --fuel-card-hover: #202027;
+  --fuel-border: #292930;
+  --fuel-red: #f00000;
+  --fuel-red-light: #ff4545;
+  --fuel-green: #35c77a;
+  --fuel-yellow: #ffb547;
+  --fuel-muted: #a1a1ad;
+  --fuel-white: #ffffff;
+  --fuel-radius: 16px;
+}
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
 
 .fuel-stock-container {
   width: 100%;
   min-height: 100vh;
-  padding: 25px;
-  background: #101012;
-  color: #ffffff;
-  font-family: Arial, Helvetica, sans-serif; /* same as dashboard */
+  padding: 30px;
   box-sizing: border-box;
+  color: var(--fuel-white);
+  font-family: Arial, Helvetica, sans-serif;
+
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(240, 0, 0, 0.07),
+      transparent 30%
+    ),
+    var(--fuel-bg);
+
+  animation: pageFadeIn 0.7s ease both;
 }
 
-/* Header */
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   HEADER
+========================================= */
 
 .fuel-stock-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  gap: 25px;
+  margin-bottom: 30px;
 }
 
 .fuel-stock-header h2 {
-  font-size: clamp(25px, 2.5vw, 32px); /* dashboard welcome title */
-  line-height: 1.25;
-  letter-spacing: -0.7px;
-  margin: 0 0 7px;
-  font-weight: 700;
+  font-size: clamp(27px, 3vw, 35px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin: 0 0 9px;
+  background: linear-gradient(90deg, #ffffff, #bdbdc7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .fuel-stock-header p {
-  font-size: 15px;
-  line-height: 1.6;
-  color: #a5a5b0; /* dashboard muted */
+  color: var(--fuel-muted);
+  font-size: 14px;
+  line-height: 1.7;
   margin: 0;
 }
 
+/* =========================================
+   HEADER BUTTONS
+========================================= */
+
 .header-actions {
   display: flex;
+  align-items: center;
   gap: 12px;
 }
 
 .header-actions button {
-  padding: 11px 18px;
-  border-radius: 7px;
-  font-family: inherit; /* buttons don't inherit fonts by default */
-  font-size: 14px;
+  min-height: 43px;
+  padding: 0 20px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 13px;
   font-weight: 700;
   cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .cancel-btn {
-  background: #19191c;
-  color: #ffffff;
-  border: 1px solid #34343a;
+  color: #dedee5;
+  background: #19191f;
+  border: 1px solid #35353e;
+}
+
+.cancel-btn:hover {
+  background: #292930;
+  border-color: #777781;
+  transform: translateY(-2px);
 }
 
 .save-btn {
-  background: #ed1010;
-  color: #ffffff;
-  border: 1px solid #ed1010;
+  color: white;
+  background: linear-gradient(135deg, #f00000, #b90000);
+  border: 1px solid #f00000;
+  box-shadow: 0 5px 18px rgba(240, 0, 0, 0.2);
 }
 
-/* Summary Cards */
+.save-btn:hover {
+  background: linear-gradient(135deg, #ff2929, #e00000);
+  box-shadow: 0 8px 25px rgba(240, 0, 0, 0.35);
+  transform: translateY(-3px);
+}
+
+.header-actions button:active {
+  transform: scale(0.97);
+}
+
+/* =========================================
+   SUMMARY CARDS
+========================================= */
 
 .stock-summary {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 15px;
-  margin-bottom: 25px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
 }
 
 .summary-card {
-  background: #1a1a1e;
-  border: 1px solid #29292e;
-  border-radius: 13px;
-  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  padding: 23px;
+  min-height: 120px;
+  box-sizing: border-box;
+
+  background: linear-gradient(
+    145deg,
+    #1b1b22,
+    #141419
+  );
+
+  border: 1px solid var(--fuel-border);
+  border-radius: var(--fuel-radius);
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+
+  animation: cardAppear 0.65s ease both;
+}
+
+.summary-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.summary-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.summary-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.summary-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.summary-card::before {
+  content: "";
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  right: -35px;
+  top: -45px;
+  background: rgba(240, 0, 0, 0.08);
+  border-radius: 50%;
+  filter: blur(2px);
+  transition: transform 0.4s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(240, 0, 0, 0.45);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.summary-card:hover::before {
+  transform: scale(1.5);
 }
 
 .summary-card span {
+  position: relative;
   display: block;
-  font-size: 14px; /* dashboard stat label */
-  color: #a5a5b0;
-  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fuel-muted);
+  margin-bottom: 12px;
 }
 
 .summary-card h2 {
-  font-size: 30px; /* dashboard fuel-count number */
-  line-height: 1.2;
+  position: relative;
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -1px;
   margin: 0;
-  font-weight: 700;
 }
 
 .summary-card small {
   font-size: 14px;
-  color: #c5c5cf;
-  font-weight: 400;
+  color: #a5a5b0;
+  font-weight: 500;
 }
 
 .green-text {
-  color: #20c66a;
+  color: var(--fuel-green);
 }
 
 .yellow-text {
-  color: #ffb21c;
+  color: var(--fuel-yellow);
 }
 
 .red-text {
-  color: #ff5151;
+  color: var(--fuel-red-light);
 }
 
-/* Fuel Cards Container */
+/* =========================================
+   STATION SELECTOR
+========================================= */
+
+.station-selector {
+  padding: 24px;
+  margin-bottom: 30px;
+
+  background: linear-gradient(
+    145deg,
+    #19191f,
+    #131318
+  );
+
+  border: 1px solid var(--fuel-border);
+  border-radius: 18px;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+
+  animation: cardAppear 0.7s ease both;
+}
+
+.station-selector-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.station-section-kicker {
+  display: inline-block;
+  color: #ff5151;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 7px;
+}
+
+.station-selector-heading h2 {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.station-count {
+  padding: 8px 13px;
+  border: 1px solid rgba(240, 0, 0, 0.25);
+  background: rgba(240, 0, 0, 0.08);
+  border-radius: 30px;
+  color: #ff7777;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.station-selector-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.station-selector-button {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  padding: 16px;
+  text-align: left;
+
+  background: #101014;
+  border: 1px solid #2b2b33;
+  border-radius: 12px;
+
+  color: #fff;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.station-selector-button:hover {
+  background: #202027;
+  border-color: rgba(240, 0, 0, 0.5);
+  transform: translateY(-3px);
+}
+
+.station-selector-button.active {
+  background: linear-gradient(
+    120deg,
+    rgba(240, 0, 0, 0.13),
+    #19191f
+  );
+  border-color: #ed2525;
+  box-shadow: 0 0 0 2px rgba(240, 0, 0, 0.07);
+}
+
+.station-selector-button-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ff5555;
+  font-size: 19px;
+
+  background: rgba(240, 0, 0, 0.12);
+  border-radius: 11px;
+}
+
+.station-selector-button-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.station-selector-button-text strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f5f5f5;
+}
+
+.station-selector-button-text small {
+  color: #92929e;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.station-selector-chevron {
+  color: #888892;
+  font-size: 18px;
+  transition: 0.3s ease;
+}
+
+.station-selector-button:hover .station-selector-chevron {
+  color: #ff4444;
+  transform: translate(3px, -3px);
+}
+
+.station-selector-message {
+  padding: 18px;
+  text-align: center;
+  color: var(--fuel-muted);
+  background: #101014;
+  border-radius: 10px;
+}
+
+/* =========================================
+   FUEL CARDS GRID
+========================================= */
 
 .fuel-cards-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
+  align-items: stretch;
 }
 
-/* Fuel Card */
+/* =========================================
+   FUEL CARD
+========================================= */
 
 .fuel-card {
-  background: #1a1a1e;
-  border: 1px solid #29292e;
-  border-radius: 15px;
-  padding: 20px;
+  position: relative;
+  padding: 23px;
+  min-width: 0;
+  box-sizing: border-box;
+
+  background: linear-gradient(
+    145deg,
+    #1b1b22,
+    #141419
+  );
+
+  border: 1px solid #303039;
+  border-radius: 17px;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  animation: cardAppear 0.6s ease both;
+}
+
+.fuel-cards-container > .fuel-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(240, 0, 0, 0.4);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 .fuel-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 22px;
 }
 
 .fuel-card-header h3 {
-  font-size: 20px; /* dashboard section heading */
-  line-height: 1.4;
-  letter-spacing: -0.3px;
+  color: #fff;
+  font-size: 19px;
+  font-weight: 800;
   margin: 0;
-  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
-/* Status */
+/* =========================================
+   FUEL STATUS BADGES
+========================================= */
 
 .status {
-  font-size: 12px;
-  font-weight: 700;
-  padding: 6px 10px;
-  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 12px;
+  border-radius: 30px;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
-.available {
-  background: #123c29;
-  color: #fdfcfc;
+.high-stock {
+  background: #123d2a;
+  color: #42dc8b;
 }
 
-.running-low {
+.low-stock {
   background: #493719;
-  color: #ffbd35;
+  color: #ffc45c;
 }
 
-/* Fuel Content */
+.out-of-stock {
+  background: #451c20;
+  color: #ff666d;
+}
+
+/* =========================================
+   FUEL CONTENT
+========================================= */
 
 .fuel-content {
   display: grid;
-  grid-template-columns: 65px 1fr;
-  gap: 15px;
-  margin-bottom: 18px;
+  grid-template-columns: 75px minmax(0, 1fr);
+  gap: 20px;
+  margin-bottom: 17px;
 }
 
-/* Fuel Level Indicator */
+/* =========================================
+   FUEL LEVEL VISUALIZATION
+========================================= */
 
 .fuel-level-container {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .fuel-level {
-  width: 55px;
-  height: 160px;
-  background: #101012;
-  border: 1px solid #34343b;
-  border-radius: 10px;
+  position: relative;
+  width: 57px;
+  height: 175px;
   overflow: hidden;
+
   display: flex;
   align-items: flex-end;
+
+  background: #0d0d11;
+  border: 2px solid #363640;
+  border-radius: 13px;
+
+  box-shadow:
+    inset 0 0 15px rgba(0, 0, 0, 0.5),
+    0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.fuel-level::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.04);
+  z-index: 2;
 }
 
 .fuel-level-fill {
+  position: relative;
   width: 100%;
-  border-radius: 0 0 7px 7px;
+  min-height: 0;
+  border-radius: 0 0 9px 9px;
+
   transition:
-    height 0.4s ease,
+    height 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     background 0.4s ease;
+
+  animation: fuelFill 1s ease both;
 }
 
-.high-stock {
-  background: #20c66a;
+@keyframes fuelFill {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-.low-stock {
-  background: #ffa600;
+.fuel-level-fill.high-stock {
+  background: linear-gradient(
+    0deg,
+    #087c42,
+    #35c77a,
+    #73f0a9
+  );
+
+  box-shadow: 0 -5px 20px rgba(53, 199, 122, 0.2);
 }
 
-.out-of-stock {
-  background: #ff4545;
+.fuel-level-fill.low-stock {
+  background: linear-gradient(
+    0deg,
+    #bb7100,
+    #ffb21c,
+    #ffdb72
+  );
 }
-/* Fuel Inputs */
+
+.fuel-level-fill.out-of-stock {
+  background: linear-gradient(
+    0deg,
+    #a90000,
+    #ff4545,
+    #ff8585
+  );
+}
+
+/* =========================================
+   INPUT FIELDS
+========================================= */
 
 .fuel-inputs {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 9px;
+  min-width: 0;
 }
 
 .fuel-inputs label {
-  font-size: 14px;
-  color: #a5a5b0;
-  font-weight: 600;
+  color: #b6b6c1;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 3px;
 }
 
 .fuel-inputs input {
   width: 100%;
+  height: 44px;
+  padding: 0 13px;
   box-sizing: border-box;
-  height: 42px;
-  padding: 0 12px;
-  background: #101012;
-  border: 1px solid #29292e;
-  border-radius: 8px;
+
+  background: #0e0e13;
+  border: 1px solid #303039;
+  border-radius: 9px;
+
   color: #ffffff;
-  font-family: inherit; /* inputs don't inherit fonts by default */
-  font-size: 16px;
+  font-family: inherit;
+  font-size: 15px;
   font-weight: 700;
+
   outline: none;
+  transition: all 0.3s ease;
+}
+
+.fuel-inputs input:hover {
+  border-color: #55555f;
 }
 
 .fuel-inputs input:focus {
-  border-color: #ed1010;
+  border-color: #ed2222;
+  background: #151519;
+  box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.12);
+}
+
+/* Number input arrows */
+
+.fuel-inputs input::-webkit-inner-spin-button,
+.fuel-inputs input::-webkit-outer-spin-button {
+  opacity: 1;
 }
 
 .capacity-text {
-  font-size: 13px;
-  color: #a5a5b0;
-  margin: 0 0 3px;
+  color: #888894;
+  font-size: 11px;
+  margin: 0 0 6px;
 }
 
-/* Stock Status */
+/* =========================================
+   DELETE BUTTON
+========================================= */
+
+.delete-fuel-btn {
+  width: 37px;
+  height: 37px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: auto;
+
+  background: rgba(239, 68, 68, 0.09);
+  color: #ff5555;
+
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 9px;
+
+  font-size: 14px;
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+}
+
+.delete-fuel-btn:hover {
+  color: #fff;
+  background: #e52323;
+  border-color: #e52323;
+  transform: rotate(-8deg) scale(1.08);
+  box-shadow: 0 5px 18px rgba(239, 68, 68, 0.25);
+}
+
+.delete-fuel-btn:active {
+  transform: scale(0.93);
+}
+
+/* =========================================
+   EMPTY STATES
+========================================= */
+
+.station-empty-state {
+  grid-column: 1 / -1;
+  padding: 35px 20px;
+
+  text-align: center;
+  color: #9999a5;
+  font-size: 14px;
+
+  background: #17171c;
+  border: 1px dashed #393943;
+  border-radius: 13px;
+}
+
+/* =========================================
+   STOCK STATUS
+========================================= */
 
 .stock-status-section {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
 
 .stock-status-section label {
   display: block;
-  font-size: 14px;
-  color: #a5a5b0;
-  font-weight: 600;
-  margin-bottom: 8px;
+  color: #b6b6c1;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .stock-status-options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  background: #101012;
-  border: 1px solid #303036;
-  border-radius: 9px;
-  padding: 12px;
+  gap: 8px;
+  padding: 10px;
+
+  background: #101014;
+  border: 1px solid #303039;
+  border-radius: 10px;
   text-align: center;
 }
 
 .stock-status-options span {
-  font-size: 14px;
-  color: #c3c3cc; /* dashboard nav text color */
+  color: #c5c5cf;
+  font-size: 12px;
   font-weight: 600;
 }
 
-/* Stock Adjustment Buttons */
+/* =========================================
+   STOCK ADJUSTMENT BUTTONS
+========================================= */
 
 .stock-adjustments {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
-  margin-bottom: 18px;
+  margin-bottom: 17px;
 }
 
 .stock-adjustments button {
-  background: #19191d;
-  border: 1px solid #303036;
-  border-radius: 8px;
-  color: #ffffff;
   padding: 11px 5px;
+  background: #202027;
+  border: 1px solid #373740;
+  border-radius: 9px;
+
+  color: white;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 700;
+
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 .stock-adjustments button:hover {
-  background: #29292f;
-  border-color: #55555e;
+  background: #ed1010;
+  border-color: #ed1010;
+  transform: translateY(-2px);
 }
 
-/* Updated Time */
+/* =========================================
+   UPDATED TIME
+========================================= */
 
 .updated-time {
-  font-size: 12px;
-  color: #777781; /* dashboard footer color */
+  color: #777782;
+  font-size: 11px;
   margin: 0;
 }
 
-.fuel-card-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+/* =========================================
+   SWEET ALERT DARK THEME
+========================================= */
+
+.fuel-alert-popup {
+  background: #19191f !important;
+  border: 1px solid #35353e !important;
+  border-radius: 18px !important;
+  padding: 28px !important;
+
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.65) !important;
 }
 
-.delete-fuel-btn {
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: rgba(239, 68, 68, 0.08);
-  color: #ef4444;
-
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: 8px;
-
-  font-size: 14px;
-  cursor: pointer;
-
-  transition: all 0.2s ease;
+.fuel-alert-title {
+  color: #fff !important;
+  font-size: 23px !important;
+  font-weight: 800 !important;
 }
 
-.delete-fuel-btn:hover {
-  background: #ef4444;
-  color: #ffffff;
-  border-color: #ef4444;
-  transform: scale(1.05);
+.fuel-alert-message {
+  color: #b0b0bb !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
 }
 
-.delete-fuel-btn:active {
-  transform: scale(0.95);
+.fuel-alert-confirm,
+.fuel-alert-cancel {
+  border-radius: 9px !important;
+  padding: 12px 22px !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  transition: all 0.25s ease !important;
 }
 
-/* Responsive Design */
+.fuel-alert-confirm:hover,
+.fuel-alert-cancel:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.15);
+}
 
-@media (max-width: 900px) {
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.fuel-stock-container::-webkit-scrollbar {
+  width: 7px;
+}
+
+.fuel-stock-container::-webkit-scrollbar-track {
+  background: #101014;
+}
+
+.fuel-stock-container::-webkit-scrollbar-thumb {
+  background: #3a3a43;
+  border-radius: 10px;
+}
+
+.fuel-stock-container::-webkit-scrollbar-thumb:hover {
+  background: #ed1010;
+}
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+  .fuel-stock-container {
+    padding: 23px;
+  }
+
   .stock-summary {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .fuel-cards-container {
@@ -357,15 +871,27 @@
   }
 }
 
-@media (max-width: 550px) {
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 650px) {
   .fuel-stock-container {
-    padding: 15px;
+    padding: 16px;
   }
 
   .fuel-stock-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 15px;
+    gap: 18px;
+  }
+
+  .fuel-stock-header h2 {
+    font-size: 27px;
+  }
+
+  .fuel-stock-header p {
+    font-size: 13px;
   }
 
   .header-actions {
@@ -374,33 +900,65 @@
 
   .header-actions button {
     flex: 1;
+    padding: 0 10px;
+    font-size: 12px;
   }
 
   .stock-summary {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 11px;
   }
 
   .summary-card {
-    padding: 13px;
+    padding: 16px;
+    min-height: 105px;
+  }
+
+  .summary-card span {
+    font-size: 11px;
   }
 
   .summary-card h2 {
-    font-size: 27px; /* matches dashboard mobile */
+    font-size: 27px;
+  }
+
+  .station-selector {
+    padding: 17px;
+  }
+
+  .station-selector-heading h2 {
+    font-size: 19px;
+  }
+
+  .station-selector-list {
+    grid-template-columns: 1fr;
+  }
+
+  .station-selector-button {
+    padding: 13px;
+  }
+
+  .fuel-cards-container {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 
   .fuel-card {
-    padding: 14px;
+    padding: 17px;
   }
 
   .fuel-content {
-    grid-template-columns: 48px 1fr;
-    gap: 10px;
+    grid-template-columns: 55px minmax(0, 1fr);
+    gap: 13px;
   }
 
   .fuel-level {
-    width: 42px;
-    height: 140px;
+    width: 45px;
+    height: 150px;
+  }
+
+  .fuel-inputs input {
+    height: 42px;
+    font-size: 14px;
   }
 
   .stock-adjustments {
@@ -408,45 +966,63 @@
   }
 
   .stock-adjustments button {
-    font-size: 12px;
-    padding: 10px 3px;
+    font-size: 10px;
+    padding: 10px 2px;
   }
 }
 
-/* SweetAlert custom theme */
+/* =========================================
+   SMALL MOBILE
+========================================= */
 
-.fuel-alert-popup {
-  border: 1px solid #303036 !important;
-  border-radius: 16px !important;
-  padding: 28px !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+@media (max-width: 380px) {
+  .fuel-stock-container {
+    padding: 11px;
+  }
+
+  .summary-card {
+    padding: 12px;
+  }
+
+  .summary-card h2 {
+    font-size: 23px;
+  }
+
+  .fuel-card {
+    padding: 13px;
+  }
+
+  .fuel-card-header h3 {
+    font-size: 16px;
+  }
+
+  .status {
+    font-size: 9px;
+    padding: 6px 8px;
+  }
+
+  .fuel-content {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .fuel-level {
+    width: 37px;
+    height: 135px;
+  }
 }
 
-.fuel-alert-title {
-  color: #f5f5f5 !important;
-  font-size: 22px !important;
-  font-weight: 700 !important;
-}
+/* =========================================
+   ACCESSIBILITY - REDUCED MOTION
+========================================= */
 
-.fuel-alert-message {
-  color: #a1a1aa !important;
-  font-size: 14px !important;
-  line-height: 1.6 !important;
-}
-
-.fuel-alert-confirm,
-.fuel-alert-cancel {
-  border-radius: 8px !important;
-  padding: 11px 20px !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  transition: 0.2s ease !important;
-}
-
-.fuel-alert-confirm:hover {
-  filter: brightness(1.12);
-}
-
-.fuel-alert-cancel:hover {
-  background: #4b4b55 !important;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

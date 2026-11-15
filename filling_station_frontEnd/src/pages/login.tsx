@@ -3,7 +3,7 @@ import "../pages/login.css";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { loginUser } from "../services/AuthService";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthConext";
 import ForgotPassword from "../pages/forgotPassword";
 
@@ -46,12 +46,30 @@ function Login() {
   const [error, setError] = useState("");
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const navigate = useNavigate();
-  const {loading, setUser } = useAuth();
+  const { loading, setUser } = useAuth();
 
   if (loading) {
-    return <p> checkAuthentication</p>;
-  }
+  return (
+    <div className="auth-loading">
+      <div className="auth-loading-card">
+        <div className="auth-loader">
+          <div className="auth-loader-ring"></div>
+          <div className="auth-loader-icon">⛽</div>
+        </div>
 
+        <h2>Welcome to PumpCheck</h2>
+
+        <p>Checking your authentication...</p>
+
+        <div className="auth-loading-bar">
+          <span></span>
+        </div>
+
+        <small>Please wait while we secure your session.</small>
+      </div>
+    </div>
+  );
+}
   const copy = ROLE_COPY[role];
 
   const handleLogin = async (e: FormEvent) => {
@@ -304,16 +322,8 @@ function Login() {
             </button>
           </form>
 
-          {/* Forgot Password Popup */}
           {showForgotPassword && (
-            <ForgotPassword
-              onClose={() => setShowForgotPassword(false)}
-              onSubmit={async (email) => {
-                console.log("Forgot password email:", email);
-
-                // await forgotPassword(email);
-              }}
-            />
+            <ForgotPassword onClose={() => setShowForgotPassword(false)} />
           )}
 
           <p className="fs-switch">

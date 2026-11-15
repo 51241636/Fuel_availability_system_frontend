@@ -388,7 +388,7 @@ function Register() {
           </form>
 
           <p className="reg-switch">
-            Already have an account? <a href="/login">Sign in</a>
+            Already have an account? <a href="/">Sign in</a>
           </p>
         </div>
       </div>

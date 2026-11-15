@@ -1,13 +1,40 @@
-/* ---------- Main layout ---------- */
+
+/* =========================================
+   PUMPCHECK - PREMIUM SETTINGS PAGE
+========================================= */
+
+:root {
+  --setting-bg: #0d0d0f;
+  --setting-sidebar: #080809;
+  --setting-card: #18181b;
+  --setting-card-light: #1e1e22;
+  --setting-border: #29292f;
+  --setting-red: #f00000;
+  --setting-red-light: #ff3535;
+  --setting-text: #f5f5f7;
+  --setting-muted: #a5a5b0;
+  --setting-green: #35c77a;
+  --setting-radius: 18px;
+}
+
+/* =========================================
+   MAIN LAYOUT
+========================================= */
 
 .setting-main {
+  min-height: 100vh;
+  padding: 35px 42px;
+  background:
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(240, 0, 0, 0.07),
+      transparent 28%
+    ),
+    var(--setting-bg);
+  color: var(--setting-text);
+  font-family: Arial, sans-serif;
+  animation: settingPageEnter 0.6s ease both;
   box-sizing: border-box;
-  min-width: 0;
-  flex: 1;
-  padding: 0 44px 30px;
-  background: #0d0d0f;
-  color: #ffffff;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .setting-main *,
@@ -16,168 +43,222 @@
   box-sizing: border-box;
 }
 
-.setting-main button,
-.setting-main input {
-  font-family: inherit;
+@keyframes settingPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* ---------- Header ---------- */
+/* =========================================
+   PAGE HEADER
+========================================= */
 
 .setting-header {
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
-  margin-bottom: 27px;
-  padding: 4px 0 22px;
-  border-bottom: 1px solid #202024;
+  position: relative;
+  margin-bottom: 34px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid var(--setting-border);
 }
 
 .setting-header-content {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 19px;
 }
 
 .setting-header-icon {
-  display: grid;
-  place-items: center;
-  flex: 0 0 48px;
-  width: 48px;
-  height: 48px;
-  color: #f00000;
-  background: #300b0b;
-  border: 1px solid #451515;
-  border-radius: 13px;
-  font-size: 21px;
-}
-
-.setting-breadcrumb {
+  width: 62px;
+  height: 62px;
   display: flex;
-  gap: 9px;
-  margin-bottom: 5px;
-  color: #a5a5b0;
-  font-size: 13px;
-}
-
-.setting-breadcrumb span:last-child {
-  color: #f00000;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 18px;
+  background: linear-gradient(
+    145deg,
+    rgba(240, 0, 0, 0.23),
+    rgba(240, 0, 0, 0.06)
+  );
+  border: 1px solid rgba(240, 0, 0, 0.3);
+  color: var(--setting-red-light);
+  font-size: 25px;
+  box-shadow: 0 0 25px rgba(240, 0, 0, 0.08);
 }
 
 .setting-header h1 {
-  margin: 4px 0;
-  font-size: clamp(25px, 2.5vw, 32px);
-  font-weight: 700;
-  letter-spacing: -0.7px;
+  margin: 0;
+  color: var(--setting-text);
+  font-size: clamp(27px, 3vw, 34px);
+  font-weight: 800;
+  letter-spacing: -1.2px;
 }
 
 .setting-title-dot {
-  color: #f00000;
+  color: var(--setting-red);
 }
 
 .setting-header p {
-  margin: 3px 0 0;
-  color: #a5a5b0;
-  font-size: 15px;
+  margin: 9px 0 0;
+  color: var(--setting-muted);
+  font-size: 14px;
   line-height: 1.6;
 }
 
-/* ---------- Main columns ---------- */
+/* =========================================
+   SETTINGS GRID
+========================================= */
 
 .setting-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(270px, 0.8fr);
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) 320px;
   align-items: start;
+  gap: 25px;
 }
 
 .setting-left-column,
 .setting-right-column {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
   min-width: 0;
 }
 
-/* ---------- Common cards ---------- */
+/* =========================================
+   GENERAL CARDS
+========================================= */
 
 .setting-card,
 .setting-account-card,
 .setting-security-card,
 .setting-logout-card {
-  min-width: 0;
-  padding: 27px;
-  border: 1px solid #252529;
-  border-radius: 18px;
-  background: #18181b;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(30, 30, 34, 0.98),
+    rgba(21, 21, 24, 0.98)
+  );
+  border: 1px solid var(--setting-border);
+  border-radius: var(--setting-radius);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.16);
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
+.setting-card {
+  padding: 28px;
+  animation: settingCardEnter 0.65s ease both;
+}
+
+.setting-card:nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+@keyframes settingCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.setting-card:hover {
+  border-color: rgba(240, 0, 0, 0.32);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.24);
+}
+
+/* =========================================
+   CARD HEADINGS
+========================================= */
 
 .setting-card-heading {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 27px;
+  padding-bottom: 21px;
+  border-bottom: 1px solid var(--setting-border);
 }
 
 .setting-kicker {
-  display: block;
-  margin-bottom: 5px;
-  color: #f00000;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
+  display: inline-block;
+  margin-bottom: 9px;
+  color: var(--setting-red-light);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
 }
 
 .setting-card-heading h2 {
   margin: 0;
+  color: var(--setting-text);
   font-size: 21px;
-  font-weight: 700;
+  font-weight: 750;
+  letter-spacing: -0.4px;
 }
 
 .setting-card-heading p {
-  margin: 5px 0 0;
-  color: #a5a5b0;
-  font-size: 14px;
+  margin: 8px 0 0;
+  color: var(--setting-muted);
+  font-size: 13px;
   line-height: 1.5;
 }
 
 .setting-card-icon {
-  display: grid;
-  place-items: center;
-  flex: 0 0 42px;
-  width: 42px;
-  height: 42px;
-  border: 1px solid #451515;
-  border-radius: 12px;
-  color: #f00000;
-  background: #300b0b;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 13px;
+  background: rgba(240, 0, 0, 0.1);
+  border: 1px solid rgba(240, 0, 0, 0.2);
+  color: var(--setting-red-light);
   font-size: 18px;
 }
 
-/* ---------- Profile avatar ---------- */
+/* =========================================
+   PROFILE IMAGE
+========================================= */
 
 .setting-profile-image-section {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 25px;
-  padding-bottom: 23px;
-  border-bottom: 1px solid #29292e;
+  gap: 19px;
+  margin-bottom: 30px;
+  padding: 19px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.055);
 }
 
 .setting-avatar {
   position: relative;
-  display: grid;
-  place-items: center;
-  flex: 0 0 70px;
-  width: 70px;
-  height: 70px;
-  border: 2px solid #f00000;
+  width: 82px;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   border-radius: 50%;
-  color: #ffffff;
-  background: #e60000;
-  font-size: 22px;
-  font-weight: 700;
+  background: linear-gradient(135deg, #f00000, #8b0000);
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  color: white;
+  font-size: 25px;
+  font-weight: 800;
+  box-shadow: 0 0 25px rgba(240, 0, 0, 0.19);
   overflow: visible;
 }
 
@@ -185,261 +266,334 @@
 .setting-account-avatar img {
   width: 100%;
   height: 100%;
-  border-radius: inherit;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .setting-avatar-edit {
   position: absolute;
   right: -4px;
-  bottom: -3px;
-  display: grid;
-  place-items: center;
-  width: 25px;
-  height: 25px;
-  border: 2px solid #18181b;
+  bottom: -2px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--setting-card);
   border-radius: 50%;
-  color: #ffffff;
-  background: #333338;
-  font-size: 11px;
+  background: var(--setting-red);
+  color: white;
+  font-size: 12px;
   cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.setting-avatar-edit:hover {
+  transform: scale(1.13) rotate(-8deg);
+  background: var(--setting-red-light);
+  box-shadow: 0 0 15px rgba(240, 0, 0, 0.5);
 }
 
 .setting-profile-image-section h3 {
-  margin: 0 0 4px;
+  margin: 0 0 6px;
+  color: var(--setting-text);
   font-size: 17px;
+  font-weight: 750;
 }
 
 .setting-profile-image-section p {
-  margin: 0 0 5px;
-  color: #a5a5b0;
+  margin: 0 0 7px;
+  color: var(--setting-muted);
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
 
 .setting-profile-image-section span {
-  color: #35c77a;
-  font-size: 12px;
+  color: var(--setting-green);
+  font-size: 11px;
+  font-weight: 650;
 }
 
-/* ---------- Form fields ---------- */
+/* =========================================
+   FORM GRID
+========================================= */
 
-.setting-form-grid,
-.setting-password-grid {
+.setting-form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 19px 15px;
-}
-
-.setting-field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  min-width: 0;
-}
-
-.setting-field label {
-  color: #d5d5dc;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.setting-field input {
-  width: 100%;
-  min-width: 0;
-  height: 43px;
-  padding: 0 13px;
-  outline: none;
-  border: 1px solid #29292f;
-  border-radius: 9px;
-  color: #ffffff;
-  background: #101012;
-  font-size: 13px;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-}
-
-.setting-field input:focus {
-  border-color: #f00000;
-  box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.1);
-}
-
-.setting-field input::placeholder {
-  color: #666670;
-}
-
-.setting-input-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  height: 43px;
-  min-width: 0;
-  padding: 0 12px;
-  border: 1px solid #29292f;
-  border-radius: 9px;
-  background: #101012;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-}
-
-.setting-input-wrapper:focus-within {
-  border-color: #f00000;
-  box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.1);
-}
-
-.setting-input-wrapper > svg {
-  flex: 0 0 auto;
-  color: #85858f;
-  font-size: 13px;
-}
-
-.setting-input-wrapper input {
-  height: 100%;
-  padding: 0;
-  border: none;
-  outline: none;
-  box-shadow: none;
-  background: transparent;
-}
-
-.setting-input-wrapper input:focus {
-  border: none;
-  box-shadow: none;
+  gap: 22px 19px;
 }
 
 .setting-full-width {
   grid-column: 1 / -1;
 }
 
-/* Password eye button */
+.setting-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  min-width: 0;
+}
+
+.setting-field label {
+  color: #d9d9df;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+/* =========================================
+   INPUT FIELDS
+========================================= */
+
+.setting-input-wrapper {
+  width: 100%;
+  min-height: 49px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 15px;
+  background: #111114;
+  border: 1px solid #303037;
+  border-radius: 11px;
+  color: #858590;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.setting-input-wrapper > svg {
+  flex-shrink: 0;
+  font-size: 14px;
+  color: #858590;
+  transition: color 0.25s ease;
+}
+
+.setting-input-wrapper:focus-within {
+  background: #151518;
+  border-color: var(--setting-red);
+  box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.11);
+}
+
+.setting-input-wrapper:focus-within > svg {
+  color: var(--setting-red-light);
+}
+
+.setting-input-wrapper input {
+  width: 100%;
+  min-width: 0;
+  height: 47px;
+  padding: 0;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: var(--setting-text);
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.setting-input-wrapper input::placeholder {
+  color: #686873;
+}
+
+.setting-input-wrapper input:-webkit-autofill,
+.setting-input-wrapper input:-webkit-autofill:hover,
+.setting-input-wrapper input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--setting-text);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* =========================================
+   PASSWORD INPUTS
+========================================= */
+
+.password-input {
+  padding-right: 10px;
+}
 
 .password-input button {
-  display: grid;
-  place-items: center;
-  flex: 0 0 25px;
-  width: 25px;
-  height: 30px;
-  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   border: none;
-  color: #a5a5b0;
+  border-radius: 8px;
   background: transparent;
+  color: #858590;
   cursor: pointer;
+  transition: 0.25s ease;
 }
 
 .password-input button:hover {
-  color: #ffffff;
+  color: var(--setting-red-light);
+  background: rgba(240, 0, 0, 0.1);
 }
 
-/* ---------- Form buttons ---------- */
+.setting-password-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 21px;
+}
+
+.setting-password-hint {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 20px 0 0;
+  padding: 12px 14px;
+  border-radius: 9px;
+  background: rgba(53, 199, 122, 0.06);
+  border: 1px solid rgba(53, 199, 122, 0.12);
+  color: #a9cdb9;
+  font-size: 11px;
+}
+
+.setting-password-hint svg {
+  color: var(--setting-green);
+  font-size: 13px;
+}
+
+/* =========================================
+   FORM BUTTONS
+========================================= */
 
 .setting-form-actions {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 10px;
-  margin-top: 25px;
-  padding-top: 19px;
-  border-top: 1px solid #29292e;
+  gap: 12px;
+  margin-top: 27px;
+  padding-top: 21px;
+  border-top: 1px solid var(--setting-border);
 }
 
-.setting-save-btn,
-.setting-cancel-btn {
+.setting-form-actions button {
+  min-height: 43px;
   display: inline-flex;
-  align-items: center;
   justify-content: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 0 17px;
-  border-radius: 9px;
-  font-size: 13px;
-  font-weight: 700;
+  align-items: center;
+  gap: 9px;
+  padding: 0 19px;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 750;
   cursor: pointer;
   transition:
-    background 0.2s,
-    transform 0.2s;
-}
-
-.setting-save-btn {
-  border: 1px solid #f00000;
-  color: #ffffff;
-  background: #f00000;
-}
-
-.setting-save-btn:hover {
-  background: #d40000;
-  transform: translateY(-1px);
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
 .setting-cancel-btn {
-  border: 1px solid #333338;
-  color: #d5d5dc;
-  background: #202024;
+  background: #252529;
+  border: 1px solid #393940;
+  color: #d1d1d7;
 }
 
 .setting-cancel-btn:hover {
-  background: #29292f;
+  background: #303036;
+  transform: translateY(-2px);
 }
 
-/* ---------- Password ---------- */
-
-.setting-password-hint {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 17px 0 0;
-  color: #a5a5b0;
-  font-size: 12px;
+.setting-save-btn {
+  background: linear-gradient(135deg, #f00000, #c90000);
+  border: 1px solid rgba(255, 65, 65, 0.45);
+  color: white;
+  box-shadow: 0 5px 16px rgba(240, 0, 0, 0.18);
 }
 
-.setting-password-hint svg {
-  color: #35c77a;
+.setting-save-btn:hover {
+  background: linear-gradient(135deg, #ff2929, #e00000);
+  transform: translateY(-3px);
+  box-shadow: 0 9px 23px rgba(240, 0, 0, 0.3);
 }
 
-/* ---------- Account overview ---------- */
+.setting-form-actions button:active {
+  transform: scale(0.97);
+}
+
+/* =========================================
+   RIGHT SIDE - ACCOUNT OVERVIEW
+========================================= */
 
 .setting-account-card {
-  padding: 25px 22px;
+  padding: 27px 23px;
   text-align: center;
+  animation: settingCardEnter 0.7s ease both;
+}
+
+.setting-account-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--setting-red),
+    #ff5555,
+    transparent
+  );
 }
 
 .setting-account-avatar {
-  display: grid;
-  place-items: center;
-  width: 76px;
-  height: 76px;
-  margin: 0 auto 13px;
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px auto 17px;
   overflow: hidden;
-  border: 2px solid #f00000;
   border-radius: 50%;
-  color: #ffffff;
-  background: #e60000;
-  font-size: 24px;
-  font-weight: 700;
+  background: linear-gradient(135deg, #f00000, #870000);
+  border: 4px solid #303035;
+  color: white;
+  font-size: 29px;
+  font-weight: 800;
+  box-shadow: 0 0 30px rgba(240, 0, 0, 0.2);
+  animation: avatarGlow 3s ease-in-out infinite;
+}
+
+@keyframes avatarGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(240, 0, 0, 0.14);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(240, 0, 0, 0.32);
+  }
 }
 
 .setting-account-card h2 {
-  margin: 0 0 5px;
+  margin: 0;
+  color: var(--setting-text);
   font-size: 19px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .setting-account-card > p {
-  margin: 0;
+  margin: 8px 0 14px;
+  color: var(--setting-muted);
+  font-size: 12px;
   overflow-wrap: anywhere;
-  color: #a5a5b0;
-  font-size: 13px;
 }
 
 .setting-account-status {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  margin-top: 13px;
-  padding: 6px 11px;
-  border: 1px solid #24583b;
-  border-radius: 999px;
-  color: #35c77a;
-  background: #143023;
+  padding: 7px 12px;
+  border-radius: 30px;
+  background: rgba(53, 199, 122, 0.09);
+  border: 1px solid rgba(53, 199, 122, 0.17);
+  color: #66d99a;
   font-size: 11px;
   font-weight: 700;
 }
@@ -448,211 +602,390 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #35c77a;
-  box-shadow: 0 0 7px #35c77a;
+  background: var(--setting-green);
+  box-shadow: 0 0 9px rgba(53, 199, 122, 0.7);
+  animation: statusPulse 1.7s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  50% {
+    opacity: 0.45;
+  }
 }
 
 .setting-account-divider {
   height: 1px;
-  margin: 20px 0;
-  background: #29292e;
+  margin: 24px 0 19px;
+  background: var(--setting-border);
 }
 
 .setting-account-info {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
   text-align: left;
 }
 
 .setting-account-info > div {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 2px;
 }
 
 .setting-account-info span {
-  color: #a5a5b0;
-  font-size: 12px;
+  color: #858590;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .setting-account-info strong {
-  max-width: 65%;
-  overflow-wrap: anywhere;
-  color: #ffffff;
+  color: #e3e3e8;
   font-size: 12px;
-  text-align: right;
+  font-weight: 650;
+  overflow-wrap: anywhere;
 }
 
-/* ---------- Security card ---------- */
+/* =========================================
+   SECURITY CARD
+========================================= */
 
 .setting-security-card {
-  padding: 23px;
+  padding: 24px;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(240, 0, 0, 0.13),
+      transparent 55%
+    ),
+    var(--setting-card);
 }
 
 .setting-security-icon {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 14px;
-  border: 1px solid #24583b;
-  border-radius: 11px;
-  color: #35c77a;
-  background: #143023;
-  font-size: 18px;
-}
-
-.setting-security-card h3,
-.setting-logout-card h3 {
-  margin: 0 0 8px;
-  font-size: 16px;
-}
-
-.setting-security-card p,
-.setting-logout-card p {
-  margin: 0;
-  color: #a5a5b0;
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-/* ---------- Logout ---------- */
-
-.setting-logout-card {
-  padding: 22px;
-}
-
-.setting-logout-card button {
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  margin-bottom: 17px;
+  border-radius: 13px;
+  background: rgba(240, 0, 0, 0.12);
+  border: 1px solid rgba(240, 0, 0, 0.22);
+  color: var(--setting-red-light);
+  font-size: 19px;
+}
+
+.setting-security-card h3 {
+  margin: 0 0 10px;
+  color: var(--setting-text);
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.setting-security-card p {
+  margin: 0;
+  color: var(--setting-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* =========================================
+   LOGOUT CARD
+========================================= */
+
+.setting-logout-card {
+  padding: 22px;
+  border-color: rgba(240, 0, 0, 0.2);
+  background: linear-gradient(
+    145deg,
+    rgba(240, 0, 0, 0.065),
+    var(--setting-card)
+  );
+}
+
+.setting-logout-card h3 {
+  margin: 0 0 8px;
+  color: var(--setting-text);
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.setting-logout-card p {
+  margin: 0;
+  color: var(--setting-muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.setting-logout-card button {
   width: 100%;
-  min-height: 40px;
-  margin-top: 17px;
-  border: 1px solid #662121;
-  border-radius: 9px;
+  min-height: 42px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  margin-top: 19px;
+  border: 1px solid rgba(240, 0, 0, 0.35);
+  border-radius: 10px;
+  background: rgba(240, 0, 0, 0.11);
   color: #ff6b6b;
-  background: #251416;
-  font-size: 13px;
-  font-weight: 700;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 750;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: 0.25s ease;
 }
 
 .setting-logout-card button:hover {
-  background: #40191c;
+  background: var(--setting-red);
+  border-color: var(--setting-red);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 20px rgba(240, 0, 0, 0.22);
 }
 
-/* ---------- Footer ---------- */
+/* =========================================
+   FOOTER
+========================================= */
 
 .setting-footer {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 10px;
-  margin-top: 28px;
-  padding: 16px 0 3px;
-  border-top: 1px solid #202024;
+  align-items: center;
+  gap: 15px;
+  margin-top: 30px;
+  padding: 20px 3px 5px;
+  border-top: 1px solid var(--setting-border);
   color: #777781;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .setting-footer span span {
   padding: 0 5px;
-  color: #f00000;
+  color: var(--setting-red);
 }
 
-/* ---------- Tablet ---------- */
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1150px) {
   .setting-main {
-    padding: 0 25px 30px;
+    padding: 30px 25px;
   }
 
   .setting-layout {
-    grid-template-columns: minmax(0, 1fr) 270px;
-    gap: 14px;
+    grid-template-columns: minmax(0, 1fr) 285px;
+    gap: 18px;
   }
 
   .setting-card {
-    padding: 22px;
+    padding: 23px;
+  }
+
+  .setting-right-column {
+    gap: 18px;
   }
 }
 
-/* ---------- Mobile ---------- */
+/* =========================================
+   RESPONSIVE - SMALL TABLET
+========================================= */
 
-@media (max-width: 760px) {
-  .setting-main {
-    padding: 22px 16px 25px;
-  }
-
+@media (max-width: 900px) {
   .setting-layout {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 1fr;
   }
 
   .setting-right-column {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
   }
 
   .setting-account-card {
-    grid-column: 1 / -1;
-  }
-
-  .setting-header {
-    align-items: flex-start;
-  }
-
-  .setting-header h1 {
-    font-size: 27px;
-  }
-
-  .setting-header p {
-    font-size: 14px;
+    grid-row: span 2;
   }
 }
 
-/* ---------- Small mobile ---------- */
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .setting-main {
-    padding: 18px 12px 22px;
+    padding: 24px 15px;
+  }
+
+  .setting-header {
+    margin-bottom: 23px;
+    padding-bottom: 20px;
+  }
+
+  .setting-header-content {
+    gap: 13px;
+  }
+
+  .setting-header-icon {
+    width: 49px;
+    height: 49px;
+    border-radius: 14px;
+    font-size: 20px;
+  }
+
+  .setting-header h1 {
+    font-size: 26px;
+  }
+
+  .setting-header p {
+    font-size: 12px;
+  }
+
+  .setting-left-column {
+    gap: 18px;
   }
 
   .setting-card {
-    padding: 18px 15px;
+    padding: 19px 15px;
+    border-radius: 15px;
+  }
+
+  .setting-card-heading {
+    margin-bottom: 20px;
+    padding-bottom: 17px;
+  }
+
+  .setting-card-heading h2 {
+    font-size: 18px;
+  }
+
+  .setting-card-heading p {
+    font-size: 11px;
+  }
+
+  .setting-card-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 15px;
+  }
+
+  .setting-profile-image-section {
+    gap: 14px;
+    padding: 13px;
+    margin-bottom: 23px;
+  }
+
+  .setting-avatar {
+    width: 68px;
+    height: 68px;
+    font-size: 21px;
+  }
+
+  .setting-profile-image-section h3 {
+    font-size: 15px;
+  }
+
+  .setting-profile-image-section p {
+    font-size: 11px;
   }
 
   .setting-form-grid,
   .setting-password-grid {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 1fr;
+    gap: 17px;
   }
 
   .setting-full-width {
     grid-column: auto;
   }
 
-  .setting-right-column {
-    grid-template-columns: minmax(0, 1fr);
+  .setting-input-wrapper {
+    min-height: 46px;
   }
 
-  .setting-account-card {
-    grid-column: auto;
+  .setting-input-wrapper input {
+    height: 44px;
+    font-size: 12px;
   }
 
   .setting-form-actions {
-    flex-wrap: wrap;
+    gap: 9px;
   }
 
-  .setting-save-btn,
-  .setting-cancel-btn {
+  .setting-form-actions button {
     flex: 1;
+    padding: 0 10px;
+    font-size: 11px;
+  }
+
+  .setting-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+  }
+
+  .setting-account-card,
+  .setting-security-card,
+  .setting-logout-card {
+    padding: 21px;
   }
 
   .setting-footer {
     flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.6;
+  }
+}
+
+/* =========================================
+   VERY SMALL DEVICES
+========================================= */
+
+@media (max-width: 360px) {
+  .setting-main {
+    padding: 20px 11px;
+  }
+
+  .setting-card {
+    padding: 16px 12px;
+  }
+
+  .setting-header h1 {
+    font-size: 23px;
+  }
+
+  .setting-profile-image-section {
+    align-items: flex-start;
+  }
+
+  .setting-form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .setting-form-actions button {
+    width: 100%;
+    flex: auto;
+  }
+}
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .setting-main,
+  .setting-card,
+  .setting-account-card,
+  .setting-account-avatar,
+  .setting-account-status span {
+    animation: none !important;
+  }
+
+  .setting-main *,
+  .setting-main *::before,
+  .setting-main *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -24,8 +24,7 @@ import {
   showWarningAlert,
 } from "../services/alertService";
 import { CustomerSideBar } from "./customerSideBar";
-// import { error } from "console";
-// import type { Url } from "url";
+
 
 const CustomerSetting = () => {
   const { logout } = useAuth();
@@ -153,8 +152,7 @@ const CustomerSetting = () => {
     try {
       await logout();
       await showSuccessAlert("You have been logged out successfully.");
-      // navigate("/login", { replace: true });
-      const url: string = "/login";
+      const url: string = "/";
 
       window.location.replace(url);
     } catch (error) {

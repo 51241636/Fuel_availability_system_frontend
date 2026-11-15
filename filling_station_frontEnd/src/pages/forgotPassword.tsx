@@ -1,171 +1,317 @@
 import { useState } from "react";
+import type { FormEvent } from "react";
+import {
+  forgotPassword,
+  verifyResetOTP,
+  resetPassword,
+} from "../services/userService";
+
 import "../pages/forgotPassword.css";
 
 interface ForgotPasswordProps {
   onClose: () => void;
-  onSubmit?: (email: string) => void;
 }
 
-const ForgotPassword = ({ onClose, onSubmit }: ForgotPasswordProps) => {
+type ResetStep = "email" | "otp" | "password" | "success";
+
+const ForgotPassword = ({ onClose }: ForgotPasswordProps) => {
+  const [step, setStep] = useState<ResetStep>("email");
+
   const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  // STEP 1 - Send OTP
+  const handleSendOTP = async (e: FormEvent) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
 
     if (!email.trim()) {
       setError("Please enter your email address.");
       return;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Please enter a valid email address.");
+    try {
+      setLoading(true);
+
+      const response = await forgotPassword(email.trim());
+
+      setSuccess(
+        response.data.message || "OTP sent successfully. Check your email."
+      );
+
+      setStep("otp");
+    } catch (err: any) {
+      setError(
+        err.response?.data?.message ||
+          "Unable to send OTP. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // STEP 2 - Verify OTP
+  const handleVerifyOTP = async (e: FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    if (!/^\d{6}$/.test(otp)) {
+      setError("Please enter a valid 6-digit OTP.");
       return;
     }
 
+    try {
+      setLoading(true);
+
+      const response = await verifyResetOTP(email.trim(), otp);
+
+      setSuccess(response.data.message || "OTP verified successfully.");
+
+      setStep("password");
+    } catch (err: any) {
+      setError(
+        err.response?.data?.message ||
+          "Invalid or expired OTP. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // STEP 3 - Reset Password
+  const handleResetPassword = async (e: FormEvent) => {
+    e.preventDefault();
     setError("");
-    setLoading(true);
+    setSuccess("");
+
+    if (newPassword.length < 8) {
+      setError("Password must contain at least 8 characters.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
 
     try {
-      if (onSubmit) {
-         onSubmit(email);
-      }
+      setLoading(true);
 
-      setSuccess(true);
-    } catch {
-      setError("Something went wrong. Please try again.");
+      const response = await resetPassword(
+        email.trim(),
+        otp,
+        newPassword
+      );
+
+      setSuccess(
+        response.data.message || "Password reset successfully."
+      );
+
+      setStep("success");
+    } catch (err: any) {
+      setError(
+        err.response?.data?.message ||
+          "Unable to reset password. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="forgot-overlay" onClick={onClose}>
-      <div className="forgot-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="forgot-overlay">
+      <div className="forgot-modal">
         <button
+          type="button"
           className="forgot-close"
           onClick={onClose}
-          type="button"
-          aria-label="Close popup"
+          aria-label="Close"
         >
-          &times;
+          ×
         </button>
 
-        <div className="forgot-glow"></div>
+        <div className="forgot-glow" />
 
-        {!success ? (
+        {step !== "success" ? (
           <>
             <div className="forgot-icon-wrapper">
               <div className="forgot-icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="3" y="6" width="18" height="14" rx="3" />
-                  <path d="m3 8 9 6 9-6" />
-                  <path d="M8 6V4.5A2.5 2.5 0 0 1 10.5 2h3A2.5 2.5 0 0 1 16 4.5V6" />
-                </svg>
+                {step === "email" ? "✉" : step === "otp" ? "🔐" : "🔑"}
               </div>
             </div>
 
-            <span className="forgot-tag">ACCOUNT RECOVERY</span>
+            <span className="forgot-tag">
+              {step === "email"
+                ? "PASSWORD RECOVERY"
+                : step === "otp"
+                  ? "EMAIL VERIFICATION"
+                  : "CREATE NEW PASSWORD"}
+            </span>
 
-            <h2>Forgot Password?</h2>
+            <h2>
+              {step === "email"
+                ? "Forgot your password?"
+                : step === "otp"
+                  ? "Verify your email"
+                  : "Set a new password"}
+            </h2>
 
             <p className="forgot-description">
-              Don't worry! It happens. Enter your registered email address and
-              we'll help you reset your password.
+              {step === "email"
+                ? "Enter your registered email address. We'll send you a verification code."
+                : step === "otp"
+                  ? `Enter the 6-digit verification code sent to ${email}.`
+                  : "Create a new password for your PumpCheck account."}
             </p>
 
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="forgot-email">Email Address</label>
-
-              <div className="forgot-input-wrapper">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                >
-                  <rect x="3" y="5" width="18" height="14" rx="3" />
-                  <path d="m3 7 9 6 9-6" />
-                </svg>
-
-                <input
-                  id="forgot-email"
-                  type="email"
-                  placeholder="Enter your registered email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    setError("");
-                  }}
-                />
+            {error && (
+              <div className="forgot-error" role="alert">
+                {error}
               </div>
+            )}
 
-              {error && <p className="forgot-error">{error}</p>}
+            {success && (
+              <div className="forgot-success" role="status">
+                {success}
+              </div>
+            )}
 
-              <button
-                className="forgot-submit"
-                type="submit"
-                disabled={loading}
-              >
-                {loading ? (
-                  <>
-                    <span className="forgot-spinner"></span>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    Send Reset Link
-                    <span>→</span>
-                  </>
-                )}
-              </button>
-            </form>
+            {step === "email" && (
+              <form onSubmit={handleSendOTP}>
+                <div className="forgot-input-wrapper">
+                  <input
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
 
-            <button className="forgot-back" type="button" onClick={onClose}>
-              <span>←</span> Back to Login
+                <button
+                  type="submit"
+                  className="forgot-submit"
+                  disabled={loading}
+                >
+                  {loading ? "Sending OTP..." : "Send verification code"}
+                </button>
+              </form>
+            )}
+
+            {step === "otp" && (
+              <form onSubmit={handleVerifyOTP}>
+                <div className="forgot-input-wrapper">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    maxLength={6}
+                    placeholder="Enter 6-digit OTP"
+                    value={otp}
+                    onChange={(e) =>
+                      setOtp(e.target.value.replace(/\D/g, ""))
+                    }
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="forgot-submit"
+                  disabled={loading}
+                >
+                  {loading ? "Verifying..." : "Verify OTP"}
+                </button>
+
+                <button
+                  type="button"
+                  className="forgot-back"
+                  onClick={() => {
+                    setError("");
+                    setSuccess("");
+                    setStep("email");
+                  }}
+                >
+                  Change email address
+                </button>
+              </form>
+            )}
+
+            {step === "password" && (
+              <form onSubmit={handleResetPassword}>
+                <div className="forgot-input-wrapper">
+                  <input
+                    type="password"
+                    placeholder="Enter new password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    autoComplete="new-password"
+                    required
+                  />
+                </div>
+
+                <div className="forgot-input-wrapper">
+                  <input
+                    type="password"
+                    placeholder="Confirm new password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    autoComplete="new-password"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="forgot-submit"
+                  disabled={loading}
+                >
+                  {loading ? "Resetting password..." : "Reset password"}
+                </button>
+              </form>
+            )}
+
+            <button
+              type="button"
+              className="forgot-back"
+              onClick={onClose}
+            >
+              Back to login
             </button>
           </>
         ) : (
-          <div className="forgot-success">
-            <div className="forgot-success-icon">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              >
-                <path d="m5 12 5 5L20 7" />
-              </svg>
-            </div>
+          <div className="forgot-success-screen">
+            <div className="forgot-success-icon">✓</div>
 
-            <span className="forgot-tag">EMAIL SUBMITTED</span>
+            <span className="forgot-tag">SUCCESS</span>
 
-            <h2>Check Your Email!</h2>
+            <h2>Password Reset Successfully!</h2>
 
-            <p>
-              If an account exists for <strong>{email}</strong>, you will
-              receive password reset instructions.
+            <p className="forgot-description">
+              Your password has been updated. You can now log in to
+              PumpCheck using your new password.
             </p>
 
-            <button className="forgot-submit" onClick={onClose} type="button">
+            <button
+              type="button"
+              className="forgot-submit"
+              onClick={onClose}
+            >
               Back to Login
-              <span>→</span>
             </button>
           </div>
         )}
 
         <div className="forgot-footer">
-          <span className="forgot-footer-dot"></span>
-          Secure Account Recovery
+          <span className="forgot-footer-dot" />
+          PumpCheck Account Security
         </div>
       </div>
     </div>
