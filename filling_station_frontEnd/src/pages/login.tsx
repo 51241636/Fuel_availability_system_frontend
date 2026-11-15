@@ -6,6 +6,7 @@ import { loginUser } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthConext";
 import ForgotPassword from "../pages/forgotPassword";
+import { Link } from "react-router-dom";
 
 type Role = "customer" | "owner";
 
@@ -49,27 +50,27 @@ function Login() {
   const { loading, setUser } = useAuth();
 
   if (loading) {
-  return (
-    <div className="auth-loading">
-      <div className="auth-loading-card">
-        <div className="auth-loader">
-          <div className="auth-loader-ring"></div>
-          <div className="auth-loader-icon">⛽</div>
+    return (
+      <div className="auth-loading">
+        <div className="auth-loading-card">
+          <div className="auth-loader">
+            <div className="auth-loader-ring"></div>
+            <div className="auth-loader-icon">⛽</div>
+          </div>
+
+          <h2>Welcome to PumpCheck</h2>
+
+          <p>Checking your authentication...</p>
+
+          <div className="auth-loading-bar">
+            <span></span>
+          </div>
+
+          <small>Please wait while we secure your session.</small>
         </div>
-
-        <h2>Welcome to PumpCheck</h2>
-
-        <p>Checking your authentication...</p>
-
-        <div className="auth-loading-bar">
-          <span></span>
-        </div>
-
-        <small>Please wait while we secure your session.</small>
       </div>
-    </div>
-  );
-}
+    );
+  }
   const copy = ROLE_COPY[role];
 
   const handleLogin = async (e: FormEvent) => {
@@ -328,9 +329,9 @@ function Login() {
 
           <p className="fs-switch">
             {copy.helper}{" "}
-            <a href="/register" className="fs-link">
+            <Link to="/register" className="fs-link">
               {copy.link}
-            </a>
+            </Link>
           </p>
         </div>
       </section>

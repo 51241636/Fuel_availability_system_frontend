@@ -270,28 +270,7 @@ function MapView() {
           <div className="map-content">
             {/* Map section */}
             <div className="map-container">
-              {/* Search and filters */}
-              <div className="map-toolbar">
-                <div className="map-search">
-                  <i className="fa-solid fa-magnifying-glass"></i>
-
-                  <input type="text" placeholder="Search area or station..." />
-                </div>
-
-                {/* <div className="map-filters">
-              {filters.map((filter) => (
-                <button
-                  key={filter}
-                  className={
-                    activeFilter === filter ? "active" : ""
-                  }
-                  onClick={() => setActiveFilter(filter)}
-                >
-                  {filter}
-                </button>
-              ))}
-            </div> */}
-              </div>
+              
 
               {/* Sri Lanka map */}
               <MapContainer
@@ -314,29 +293,6 @@ function MapView() {
                 />
 
                 <ZoomControl position="bottomright" />
-
-                {/* User location radius */}
-                <Circle
-                  center={[6.9147, 79.848]}
-                  radius={500}
-                  pathOptions={{
-                    color: "#16a34a",
-                    fillColor: "#16a34a",
-                    fillOpacity: 0.08,
-                  }}
-                />
-
-                {/* User location */}
-                <Marker
-                  position={[6.9147, 79.848]}
-                  icon={L.divIcon({
-                    className: "user-location-icon",
-                    html: `<div class="user-location-dot"></div>`,
-                    iconSize: [18, 18],
-                  })}
-                >
-                  <Popup>Your location</Popup>
-                </Marker>
 
                 {/* Fuel station markers */}
                 {filteredStations.map((station) => (
