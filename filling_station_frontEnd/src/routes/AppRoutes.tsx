@@ -14,6 +14,7 @@ import MapView from "../pages/mapView";
 import CustomerMapView from "../pages/customerMapView";
 import CustomerSetting from "../pages/customerSetting";
 import LoginRedirect from "./loginRedirect";
+import PaymentCancel from "../pages/paymentCancel";
 
 function AppRoutes() {
   return (
@@ -104,6 +105,8 @@ function AppRoutes() {
                 </ProtectedRoute>
               }
             />
+
+            <Route path="/payment/cancel" element={<PaymentCancel />} />
           </Routes>
         </StationProvider>
       </AuthProvider>

@@ -1,7 +1,7 @@
 
 /* =====================================================
    PUMPCHECK - ADD / EDIT FILLING STATION
-   Premium Dark Dashboard Design
+   Responsive Premium Dark Dashboard
 ===================================================== */
 
 :root {
@@ -18,14 +18,27 @@
 }
 
 /* =====================================================
-   MAIN PAGE
+   MAIN LAYOUT
 ===================================================== */
 
-.pump-main {
-  min-width: 0;
+.pump-dashboard {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--station-bg);
+  color: white;
 }
 
-.pump-main > * {
+.pump-main {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  overflow-x: hidden;
+  padding-bottom: 30px;
+  box-sizing: border-box;
+}
+
+.pump-main * {
   box-sizing: border-box;
 }
 
@@ -38,8 +51,8 @@
 }
 
 .pump-welcome-Tag h1 {
-  color: #fff;
-  font-size: clamp(26px, 3vw, 35px);
+  color: white;
+  font-size: clamp(24px, 3vw, 35px);
   font-weight: 800;
   letter-spacing: -1px;
   margin: 0 0 9px;
@@ -64,54 +77,34 @@
 }
 
 /* =====================================================
-   STATION DETAIL CARDS
+   CARDS
 ===================================================== */
 
 .station-details-card {
   position: relative;
+  width: auto;
+  min-width: 0;
   margin: 20px 30px;
   padding: 26px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(29, 29, 36, 0.98),
-      rgba(19, 19, 24, 0.98)
-    );
+  background: linear-gradient(
+    145deg,
+    rgba(29, 29, 36, 0.98),
+    rgba(19, 19, 24, 0.98)
+  );
 
   border: 1px solid var(--station-border);
   border-radius: 18px;
 
-  box-shadow:
-    0 12px 35px rgba(0, 0, 0, 0.17),
-    inset 0 1px 0 rgba(255, 255, 255, 0.015);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.17);
 
   animation: stationCardAppear 0.65s ease both;
 
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .station-details-card:hover {
   border-color: rgba(240, 0, 0, 0.28);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.23);
-}
-
-.station-details-card:nth-of-type(2) {
-  animation-delay: 0.1s;
-}
-
-.station-details-card:nth-of-type(3) {
-  animation-delay: 0.2s;
-}
-
-.station-details-card:nth-of-type(4) {
-  animation-delay: 0.3s;
-}
-
-.station-details-card:nth-of-type(5) {
-  animation-delay: 0.4s;
 }
 
 @keyframes stationCardAppear {
@@ -137,7 +130,6 @@
 }
 
 .station-step-number {
-  position: relative;
   width: 39px;
   height: 39px;
   flex-shrink: 0;
@@ -150,25 +142,14 @@
   font-size: 15px;
   font-weight: 800;
 
-  background: linear-gradient(
-    135deg,
-    #ff2929,
-    #b90000
-  );
-
+  background: linear-gradient(135deg, #ff2929, #b90000);
   border-radius: 11px;
 
   box-shadow: 0 5px 18px rgba(240, 0, 0, 0.22);
-
-  transition: transform 0.3s ease;
-}
-
-.station-details-card:hover .station-step-number {
-  transform: rotate(-5deg) scale(1.06);
 }
 
 .station-card-heading h2 {
-  color: #fff;
+  color: white;
   font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.4px;
@@ -176,19 +157,21 @@
 }
 
 /* =====================================================
-   FORM LAYOUT
+   STATION DETAILS FORM
 ===================================================== */
 
 .station-details-form {
   display: flex;
   flex-direction: column;
   gap: 21px;
+  width: 100%;
 }
 
 .station-form-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
+  width: 100%;
 }
 
 .station-form-group {
@@ -196,6 +179,7 @@
   flex-direction: column;
   gap: 9px;
   min-width: 0;
+  width: 100%;
 }
 
 .station-form-group label {
@@ -205,9 +189,11 @@
 }
 
 .station-form-group input {
+  display: block;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   height: 48px;
-  box-sizing: border-box;
 
   padding: 0 15px;
 
@@ -215,12 +201,11 @@
   border: 1px solid #303039;
   border-radius: 10px;
 
-  color: #fff;
+  color: white;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
 
   outline: none;
-
   transition: all 0.3s ease;
 }
 
@@ -228,27 +213,21 @@
   color: #686873;
 }
 
-.station-form-group input:hover {
-  border-color: #51515c;
-}
-
 .station-form-group input:focus {
   border-color: var(--station-red);
   background: #151519;
-
-  box-shadow:
-    0 0 0 3px rgba(240, 0, 0, 0.11),
-    0 5px 15px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.11);
 }
 
 /* =====================================================
-   MAP SECTION
+   MAP
 ===================================================== */
 
 .station-map-design {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  min-width: 0;
 }
 
 .station-map-container {
@@ -258,22 +237,8 @@
   overflow: hidden;
 
   background: #101015;
-
   border: 1px solid #373741;
   border-radius: 15px;
-
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.25),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-
-  transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.station-map-container:hover {
-  border-color: rgba(240, 0, 0, 0.4);
-  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
 }
 
 .station-map-container .leaflet-container {
@@ -284,13 +249,10 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Leaflet controls */
-
 .station-map-container .leaflet-control-zoom a {
   background: #19191f;
   color: white;
   border-color: #41414a;
-  transition: all 0.2s ease;
 }
 
 .station-map-container .leaflet-control-zoom a:hover {
@@ -313,9 +275,7 @@
   color: #ff7777;
 }
 
-/* =====================================================
-   LEAFLET SEARCH CONTROL
-===================================================== */
+/* MAP SEARCH */
 
 .station-map-container .leaflet-geosearch-bar {
   max-width: 370px;
@@ -325,42 +285,25 @@
 .station-map-container .leaflet-geosearch-bar form {
   display: flex;
   align-items: center;
-
   background: #19191f !important;
   border: 1px solid #42424d !important;
   border-radius: 10px !important;
-
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3) !important;
   overflow: hidden;
 }
 
 .station-map-container .leaflet-geosearch-bar form input {
   min-width: 0;
   height: 42px;
-
   padding: 0 13px !important;
-
-  color: #fff !important;
+  color: white !important;
   background: transparent !important;
-
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 13px !important;
-  outline: none;
-}
-
-.station-map-container .leaflet-geosearch-bar form input::placeholder {
-  color: #9696a2 !important;
 }
 
 .station-map-container .leaflet-geosearch-bar form button {
-  color: #fff !important;
+  color: white !important;
   background: #ed1010 !important;
   border: none !important;
-  transition: 0.2s ease;
-}
-
-.station-map-container .leaflet-geosearch-bar form button:hover {
-  background: #c90000 !important;
 }
 
 .station-map-container .leaflet-geosearch-bar .results {
@@ -379,18 +322,12 @@
   font-size: 12px !important;
 }
 
-.station-map-container .leaflet-geosearch-bar .results > *:hover {
-  background: #292930 !important;
-}
-
-/* =====================================================
-   LEAFLET POPUP
-===================================================== */
+/* MAP POPUP */
 
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
   background: #19191f;
-  color: #fff;
+  color: white;
 }
 
 .leaflet-popup-content {
@@ -406,62 +343,41 @@
 .leaflet-popup-content button {
   padding: 8px 13px;
   margin-top: 8px;
-
   color: white;
   background: #ed1010;
-
   border: none;
   border-radius: 7px;
-
   cursor: pointer;
-  transition: 0.2s ease;
 }
 
-.leaflet-popup-content button:hover {
-  background: #c90000;
-}
-
-/* =====================================================
-   LOCATION HINT
-===================================================== */
+/* MAP HINT */
 
 .station-map-hint {
   display: flex;
   align-items: center;
   gap: 15px;
-
   padding: 17px 19px;
 
   background: rgba(240, 0, 0, 0.055);
   border: 1px solid rgba(240, 0, 0, 0.18);
   border-radius: 12px;
-
-  transition: all 0.3s ease;
-}
-
-.station-map-hint:hover {
-  background: rgba(240, 0, 0, 0.09);
-  border-color: rgba(240, 0, 0, 0.35);
 }
 
 .station-location-icon {
   width: 43px;
   height: 43px;
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: rgba(240, 0, 0, 0.13);
   border-radius: 11px;
-
   font-size: 20px;
 }
 
 .station-map-hint strong {
   display: block;
-  color: #fff;
+  color: white;
   font-size: 13px;
   margin-bottom: 5px;
 }
@@ -474,7 +390,7 @@
 }
 
 /* =====================================================
-   FUEL DESCRIPTION
+   FUEL SECTION
 ===================================================== */
 
 .fuel-description {
@@ -484,16 +400,11 @@
   margin: -10px 0 22px;
 }
 
-/* =====================================================
-   FUEL TABLE HEADINGS
-===================================================== */
-
 .fuel-column-headings {
   display: grid;
   grid-template-columns: 1.3fr repeat(3, minmax(0, 1fr));
   align-items: center;
   gap: 12px;
-
   padding: 14px 17px;
 
   background: #101015;
@@ -507,14 +418,9 @@
   font-weight: 700;
 }
 
-/* =====================================================
-   FUEL LIST
-===================================================== */
-
 .fuel-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
   overflow: hidden;
 
   background: #121217;
@@ -528,12 +434,8 @@
   grid-template-columns: 1.3fr repeat(3, minmax(0, 1fr));
   align-items: center;
   gap: 12px;
-
   padding: 15px 17px;
-
   border-bottom: 1px solid #292930;
-
-  transition: background 0.25s ease;
 }
 
 .fuel-row:last-child {
@@ -544,101 +446,64 @@
   background: #1b1b22;
 }
 
-/* =====================================================
-   FUEL CHECKBOX
-===================================================== */
-
 .fuel-name {
   display: flex;
   align-items: center;
   gap: 11px;
-
   color: #ededf2;
   font-size: 13px;
   font-weight: 700;
-
   cursor: pointer;
   min-width: 0;
 }
 
 .fuel-name input[type="checkbox"] {
   appearance: none;
-  -webkit-appearance: none;
-
   position: relative;
   width: 19px;
   height: 19px;
   flex-shrink: 0;
-
   background: #0d0d12;
   border: 1px solid #51515d;
   border-radius: 5px;
-
   cursor: pointer;
-  transition: all 0.25s ease;
 }
 
 .fuel-name input[type="checkbox"]:checked {
   background: #ed1010;
   border-color: #ed1010;
-  box-shadow: 0 0 12px rgba(240, 0, 0, 0.25);
 }
 
 .fuel-name input[type="checkbox"]:checked::after {
   content: "✓";
-
   position: absolute;
   left: 3px;
   top: -1px;
-
-  color: #fff;
+  color: white;
   font-size: 14px;
   font-weight: 800;
 }
-
-.fuel-name input[type="checkbox"]:focus-visible {
-  outline: 2px solid #ff7777;
-  outline-offset: 3px;
-}
-
-/* =====================================================
-   FUEL INPUTS
-===================================================== */
 
 .fuel-row > input[type="number"] {
   width: 100%;
   min-width: 0;
   height: 40px;
-  box-sizing: border-box;
-
   padding: 0 10px;
 
-  color: #fff;
+  color: white;
   background: #0c0c11;
-
   border: 1px solid #303039;
   border-radius: 8px;
 
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
   font-weight: 600;
-
   outline: none;
-  transition: all 0.25s ease;
-}
-
-.fuel-row > input[type="number"]:hover {
-  border-color: #55555f;
 }
 
 .fuel-row > input[type="number"]:focus {
   border-color: #ed1010;
   box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.1);
-  background: #17171d;
-}
-
-.fuel-row > input[type="number"]::placeholder {
-  color: #62626d;
 }
 
 /* =====================================================
@@ -654,31 +519,19 @@
 .hours-option {
   min-width: 130px;
   padding: 12px 17px;
-
   color: #c3c3cd;
   background: #101015;
-
   border: 1px solid #34343d;
   border-radius: 9px;
-
-  font-family: inherit;
   font-size: 12px;
   font-weight: 700;
-
   cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.hours-option:hover {
-  border-color: #ed1010;
-  color: white;
 }
 
 .hours-option.active {
   color: white;
   background: rgba(240, 0, 0, 0.13);
   border-color: #ed1010;
-  box-shadow: 0 0 15px rgba(240, 0, 0, 0.09);
 }
 
 .opening-hours-list {
@@ -710,32 +563,21 @@
 .opening-time-inputs input {
   width: 140px;
   height: 43px;
-  box-sizing: border-box;
-
   padding: 0 12px;
-
   color: white;
   background: #1a1a21;
-
   border: 1px solid #393943;
   border-radius: 8px;
-
-  font-family: inherit;
   font-size: 13px;
-  font-weight: 700;
-
   outline: none;
-  transition: 0.3s ease;
 }
 
 .opening-time-inputs input:focus {
   border-color: #ed1010;
-  box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.1);
 }
 
 .opening-time-inputs input::-webkit-calendar-picker-indicator {
   filter: invert(1);
-  cursor: pointer;
 }
 
 .time-separator {
@@ -752,44 +594,29 @@
   display: flex;
   align-items: center;
   gap: 15px;
-
   padding: 18px;
-
   background: rgba(53, 199, 122, 0.055);
   border: 1px solid rgba(53, 199, 122, 0.18);
   border-radius: 12px;
-
   margin-bottom: 23px;
-
-  transition: all 0.3s ease;
-}
-
-.station-ready-message:hover {
-  background: rgba(53, 199, 122, 0.09);
-  border-color: rgba(53, 199, 122, 0.35);
 }
 
 .station-ready-icon {
   width: 43px;
   height: 43px;
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   color: white;
   background: #1d9d5c;
   border-radius: 12px;
-
   font-size: 20px;
   font-weight: 800;
-
-  box-shadow: 0 5px 15px rgba(53, 199, 122, 0.2);
 }
 
 .station-ready-text h3 {
-  color: #fff;
+  color: white;
   font-size: 14px;
   font-weight: 800;
   margin: 0 0 5px;
@@ -803,7 +630,7 @@
 }
 
 /* =====================================================
-   BOTTOM ACTION BUTTONS
+   ACTION BUTTONS
 ===================================================== */
 
 .station-form-actions {
@@ -817,13 +644,10 @@
 .add-station-btn {
   min-height: 46px;
   padding: 0 23px;
-
   border-radius: 9px;
-
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
   font-weight: 800;
-
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -834,44 +658,20 @@
   border: 1px solid #3a3a44;
 }
 
-.cancel-station-btn:hover {
-  background: #303038;
-  border-color: #686873;
-  transform: translateY(-2px);
-}
-
 .add-station-btn {
   color: white;
-
-  background: linear-gradient(
-    135deg,
-    #f00000,
-    #bd0000
-  );
-
+  background: linear-gradient(135deg, #f00000, #bd0000);
   border: 1px solid #f00000;
-
   box-shadow: 0 6px 20px rgba(240, 0, 0, 0.2);
 }
 
 .add-station-btn:hover {
-  background: linear-gradient(
-    135deg,
-    #ff3535,
-    #dc0000
-  );
-
-  box-shadow: 0 9px 27px rgba(240, 0, 0, 0.35);
-  transform: translateY(-3px);
-}
-
-.cancel-station-btn:active,
-.add-station-btn:active {
-  transform: scale(0.97);
+  background: linear-gradient(135deg, #ff3535, #dc0000);
+  transform: translateY(-2px);
 }
 
 /* =====================================================
-   RESPONSIVE TABLET
+   TABLET
 ===================================================== */
 
 @media (max-width: 1000px) {
@@ -887,19 +687,37 @@
   .station-map-container {
     height: 350px;
   }
+
+  .fuel-column-headings,
+  .fuel-row {
+    grid-template-columns: 1.1fr repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .fuel-row {
+    padding: 13px 10px;
+  }
 }
 
 /* =====================================================
-   RESPONSIVE MOBILE
+   MOBILE
 ===================================================== */
 
 @media (max-width: 650px) {
+
+  .pump-main {
+    width: 100%;
+    min-width: 0;
+    padding-bottom: 20px;
+  }
+
   .pump-nameBar {
     padding: 22px 15px 8px;
   }
 
   .pump-welcome-Tag h1 {
-    font-size: 25px;
+    font-size: 24px;
+    letter-spacing: -0.5px;
   }
 
   .page-description {
@@ -907,6 +725,7 @@
   }
 
   .station-details-card {
+    width: auto;
     margin: 15px;
     padding: 17px;
     border-radius: 14px;
@@ -927,18 +746,42 @@
     font-size: 17px;
   }
 
+  /* FIX PHONE AND EMAIL INPUTS */
+
+  .station-details-form {
+    width: 100%;
+    gap: 17px;
+  }
+
   .station-form-row {
-    grid-template-columns: 1fr;
-    gap: 18px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 17px;
+  }
+
+  .station-form-group {
+    width: 100%;
+    min-width: 0;
   }
 
   .station-form-group input {
-    height: 45px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: 46px;
+    padding: 0 12px;
     font-size: 13px;
   }
 
+  /* MAP */
+
   .station-map-container {
     height: 320px;
+  }
+
+  .station-map-container .leaflet-geosearch-bar {
+    max-width: calc(100% - 28px);
   }
 
   .station-map-hint {
@@ -951,11 +794,11 @@
     height: 38px;
   }
 
-  .station-map-container .leaflet-geosearch-bar {
-    max-width: calc(100% - 28px);
-  }
+  /* FUEL INPUTS */
 
-  /* Fuel headings become a compact layout */
+  .fuel-description {
+    font-size: 12px;
+  }
 
   .fuel-column-headings {
     display: none;
@@ -967,6 +810,7 @@
   }
 
   .fuel-row {
+    display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
     padding: 14px 11px;
@@ -979,28 +823,14 @@
   }
 
   .fuel-row > input[type="number"] {
+    width: 100%;
+    min-width: 0;
     height: 42px;
     font-size: 12px;
     padding: 0 7px;
   }
 
-  .fuel-row > input[type="number"]::placeholder {
-    color: transparent;
-  }
-
-  /* Add labels above the three fuel inputs */
-
-  .fuel-row > input[type="number"]:nth-of-type(1) {
-    border-top: 2px solid #ed1010;
-  }
-
-  .fuel-row > input[type="number"]:nth-of-type(2) {
-    border-top: 2px solid #ffb21c;
-  }
-
-  .fuel-row > input[type="number"]:nth-of-type(3) {
-    border-top: 2px solid #35c77a;
-  }
+  /* OPENING HOURS */
 
   .opening-hours-options {
     flex-direction: column;
@@ -1010,21 +840,30 @@
     width: 100%;
   }
 
+  .opening-hours-list {
+    padding: 14px;
+  }
+
   .opening-hours-row {
     align-items: flex-start;
     flex-direction: column;
+    gap: 13px;
   }
 
   .opening-time-inputs {
+    display: flex;
     width: 100%;
     gap: 8px;
   }
 
   .opening-time-inputs input {
-    width: 50%;
+    flex: 1;
+    width: 0;
     min-width: 0;
     font-size: 12px;
   }
+
+  /* BUTTONS */
 
   .station-form-actions {
     flex-direction: column-reverse;
@@ -1045,17 +884,18 @@
 ===================================================== */
 
 @media (max-width: 380px) {
-  .station-details-card {
-    margin: 12px;
-    padding: 13px;
-  }
 
   .pump-nameBar {
     padding: 18px 12px;
   }
 
   .pump-welcome-Tag h1 {
-    font-size: 22px;
+    font-size: 21px;
+  }
+
+  .station-details-card {
+    margin: 12px;
+    padding: 13px;
   }
 
   .station-card-heading h2 {

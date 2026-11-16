@@ -25,7 +25,7 @@ function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
 
   // User is not logged in
   if (!user) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   // User does not have the required role

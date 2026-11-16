@@ -108,7 +108,7 @@ function Register() {
           setError("Payment details not received from server.");
         }
       } else {
-        const url: string = "/login";
+        const url: string = "/";
 
         window.location.replace(url);
       }
