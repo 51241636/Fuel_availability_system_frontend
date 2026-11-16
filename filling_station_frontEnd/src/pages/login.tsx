@@ -88,7 +88,7 @@ function Login() {
       const response = await loginUser({ username, password, role });
       setUser(response.data.userData);
       console.log(response.data.userData.userRole);
-      if (response.data.userData.userRole === "owner") {
+      if (response.data.userData.userRole === "owner" ) {
         await navigate("/dashboard", { replace: true });
       } else if (response.data.userData.userRole === "customer") {
         await navigate("/customerMapView", { replace: true });
