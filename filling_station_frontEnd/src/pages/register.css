@@ -1,4 +1,4 @@
-/* ---------- Theme tokens (same look as Login) ---------- */
+
 .reg-container {
   --bg: #000000;
   --panel: #0e0e10;
@@ -35,7 +35,7 @@
   height: 100vh;
   border-right: 1px solid var(--border);
   background-color: #111;
-  background-image: url("../assets/logo-512.png"); /* put your filling station image here */
+  background-image: url("../assets/fuelImage.jpg"); /* put your filling station image here */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

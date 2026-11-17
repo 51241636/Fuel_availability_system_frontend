@@ -154,7 +154,6 @@ const Setting = () => {
     try {
       await logout();
       await showSuccessAlert("You have been logged out successfully.");
-      // navigate("/login", { replace: true });
       const url: string = "/";
 
       window.location.replace(url);

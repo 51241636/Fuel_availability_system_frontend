@@ -1,9 +1,3 @@
-
-/* =========================================
-   PUMPCHECK - FUEL STOCK MANAGEMENT
-   Modern Dark Dashboard UI
-========================================= */
-
 :root {
   --fuel-bg: #0b0b0e;
   --fuel-surface: #141419;
@@ -19,10 +13,6 @@
   --fuel-radius: 16px;
 }
 
-/* =========================================
-   MAIN CONTAINER
-========================================= */
-
 .fuel-stock-container {
   width: 100%;
   min-height: 100vh;
@@ -30,15 +20,9 @@
   box-sizing: border-box;
   color: var(--fuel-white);
   font-family: Arial, Helvetica, sans-serif;
-
   background:
-    radial-gradient(
-      circle at 90% 0%,
-      rgba(240, 0, 0, 0.07),
-      transparent 30%
-    ),
+    radial-gradient(circle at 90% 0%, rgba(240, 0, 0, 0.07), transparent 30%),
     var(--fuel-bg);
-
   animation: pageFadeIn 0.7s ease both;
 }
 
@@ -52,10 +36,6 @@
     transform: translateY(0);
   }
 }
-
-/* =========================================
-   HEADER
-========================================= */
 
 .fuel-stock-header {
   display: flex;
@@ -81,10 +61,6 @@
   line-height: 1.7;
   margin: 0;
 }
-
-/* =========================================
-   HEADER BUTTONS
-========================================= */
 
 .header-actions {
   display: flex;
@@ -133,10 +109,6 @@
   transform: scale(0.97);
 }
 
-/* =========================================
-   SUMMARY CARDS
-========================================= */
-
 .stock-summary {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -150,21 +122,13 @@
   padding: 23px;
   min-height: 120px;
   box-sizing: border-box;
-
-  background: linear-gradient(
-    145deg,
-    #1b1b22,
-    #141419
-  );
-
+  background: linear-gradient(145deg, #1b1b22, #141419);
   border: 1px solid var(--fuel-border);
   border-radius: var(--fuel-radius);
-
   transition:
     transform 0.35s ease,
     border-color 0.35s ease,
     box-shadow 0.35s ease;
-
   animation: cardAppear 0.65s ease both;
 }
 
@@ -254,25 +218,13 @@
   color: var(--fuel-red-light);
 }
 
-/* =========================================
-   STATION SELECTOR
-========================================= */
-
 .station-selector {
   padding: 24px;
   margin-bottom: 30px;
-
-  background: linear-gradient(
-    145deg,
-    #19191f,
-    #131318
-  );
-
+  background: linear-gradient(145deg, #19191f, #131318);
   border: 1px solid var(--fuel-border);
   border-radius: 18px;
-
   box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
-
   animation: cardAppear 0.7s ease both;
 }
 
@@ -325,14 +277,11 @@
   min-width: 0;
   padding: 16px;
   text-align: left;
-
   background: #101014;
   border: 1px solid #2b2b33;
   border-radius: 12px;
-
   color: #fff;
   cursor: pointer;
-
   transition: all 0.3s ease;
 }
 
@@ -343,11 +292,7 @@
 }
 
 .station-selector-button.active {
-  background: linear-gradient(
-    120deg,
-    rgba(240, 0, 0, 0.13),
-    #19191f
-  );
+  background: linear-gradient(120deg, rgba(240, 0, 0, 0.13), #19191f);
   border-color: #ed2525;
   box-shadow: 0 0 0 2px rgba(240, 0, 0, 0.07);
 }
@@ -359,10 +304,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   color: #ff5555;
   font-size: 19px;
-
   background: rgba(240, 0, 0, 0.12);
   border-radius: 11px;
 }
@@ -408,10 +351,6 @@
   border-radius: 10px;
 }
 
-/* =========================================
-   FUEL CARDS GRID
-========================================= */
-
 .fuel-cards-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -419,30 +358,18 @@
   align-items: stretch;
 }
 
-/* =========================================
-   FUEL CARD
-========================================= */
-
 .fuel-card {
   position: relative;
   padding: 23px;
   min-width: 0;
   box-sizing: border-box;
-
-  background: linear-gradient(
-    145deg,
-    #1b1b22,
-    #141419
-  );
-
+  background: linear-gradient(145deg, #1b1b22, #141419);
   border: 1px solid #303039;
   border-radius: 17px;
-
   transition:
     transform 0.3s ease,
     border-color 0.3s ease,
     box-shadow 0.3s ease;
-
   animation: cardAppear 0.6s ease both;
 }
 
@@ -467,10 +394,6 @@
   margin: 0;
   letter-spacing: -0.3px;
 }
-
-/* =========================================
-   FUEL STATUS BADGES
-========================================= */
 
 .status {
   display: inline-flex;
@@ -500,20 +423,12 @@
   color: #ff666d;
 }
 
-/* =========================================
-   FUEL CONTENT
-========================================= */
-
 .fuel-content {
   display: grid;
   grid-template-columns: 75px minmax(0, 1fr);
   gap: 20px;
   margin-bottom: 17px;
 }
-
-/* =========================================
-   FUEL LEVEL VISUALIZATION
-========================================= */
 
 .fuel-level-container {
   display: flex;
@@ -526,14 +441,11 @@
   width: 57px;
   height: 175px;
   overflow: hidden;
-
   display: flex;
   align-items: flex-end;
-
   background: #0d0d11;
   border: 2px solid #363640;
   border-radius: 13px;
-
   box-shadow:
     inset 0 0 15px rgba(0, 0, 0, 0.5),
     0 5px 15px rgba(0, 0, 0, 0.2);
@@ -555,11 +467,9 @@
   width: 100%;
   min-height: 0;
   border-radius: 0 0 9px 9px;
-
   transition:
     height 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     background 0.4s ease;
-
   animation: fuelFill 1s ease both;
 }
 
@@ -573,37 +483,17 @@
 }
 
 .fuel-level-fill.high-stock {
-  background: linear-gradient(
-    0deg,
-    #087c42,
-    #35c77a,
-    #73f0a9
-  );
-
+  background: linear-gradient(0deg, #087c42, #35c77a, #73f0a9);
   box-shadow: 0 -5px 20px rgba(53, 199, 122, 0.2);
 }
 
 .fuel-level-fill.low-stock {
-  background: linear-gradient(
-    0deg,
-    #bb7100,
-    #ffb21c,
-    #ffdb72
-  );
+  background: linear-gradient(0deg, #bb7100, #ffb21c, #ffdb72);
 }
 
 .fuel-level-fill.out-of-stock {
-  background: linear-gradient(
-    0deg,
-    #a90000,
-    #ff4545,
-    #ff8585
-  );
+  background: linear-gradient(0deg, #a90000, #ff4545, #ff8585);
 }
-
-/* =========================================
-   INPUT FIELDS
-========================================= */
 
 .fuel-inputs {
   display: flex;
@@ -624,16 +514,13 @@
   height: 44px;
   padding: 0 13px;
   box-sizing: border-box;
-
   background: #0e0e13;
   border: 1px solid #303039;
   border-radius: 9px;
-
   color: #ffffff;
   font-family: inherit;
   font-size: 15px;
   font-weight: 700;
-
   outline: none;
   transition: all 0.3s ease;
 }
@@ -648,8 +535,6 @@
   box-shadow: 0 0 0 3px rgba(240, 0, 0, 0.12);
 }
 
-/* Number input arrows */
-
 .fuel-inputs input::-webkit-inner-spin-button,
 .fuel-inputs input::-webkit-outer-spin-button {
   opacity: 1;
@@ -661,29 +546,19 @@
   margin: 0 0 6px;
 }
 
-/* =========================================
-   DELETE BUTTON
-========================================= */
-
 .delete-fuel-btn {
   width: 37px;
   height: 37px;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin-left: auto;
-
   background: rgba(239, 68, 68, 0.09);
   color: #ff5555;
-
   border: 1px solid rgba(239, 68, 68, 0.25);
   border-radius: 9px;
-
   font-size: 14px;
   cursor: pointer;
-
   transition: all 0.3s ease;
 }
 
@@ -699,26 +574,16 @@
   transform: scale(0.93);
 }
 
-/* =========================================
-   EMPTY STATES
-========================================= */
-
 .station-empty-state {
   grid-column: 1 / -1;
   padding: 35px 20px;
-
   text-align: center;
   color: #9999a5;
   font-size: 14px;
-
   background: #17171c;
   border: 1px dashed #393943;
   border-radius: 13px;
 }
-
-/* =========================================
-   STOCK STATUS
-========================================= */
 
 .stock-status-section {
   margin-bottom: 18px;
@@ -737,7 +602,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   padding: 10px;
-
   background: #101014;
   border: 1px solid #303039;
   border-radius: 10px;
@@ -749,10 +613,6 @@
   font-size: 12px;
   font-weight: 600;
 }
-
-/* =========================================
-   STOCK ADJUSTMENT BUTTONS
-========================================= */
 
 .stock-adjustments {
   display: grid;
@@ -766,12 +626,10 @@
   background: #202027;
   border: 1px solid #373740;
   border-radius: 9px;
-
   color: white;
   font-family: inherit;
   font-size: 12px;
   font-weight: 700;
-
   cursor: pointer;
   transition: all 0.25s ease;
 }
@@ -782,26 +640,17 @@
   transform: translateY(-2px);
 }
 
-/* =========================================
-   UPDATED TIME
-========================================= */
-
 .updated-time {
   color: #777782;
   font-size: 11px;
   margin: 0;
 }
 
-/* =========================================
-   SWEET ALERT DARK THEME
-========================================= */
-
 .fuel-alert-popup {
   background: #19191f !important;
   border: 1px solid #35353e !important;
   border-radius: 18px !important;
   padding: 28px !important;
-
   box-shadow: 0 25px 80px rgba(0, 0, 0, 0.65) !important;
 }
 
@@ -832,10 +681,6 @@
   filter: brightness(1.15);
 }
 
-/* =========================================
-   SCROLLBAR
-========================================= */
-
 .fuel-stock-container::-webkit-scrollbar {
   width: 7px;
 }
@@ -853,10 +698,6 @@
   background: #ed1010;
 }
 
-/* =========================================
-   RESPONSIVE - TABLET
-========================================= */
-
 @media (max-width: 1100px) {
   .fuel-stock-container {
     padding: 23px;
@@ -870,10 +711,6 @@
     grid-template-columns: 1fr;
   }
 }
-
-/* =========================================
-   RESPONSIVE - MOBILE
-========================================= */
 
 @media (max-width: 650px) {
   .fuel-stock-container {
@@ -971,10 +808,6 @@
   }
 }
 
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
 @media (max-width: 380px) {
   .fuel-stock-container {
     padding: 11px;
@@ -1011,10 +844,6 @@
     height: 135px;
   }
 }
-
-/* =========================================
-   ACCESSIBILITY - REDUCED MOTION
-========================================= */
 
 @media (prefers-reduced-motion: reduce) {
   *,

@@ -26,7 +26,7 @@ const ForgotPassword = ({ onClose }: ForgotPasswordProps) => {
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // STEP 1 - Send OTP
+    // Send OTP
   const handleSendOTP = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
@@ -57,7 +57,7 @@ const ForgotPassword = ({ onClose }: ForgotPasswordProps) => {
     }
   };
 
-  // STEP 2 - Verify OTP
+  //  Verify OTP
   const handleVerifyOTP = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
@@ -86,7 +86,7 @@ const ForgotPassword = ({ onClose }: ForgotPasswordProps) => {
     }
   };
 
-  // STEP 3 - Reset Password
+  //  Reset Password
   const handleResetPassword = async (e: FormEvent) => {
     e.preventDefault();
     setError("");

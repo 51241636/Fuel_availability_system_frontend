@@ -46,7 +46,7 @@ export const CustomerSideBar = () => {
 
   return (
     <>
-      {/* Mobile Hamburger Button */}
+      {/* hamburger icon */}
       {isMobile && (
         <button
           className="pump-mobile-menu"
@@ -57,7 +57,7 @@ export const CustomerSideBar = () => {
         </button>
       )}
 
-      {/* Mobile Background Overlay */}
+      
       {isMobile && isMobileOpen && (
         <div
           className="pump-mobile-overlay"

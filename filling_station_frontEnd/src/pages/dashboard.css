@@ -1,6 +1,3 @@
-/* ==============================
-   Global Styles
-================================ */
 
 * {
   margin: 0;
@@ -22,10 +19,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ==============================
-   Dashboard Theme
-================================ */
-
 .pump-dashboard {
   --pump-bg: #0d0d0f;
   --pump-sidebar: #080809;
@@ -37,7 +30,6 @@ body {
   --pump-warning: #ff806b;
   --pump-good: #35c77a;
 
-  /* fluid layout tokens: they grow with the screen */
   --pump-max: 1480px;
   --pump-pad: clamp(16px, 3.2vw, 64px);
   --pump-gap: clamp(12px, 1.2vw, 22px);
@@ -53,10 +45,6 @@ body {
   color: inherit;
   text-decoration: none;
 }
-
-/* ==============================
-   Sidebar (unchanged)
-================================ */
 
 .pump-sidebar {
   width: 260px;
@@ -136,10 +124,6 @@ body {
   background: #35c77a;
 }
 
-/* ==============================
-   Loader
-================================ */
-
 .pump-loader {
   display: flex;
   flex-direction: column;
@@ -166,10 +150,6 @@ body {
   }
 }
 
-/* ==============================
-   Entrance animation (runs once)
-================================ */
-
 .pump-reveal {
   opacity: 0;
   transform: translateY(14px);
@@ -186,12 +166,6 @@ body {
     transform: translateY(0);
   }
 }
-
-/* ==============================
-   Main Content
-   - main fills all remaining width (no max-width on it)
-   - every direct child is centered and capped by --pump-max
-================================ */
 
 .pump-main {
   flex: 1;
@@ -230,10 +204,6 @@ body {
   font-size: clamp(15px, 1vw, 18px);
   line-height: 1.6;
 }
-
-/* ==============================
-   Profile
-================================ */
 
 .pump-profile {
   display: flex;
@@ -291,10 +261,6 @@ body {
   transform: scale(1.06);
   box-shadow: 0 0 15px rgba(240, 0, 0, 0.35);
 }
-
-/* ==============================
-   Add Station (primary action)
-================================ */
 
 .pump-add-station {
   display: grid;
@@ -355,7 +321,6 @@ body {
     box-shadow 0.2s ease;
 }
 
-/* soft shine that sweeps across the button every few seconds */
 .pump-primary-button::after {
   content: "";
   position: absolute;
@@ -413,10 +378,6 @@ body {
   color: var(--pump-muted);
   font-size: 13px;
 }
-
-/* ==============================
-   Map Preview
-================================ */
 
 .pump-station-visual {
   position: relative;
@@ -484,7 +445,6 @@ body {
   background: rgba(240, 0, 0, 0.08);
 }
 
-/* radar pulse */
 .pump-marker-ring::before,
 .pump-marker-ring::after {
   content: "";
@@ -550,10 +510,6 @@ body {
   }
 }
 
-/* ==============================
-   Statistics Cards
-================================ */
-
 .pump-stats-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -575,7 +531,6 @@ body {
     background 0.25s ease;
 }
 
-/* colored accent edge shows status at a glance */
 .pump-stat-card::before {
   content: "";
   position: absolute;
@@ -596,12 +551,15 @@ body {
 .tone-neutral {
   --accent: #7b7b86;
 }
+
 .tone-good {
   --accent: var(--pump-good);
 }
+
 .tone-live {
   --accent: #5aa9ff;
 }
+
 .tone-warning {
   --accent: var(--pump-warning);
 }
@@ -660,10 +618,6 @@ body {
   font-size: 14px;
 }
 
-/* ==============================
-   Getting Started
-================================ */
-
 .pump-steps-card {
   margin-bottom: var(--pump-gap);
   padding: clamp(24px, 2.2vw, 40px) clamp(24px, 2.4vw, 44px);
@@ -694,7 +648,6 @@ body {
   list-style: none;
 }
 
-/* line that connects the steps and draws itself on load */
 .pump-steps-grid::before {
   content: "";
   position: absolute;
@@ -793,20 +746,12 @@ body {
   font-weight: 600;
 }
 
-/* ==============================
-   Footer
-================================ */
-
 .pump-footer {
   margin-top: 28px;
   color: #777781;
   font-size: 12px;
   text-align: center;
 }
-
-/* ==============================
-   Large screens (1600px and up)
-================================ */
 
 @media (min-width: 1600px) {
   .pump-dashboard {
@@ -817,10 +762,6 @@ body {
     width: 280px;
   }
 }
-
-/* ==============================
-   Extra large / 2K+ screens
-================================ */
 
 @media (min-width: 2200px) {
   .pump-dashboard {
@@ -851,10 +792,6 @@ body {
   }
 }
 
-/* ==============================
-   Laptop / tablet landscape
-================================ */
-
 @media (max-width: 1100px) {
   .pump-sidebar {
     width: 220px;
@@ -869,10 +806,6 @@ body {
   }
 }
 
-/* ==============================
-   Tablet portrait
-================================ */
-
 @media (max-width: 900px) {
   .pump-add-station {
     grid-template-columns: 1fr;
@@ -884,10 +817,6 @@ body {
     border-top: 1px solid var(--pump-border);
   }
 }
-
-/* ==============================
-   Mobile
-================================ */
 
 @media (max-width: 700px) {
   .pump-dashboard {
@@ -1001,10 +930,6 @@ body {
   }
 }
 
-/* ==============================
-   Small mobile
-================================ */
-
 @media (max-width: 380px) {
   .pump-stats-grid {
     grid-template-columns: 1fr;
@@ -1014,10 +939,6 @@ body {
     font-size: 13px;
   }
 }
-
-/* ==============================
-   Respect reduced-motion settings
-================================ */
 
 @media (prefers-reduced-motion: reduce) {
   .pump-reveal {

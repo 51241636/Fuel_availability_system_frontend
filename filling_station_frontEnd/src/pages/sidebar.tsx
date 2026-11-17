@@ -134,7 +134,7 @@ export const SideBar = () => {
           ))}
         </nav>
 
-        {/* Footer */}
+    
         <div className="pump-sidebar-footer">
           <GrStatusGoodSmall className="pump-status-dot" />
           <span>Station owner portal</span>

@@ -1,7 +1,4 @@
 
-/* =========================================
-   PUMPCHECK - PREMIUM SETTINGS PAGE
-========================================= */
 
 :root {
   --setting-bg: #0d0d0f;
@@ -17,9 +14,6 @@
   --setting-radius: 18px;
 }
 
-/* =========================================
-   MAIN LAYOUT
-========================================= */
 
 .setting-main {
   min-height: 100vh;
@@ -54,9 +48,6 @@
   }
 }
 
-/* =========================================
-   PAGE HEADER
-========================================= */
 
 .setting-header {
   position: relative;
@@ -109,9 +100,7 @@
   line-height: 1.6;
 }
 
-/* =========================================
-   SETTINGS GRID
-========================================= */
+
 
 .setting-layout {
   display: grid;
@@ -128,9 +117,6 @@
   min-width: 0;
 }
 
-/* =========================================
-   GENERAL CARDS
-========================================= */
 
 .setting-card,
 .setting-account-card,
@@ -177,9 +163,7 @@
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.24);
 }
 
-/* =========================================
-   CARD HEADINGS
-========================================= */
+
 
 .setting-card-heading {
   display: flex;
@@ -229,9 +213,6 @@
   font-size: 18px;
 }
 
-/* =========================================
-   PROFILE IMAGE
-========================================= */
 
 .setting-profile-image-section {
   display: flex;
@@ -314,9 +295,7 @@
   font-weight: 650;
 }
 
-/* =========================================
-   FORM GRID
-========================================= */
+
 
 .setting-form-grid {
   display: grid;
@@ -342,9 +321,6 @@
   letter-spacing: 0.2px;
 }
 
-/* =========================================
-   INPUT FIELDS
-========================================= */
 
 .setting-input-wrapper {
   width: 100%;
@@ -404,9 +380,6 @@
   transition: background-color 9999s ease-in-out 0s;
 }
 
-/* =========================================
-   PASSWORD INPUTS
-========================================= */
 
 .password-input {
   padding-right: 10px;
@@ -457,9 +430,6 @@
   font-size: 13px;
 }
 
-/* =========================================
-   FORM BUTTONS
-========================================= */
 
 .setting-form-actions {
   display: flex;
@@ -517,9 +487,7 @@
   transform: scale(0.97);
 }
 
-/* =========================================
-   RIGHT SIDE - ACCOUNT OVERVIEW
-========================================= */
+
 
 .setting-account-card {
   padding: 27px 23px;
@@ -646,9 +614,6 @@
   overflow-wrap: anywhere;
 }
 
-/* =========================================
-   SECURITY CARD
-========================================= */
 
 .setting-security-card {
   padding: 24px;

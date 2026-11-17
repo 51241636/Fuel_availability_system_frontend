@@ -202,7 +202,7 @@ function Register() {
         </div>
       </div>
 
-      {/* RIGHT SIDE: form */}
+      {/* Right side */}
       <div className="reg-box">
         <div className="reg-form-wrap">
           <h1 className="reg-heading">Create your account</h1>
