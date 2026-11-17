@@ -6,7 +6,7 @@ This repository contains the **React frontend** of the PumpCheck system. It comm
 
 ## Live Application
 
-- **Frontend:** https://fuel-availability-system-frontend-z-two.vercel.app
+- **Frontend:** https://fuel-availability-system-frontend-8jo2-git-main-pis9.vercel.app/
 - **Backend API:** https://fuel-availability-system-backend.enzonic.dev
 
 > Confirm that these deployment URLs are still active before submitting the project.
